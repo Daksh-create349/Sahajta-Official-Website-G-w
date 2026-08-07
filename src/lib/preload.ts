@@ -18,7 +18,7 @@ import heroWebm from '@/assets/video/hero-showcase.webm';
 import heroMp4 from '@/assets/video/hero-showcase.mp4';
 import talentMp4 from '@/assets/video/talent-showcase.mp4';
 
-const IMAGES = [
+const SITE_IMAGES = [
   logo,
   minimalist,
   discovery,
@@ -37,13 +37,11 @@ const IMAGES = [
   talentPoster,
 ];
 
-const VIDEOS = [heroWebm, heroMp4, talentMp4];
+const HEAVY_VIDEOS = [heroWebm, heroMp4, talentMp4];
 
-const ASSET_TIMEOUT_MS = 15000;
-const FONT_TIMEOUT_MS = 8000;
+const ASSET_TIMEOUT_MS = 6000;
+const FONT_TIMEOUT_MS = 4000;
 
-// Keeps warmed video elements alive until the page is revealed, so the browser
-// does not abort buffering when the local reference goes out of scope.
 const warmedVideos: HTMLVideoElement[] = [];
 
 function withTimeout(task: Promise<void>, ms: number): Promise<void> {
@@ -60,10 +58,11 @@ function loadImage(url: string): Promise<void> {
   return new Promise((resolve) => {
     const img = new Image();
     img.onload = () => {
-      // Decode before resolving so the first paint after reveal is not blocked
-      // on rasterising a multi-megabyte PNG.
-      if (typeof img.decode === 'function') img.decode().then(() => resolve(), () => resolve());
-      else resolve();
+      if (typeof img.decode === 'function') {
+        img.decode().then(() => resolve(), () => resolve());
+      } else {
+        resolve();
+      }
     };
     img.onerror = () => resolve();
     img.src = url;
@@ -73,14 +72,13 @@ function loadImage(url: string): Promise<void> {
 function loadVideo(url: string): Promise<void> {
   return new Promise((resolve) => {
     const video = document.createElement('video');
-    video.preload = 'auto';
+    video.preload = 'metadata';
     video.muted = true;
     video.playsInline = true;
-    video.oncanplaythrough = () => resolve();
+    video.onloadeddata = () => resolve();
     video.onerror = () => resolve();
     warmedVideos.push(video);
     video.src = url;
-    video.load();
   });
 }
 
@@ -101,19 +99,29 @@ export function releasePreloadedVideos(): void {
 }
 
 export function preloadEverything(onProgress: (loaded: number, total: number) => void): Promise<void> {
-  const tasks: Promise<void>[] = [
-    ...IMAGES.map((url) => withTimeout(loadImage(url), ASSET_TIMEOUT_MS)),
-    ...VIDEOS.map((url) => withTimeout(loadVideo(url), ASSET_TIMEOUT_MS)),
+  const assetTasks: Promise<void>[] = [
+    ...SITE_IMAGES.map((url) => withTimeout(loadImage(url), ASSET_TIMEOUT_MS)),
     withTimeout(fontsReady(), FONT_TIMEOUT_MS),
     withTimeout(windowLoaded(), ASSET_TIMEOUT_MS),
   ];
 
-  const total = tasks.length;
+  const total = assetTasks.length;
   let loaded = 0;
   onProgress(0, total);
 
+  // Background non-blocking warm up of heavy videos
+  const warmHeavyAssets = () => {
+    HEAVY_VIDEOS.forEach((url) => loadVideo(url));
+  };
+
+  if ('requestIdleCallback' in window) {
+    (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(warmHeavyAssets);
+  } else {
+    setTimeout(warmHeavyAssets, 500);
+  }
+
   return Promise.all(
-    tasks.map((task) =>
+    assetTasks.map((task) =>
       task.then(() => {
         loaded += 1;
         onProgress(loaded, total);
