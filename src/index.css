@@ -1,0 +1,301 @@
+@import "tailwindcss";
+
+@theme {
+  /*
+   * Deep-olive theme. The off-white paper (#faf8f6 / #eeebe4) is unchanged —
+   * only the ink moved, from a neutral near-black to a deep olive drawn from
+   * the logo's green, with the logo's gold leaf promoted to the accent role.
+   *
+   * `--color-olive-800` (#2A331F) is the new "black": every surface, heading,
+   * and solid button that used #121212 now uses it. 12.45:1 on the page
+   * background, so it clears WCAG AAA for body text with room to spare.
+   */
+  --color-olive-950: #12170D;
+  --color-olive-900: #1A2013;
+  --color-olive-850: #212918;
+  --color-olive-800: #2A331F;
+  --color-olive-700: #3D4B2F;
+  --color-olive-600: #4E603B;
+  --color-olive-500: #64794A;
+  --color-olive-400: #7C8271;
+  --color-olive-300: #9DA292;
+  --color-olive-200: #C6C8BA;
+  --color-olive-100: #E2DED5;
+
+  /* The leaf in the wordmark. gold-700 is the text-safe step (5.15:1 on bg);
+     gold-500 is for large glyphs, rules, and anything on a dark surface. */
+  --color-gold-500: #B99A62;
+  --color-gold-600: #9C8049;
+  --color-gold-700: #7E663A;
+
+  /*
+   * Tailwind's stock `zinc` and `emerald` scales are overridden rather than
+   * find-and-replaced at every call site. The components already reach for
+   * zinc-400/500/600 for muted copy and emerald for accents; re-pointing the
+   * scales moves all of them onto the olive ramp at once and keeps future
+   * `zinc-*` usage on-theme by default. Values are hand-tuned for contrast on
+   * #faf8f6, not naive hue rotations.
+   */
+  --color-zinc-200: #E4E2D8;
+  --color-zinc-300: #C6C8BA;
+  --color-zinc-400: #9DA292;
+  --color-zinc-500: #7C8271;
+  --color-zinc-600: #5F6654;
+  --color-zinc-700: #4A5142;
+  --color-zinc-800: #3A4033;
+  --color-zinc-900: #2A331F;
+
+  --color-emerald-300: #A8B892;
+  --color-emerald-400: #8A9C6C;
+  --color-emerald-500: #64794A;
+  --color-emerald-600: #55693E;
+  --color-emerald-700: #4E603B;
+  --color-emerald-800: #3D4B2F;
+
+  --color-liminary-bg: #faf8f6;
+  --color-liminary-card: #eeebe4;
+  --color-liminary-dark: #2A331F;
+  --color-liminary-muted: #5a4235;
+  --color-liminary-green: #64794A;
+  --color-liminary-gold: #B99A62;
+  --color-liminary-peach: #f9ece5;
+
+  --font-serif: "Syne", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "Fragment Mono", monospace;
+
+  --animate-aurora: aurora 60s linear infinite;
+
+  @keyframes aurora {
+    from {
+      background-position: 50% 50%, 50% 50%;
+    }
+    to {
+      background-position: 350% 50%, 350% 50%;
+    }
+  }
+}
+
+@layer base {
+  :root {
+    --white: #ffffff;
+    --black: #000000;
+    --transparent: transparent;
+    /*
+     * Aurora ramp. These were blue/indigo/violet, which fought the warm paper.
+     * Now a sage → olive → gold sweep so the hero wash reads as the same
+     * material as the rest of the page. Names kept so the utility classes in
+     * aurora-background.tsx don't need rewiring.
+     */
+    --blue-500: #6E8452;
+    --indigo-300: #A9B892;
+    --blue-300: #C3C9A8;
+    --violet-200: #E0D6BA;
+    --blue-400: #8CA06D;
+  }
+
+  /*
+   * No `scroll-behavior: smooth` here. Lenis animates scrollTop itself, and the
+   * native smooth-scroll then tries to tween toward every intermediate value
+   * Lenis writes — the two fight and the result stutters. Lenis is the only
+   * thing that should be easing the scroll position.
+   */
+  html {
+    background-color: #12170D;
+  }
+
+  /* Lenis runtime styles (from lenis/dist/lenis.css) — inlined so the smooth
+     scroll works without a separate stylesheet import. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis:not(.lenis-autoToggle).lenis-stopped {
+    overflow: clip;
+  }
+
+  .lenis [data-lenis-prevent],
+  .lenis [data-lenis-prevent-wheel],
+  .lenis [data-lenis-prevent-touch] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+
+  body {
+    background-color: #faf8f6;
+    color: #2A331F;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, .font-syne {
+    font-family: "Syne", sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  .font-mono-custom {
+    font-family: "Fragment Mono", monospace;
+  }
+}
+
+/* Hyper-Realistic macOS / visionOS Liquid Glass Classes.
+   Shadows are tinted with the olive ink (42,51,31) rather than pure black —
+   a neutral-black shadow over warm paper reads as grey haze and desaturates
+   the theme at exactly the edges the eye tracks most. */
+.liquid-glass {
+  background: rgba(238, 235, 228, 0.75);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 2px 0 rgba(42, 51, 31, 0.06),
+    0 10px 30px -5px rgba(42, 51, 31, 0.07);
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.liquid-glass-scrolled {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    inset 0 2px 3px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 2px 0 rgba(42, 51, 31, 0.05),
+    0 20px 40px -10px rgba(42, 51, 31, 0.12),
+    0 0 1px 1px rgba(255, 255, 255, 0.5);
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.liquid-glass-pill {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/*
+ * Mobile only (below Tailwind's md / 768px). The glass above leans on a heavy
+ * backdrop-filter to stay legible at 45-75% opacity — that reads well on a wide
+ * desktop viewport, but on a phone the bar sits directly over dense body copy,
+ * and mobile Safari degrades or drops backdrop-filter entirely (Low Power Mode),
+ * leaving the navbar washed out. So on small screens: carry the legibility in
+ * the background colour instead of the blur, tint toward the page cream rather
+ * than white, and use a real border since white-on-near-white is invisible.
+ * Desktop rules are untouched.
+ */
+@media (max-width: 767.98px) {
+  .liquid-glass,
+  .liquid-glass-scrolled {
+    background: #faf8f6;
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid #e2ded5;
+  }
+
+  .liquid-glass {
+    box-shadow:
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
+      0 6px 20px -6px rgba(42, 51, 31, 0.14);
+  }
+
+  .liquid-glass-scrolled {
+    box-shadow:
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
+      0 10px 28px -8px rgba(42, 51, 31, 0.18);
+  }
+
+  /* Fallback for browsers without backdrop-filter support */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .liquid-glass,
+    .liquid-glass-scrolled {
+      background: #faf8f6;
+    }
+  }
+}
+
+.animate-aurora {
+  animation: aurora 60s linear infinite;
+}
+
+/* Freeze the aurora ::after animation while the user scrolls. The gradient
+   sits under a 14px blur and mix-blend-difference — re-rasterising that
+   every frame while the compositor is already busy scrolling is what causes
+   the hero jank. Pausing it during scroll costs nothing visually. */
+.aurora-paused,
+.aurora-paused::after {
+  animation-play-state: paused !important;
+}
+
+/* Preloader bar shimmer. Compositor-only so it keeps moving while the main
+   thread is busy decoding the preloaded images. */
+.preloader-shimmer {
+  animation: preloader-shimmer 1.5s linear infinite;
+  will-change: transform;
+}
+
+@keyframes preloader-shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader-shimmer {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+@keyframes aurora {
+  from {
+    background-position: 50% 50%, 50% 50%;
+  }
+  to {
+    background-position: 350% 50%, 350% 50%;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #faf8f6;
+}
+::-webkit-scrollbar-thumb {
+  background: #C6C8BA;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9DA292;
+}
+
+/* Firefox */
+html {
+  scrollbar-color: #C6C8BA #faf8f6;
+  scrollbar-width: thin;
+}

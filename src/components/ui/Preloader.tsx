@@ -1,0 +1,175 @@
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { preloadEverything, releasePreloadedVideos } from '@/lib/preload';
+
+// Floor on the bar's travel time so a warm cache still reads as a deliberate
+// intro instead of a one-frame flash.
+const MIN_DURATION = 2600;
+
+export function Preloader() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const animFrameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const startTime = performance.now();
+    let assetRatio = 0;
+    let assetsDone = false;
+    let cancelled = false;
+    let displayed = 0;
+    let lastPublished = -1;
+    let hideTimer: number | undefined;
+
+    // Without this the page scrolls behind the fixed overlay and reveals
+    // mid-document once loading finishes.
+    document.body.style.overflow = 'hidden';
+
+    preloadEverything((loaded, total) => {
+      assetRatio = total === 0 ? 1 : loaded / total;
+    }).then(() => {
+      assetsDone = true;
+    });
+
+    const tick = (currentTime: number) => {
+      if (cancelled) return;
+      const elapsed = currentTime - startTime;
+
+      // The bar tracks whichever is slower: real asset progress or the
+      // minimum-duration ramp. It can therefore never claim 100% early.
+      const timeCap = Math.min(1, elapsed / MIN_DURATION) * 100;
+      const target = Math.min(assetRatio * 100, timeCap);
+
+      if (target > displayed) {
+        displayed = Math.min(target, displayed + Math.max((target - displayed) * 0.06, 0.12));
+      }
+
+      const rounded = Math.round(displayed);
+
+      // Only re-render when the integer actually moves. Publishing every frame
+      // costs ~60 React renders a second during the exact window the main thread
+      // is busy decoding megabytes of images — which is what made the bar hitch.
+      if (rounded !== lastPublished) {
+        lastPublished = rounded;
+        setProgress(rounded);
+      }
+
+      if (assetsDone && rounded >= 100) {
+        hideTimer = window.setTimeout(() => {
+          if (!cancelled) setIsLoading(false);
+        }, 450);
+        return;
+      }
+
+      animFrameRef.current = requestAnimationFrame(tick);
+    };
+
+    animFrameRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      cancelled = true;
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+      if (hideTimer) clearTimeout(hideTimer);
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
+    document.body.style.overflow = '';
+    releasePreloadedVideos();
+  }, [isLoading]);
+
+  // Main leaf SVG path
+  const leafPath = "M0 0 C5.91352001 8.61864087 1.85677417 26.2977297 0.1640625 36.03515625 C-4.25277875 59.43302704 -10.30802471 82.46877192 -18 105 C-18.21164795 105.62009949 -18.4232959 106.24019897 -18.64135742 106.87908936 C-35.5222538 156.0982214 -59.97151579 205.34046769 -94 245 C-94.85822768 246.02873428 -95.71492005 247.05875077 -96.5703125 248.08984375 C-108.36558351 262.25775114 -120.82339214 276.17096547 -135 288 C-135.54366211 288.45745605 -136.08732422 288.91491211 -136.64746094 289.38623047 C-155.72311484 305.38695763 -176.4410326 319.44818735 -199.01220703 330.06152344 C-200.31720699 330.67763985 -201.61787829 331.30302681 -202.91357422 331.93847656 C-213.65579247 337.20475035 -224.79122897 341.10739189 -236.125 344.875 C-236.84968475 345.11610504 -237.57436951 345.35721008 -238.3210144 345.60562134 C-257.62441227 352 -257.62441227 352 -264 352 C-264.33 352.66 -264.66 353.32 -265 354 C-267.0625 354.4921875 -267.0625 354.4921875 -270 354.875 C-274.54202236 355.50045882 -279.06308781 356.16872595 -283.58203125 356.9453125 C-306.45078964 360.848218 -328.80704285 362.3845771 -352 362 C-359.54054183 432.0545971 -362.64838312 503.81518395 -344.50854492 572.63256836 C-338.15221096 596.76698062 -338.15221096 596.76698062 -343.125 605.5625 C-347.87310889 611.76952503 -353.3024316 615.58691981 -361 617 C-368.15734322 617.37728631 -373.5052243 615.55722218 -379 611 C-387.10094421 603.64595135 -390.06431811 593.17859478 -393.3125 583.0625 C-393.57933594 582.23331055 -393.84617187 581.40412109 -394.12109375 580.54980469 C-394.36601562 579.7612207 -394.6109375 578.97263672 -394.86328125 578.16015625 C-395.19259644 577.10260132 -395.19259644 577.10260132 -395.52856445 576.02368164 C-396 574 -396 574 -396 570 C-396.66 569.67 -397.32 569.34 -398 569 C-398.52734375 566.875 -398.52734375 566.875 -398.9375 564 C-399.4913925 560.3190136 -400.05084542 556.64561264 -400.72265625 552.984375 C-400.85099854 552.283125 -400.97934082 551.581875 -401.11157227 550.859375 C-401.47988465 548.85923733 -401.8492859 546.85930025 -402.21875 544.859375 C-404.3691864 532.0217501 -405.41504879 519.24196133 -406.00537109 506.25244141 C-406.12583162 503.60673495 -406.25555606 500.96160178 -406.38671875 498.31640625 C-407.05593523 484.47501118 -407.05593523 484.47501118 -406.9921875 477.9609375 C-406.79227939 474.09923518 -406.79227939 474.09923518 -408 471 C-407.6945534 468.99555158 -407.35636913 466.99602409 -407 465 C-406.84631314 462.52791581 -406.73006184 460.05336659 -406.640625 457.578125 C-406.58003993 456.08336968 -406.51829828 454.58866091 -406.45556641 453.09399414 C-406.42279602 452.30638702 -406.39002563 451.51877991 -406.35626221 450.70730591 C-405.06999241 420.96240917 -401.74855543 391.22449969 -396 362 C-397.40572266 362.05220703 -397.40572266 362.05220703 -398.83984375 362.10546875 C-412.85492713 362.44661027 -426.60228424 360.65417774 -440.45263672 358.64404297 C-444.33078486 357.95285584 -444.33078486 357.95285584 -448 359 C-448.66644531 358.58234375 -449.33289063 358.1646875 -450.01953125 357.734375 C-454.05318434 355.38713781 -458.19659227 354.43188202 -462.6875 353.25 C-496.41270024 343.95062181 -526.25319918 327.62135111 -551.50830078 303.42871094 C-552.88165496 302.11334782 -554.2664824 300.8099915 -555.65234375 299.5078125 C-590.98758544 265.45647375 -609.20073641 213.96530091 -610.16937256 165.59965515 C-610.21531343 162.40682696 -610.23258386 159.21437267 -610.24023438 156.02124023 C-610.24996839 153.57045901 -610.28110423 151.12050861 -610.3125 148.66992188 C-610.44058936 130.18461734 -610.44058936 130.18461734 -607 123 C-603.74999539 120.5645068 -600.05922277 120.51607312 -596.10546875 120.1484375 C-595.41816177 120.08445267 -594.7308548 120.02046783 -594.02272034 119.95454407 C-591.74519267 119.74901985 -589.46679112 119.55989921 -587.1875 119.375 C-586.40000366 119.30963043 -585.61250732 119.24426086 -584.80114746 119.1769104 C-551.75382954 116.49653479 -518.60029715 116.94366898 -485.96875 123.09765625 C-481.65708836 123.90775114 -477.35878844 124.50607187 -473 125 C-473 125.66 -473 126.32 -473 127 C-472.04738281 127.09410156 -471.09476563 127.18820312 -470.11328125 127.28515625 C-442.16300842 131.33012927 -412.55965039 152.6916602 -395 174 C-394.37480469 174.73734375 -393.74960937 175.4746875 -393.10546875 176.234375 C-380.41738404 191.55016957 -370.6512308 209.14792783 -364.20654297 227.93237305 C-363.94373535 228.69590088 -363.68092773 229.45942871 -363.41015625 230.24609375 C-363.18465088 230.92341553 -362.95914551 231.6007373 -362.72680664 232.29858398 C-362.03285787 234.21546505 -362.03285787 234.21546505 -360 236 C-359.53851563 234.93265625 -359.07703125 233.8653125 -358.6015625 232.765625 C-340.06442141 190.25004436 -314.77536425 150.75502592 -283.34375 116.55859375 C-281.32446982 114.35421288 -279.33869269 112.12878365 -277.375 109.875 C-276.82457031 109.24464844 -276.27414062 108.61429687 -275.70703125 107.96484375 C-274.49122422 106.56541368 -273.2808603 105.1612468 -272.07421875 103.75390625 C-268.25719179 99.35876647 -264.3425763 95.3914816 -259.890625 91.640625 C-258.03251451 90.02821507 -256.33043476 88.33416524 -254.625 86.5625 C-252 84 -252 84 -250 84 C-250 83.34 -250 82.68 -250 82 C-247.11601623 79.2811783 -243.94462838 76.89852766 -240.83105469 74.44824219 C-238.89886143 72.92000614 -236.98479533 71.37066274 -235.0703125 69.8203125 C-200.6083807 42.17428237 -41.69081982 -36.3113592 0 0 Z M-48 38 C-48.33 38.33 -48.66 38.66 -49 39 C-50.70882992 38.99374055 -52.41746767 38.94187463 -54.125 38.875 C-73.16315828 38.79204506 -91.69416994 43.18912088 -110 48 C-110.76973145 48.19287598 -111.53946289 48.38575195 -112.33251953 48.58447266 C-151.25098501 58.34337474 -188.43362447 80.94130202 -217.79296875 107.9765625 C-219.72130517 109.74448863 -221.68847978 111.43846046 -223.6875 113.125 C-227.81590372 116.72260896 -231.68425755 120.5748899 -235.5625 124.4375 C-236.50065552 125.36876709 -236.50065552 125.36876709 -237.45776367 126.31884766 C-258.14978875 147.07882238 -275.45384657 171.24846379 -291 196 C-291.39993164 196.63260742 -291.79986328 197.26521484 -292.21191406 197.91699219 C-328.63497344 255.73751785 -328.63497344 255.73751785 -343 321 C-342.01 320.67 -341.02 320.34 -340 320 C-338.06652449 319.97351649 -336.13221004 319.99614424 -334.19921875 320.046875 C-326.94878901 320.09908693 -319.97794725 319.29439163 -312.8125 318.25 C-311.54092041 318.06808105 -308.95922852 317.88616211 -308.95922852 317.69873047 C-244.65925584 308.22759006 -180.4809154 276.2872402 -137.98046875 226.31640625 C-136.40033 224.46823607 -134.7982381 222.65042695 -133.17578125 220.83984375 C-110.67823526 195.57913673 -92.6686636 166.60881136 -78.04492188 136.1640625 C-77.33113453 134.6857889 -76.608037 133.21198395 -75.87695312 131.7421875 C-62.0389513 103.83593423 -49.13770482 69.25141594 -47 38 C-47.33 38 -47.66 38 -48 38 Z M-564 159 C-565.07283345 187.25128086 -560.01395918 217.21438581 -546 242 C-545.46761719 242.99 -544.93523437 243.98 -544.38671875 245 C-540.31177252 252.3442709 -535.48816705 258.66072683 -530 265 C-529.39027344 265.7321875 -528.78054688 266.464375 -528.15234375 267.21875 C-498.41545242 302.44240261 -448.22680606 315.64508836 -404.31518555 319.83007812 C-400.82326266 320.08636604 -397.37705321 320.09433685 -393.875 320.0625 C-391.92207031 320.04896484 -391.92207031 320.04896484 -389.9296875 320.03515625 C-388.96289062 320.02355469 -387.99609375 320.01195312 -387 320 C-386.1105993 275.42565258 -400.0252839 226.71370433 -430.875 193.63793945 C-456.30090772 167.18903622 -492.29996525 158.02660057 -528 157 C-528.70979004 156.97808594 -529.41958008 156.95617187 -530.15087891 156.93359375 C-541.5794324 156.63091743 -552.67374201 157.50054268 -564 159 Z";
+
+  // Calculate mask Y position directly from progress (0% -> y=835 [hidden], 100% -> y=190 [full])
+  return (
+    <AnimatePresence>
+      {isLoading && (
+        <motion.div
+          key="preloader"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 0.97 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#faf8f6] text-[#2A331F] select-none overflow-hidden"
+        >
+          <div className="relative flex flex-col items-center">
+            
+            {/* SVG Leaf Logo (Completely Still) */}
+            <div className="relative w-28 h-28 sm:w-36 sm:h-36 mb-8 flex items-center justify-center">
+              <svg viewBox="0 0 1024 1024" className="w-full h-full text-[#2A331F]">
+                <defs>
+                  {/* Mask rectangle moves step-by-step with 3 staged fills */}
+                  <mask id="slow-synced-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024">
+                    <rect x="0" y="0" width="1024" height="1024" fill="black" />
+                    <rect
+                      x="0"
+                      y="190"
+                      width="1024"
+                      height="650"
+                      fill="white"
+                      // Animated via transform, not the `y` attribute: `y` is a
+                      // geometry change that re-rasterises the mask every step,
+                      // whereas a translate stays on the compositor.
+                      style={{
+                        transform: `translateY(${645 * (1 - progress / 100)}px)`,
+                        transition: 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
+                      }}
+                    />
+                  </mask>
+                </defs>
+
+                {/* Faint Background Guide Outline */}
+                <path
+                  d={leafPath}
+                  fill="currentColor"
+                  opacity="0.08"
+                  transform="translate(842,206)"
+                />
+
+                {/* Silky Smooth Formed Leaf Path */}
+                <g mask="url(#slow-synced-mask)">
+                  <path
+                    d={leafPath}
+                    fill="currentColor"
+                    transform="translate(842,206)"
+                  />
+                </g>
+              </svg>
+            </div>
+
+            {/* Ultra-Clean Minimal Staged Progress Bar */}
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-36 sm:w-44 h-1 rounded-full bg-[#eeebe4] border border-[#e2ded5] overflow-hidden relative">
+                {/* Scaled rather than width-animated — `width` relayouts the bar
+                    on every step, a transform does not. */}
+                <div
+                  className="h-full w-full origin-left bg-[#2A331F] rounded-full transition-transform duration-300 ease-out"
+                  style={{ transform: `scaleX(${progress / 100})` }}
+                />
+                
+                {/* Specular Shimmer reflection. A CSS keyframe rather than a
+                    framer-motion loop: this runs while the main thread is
+                    saturated decoding images, and only a compositor-driven
+                    transform keeps moving under that load. */}
+                <div className="preloader-shimmer absolute inset-y-0 w-12 bg-gradient-to-r from-transparent via-white/70 to-transparent pointer-events-none" />
+              </div>
+
+              {/* 3-Stage Progress Indicator Dots + Percentage */}
+              <div className="flex items-center gap-2 text-xs font-mono tracking-wider text-[#666] font-medium">
+                <span className="w-8 text-right font-mono">{progress}%</span>
+                <span className="text-[#bbb]">•</span>
+                <div className="flex items-center gap-1">
+                  <div className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${progress >= 33 ? 'bg-[#2A331F]' : 'bg-[#e2ded5]'}`} />
+                  <div className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${progress >= 66 ? 'bg-[#2A331F]' : 'bg-[#e2ded5]'}`} />
+                  <div className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${progress >= 100 ? 'bg-[#2A331F]' : 'bg-[#e2ded5]'}`} />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
