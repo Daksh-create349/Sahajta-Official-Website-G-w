@@ -127,7 +127,7 @@ export function Preloader() {
             <div className="relative font-syne text-xl sm:text-2xl font-bold tracking-tight text-center mt-6 select-none overflow-hidden px-4">
               {/* Faint Outline Guide Text */}
               <span className="text-[#2A331F]/15 block">
-                Ready to grow with us
+                Get ready to grow with us!
               </span>
               
               {/* Progress Filled Text */}
@@ -135,7 +135,7 @@ export function Preloader() {
                 className="text-[#2A331F] absolute inset-0 block overflow-hidden transition-all duration-200 ease-out whitespace-nowrap px-4"
                 style={{ clipPath: `inset(0 ${Math.max(0, 100 - progress)}% 0 0)` }}
               >
-                Ready to grow with us
+                Get ready to grow with us!
               </span>
             </div>
 
