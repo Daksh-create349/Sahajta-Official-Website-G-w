@@ -11,6 +11,7 @@ import { LatestShip } from '@/components/sections/LatestShip';
 import { Process } from '@/components/sections/Process';
 import { PromiseCarousel } from '@/components/sections/PromiseCarousel';
 import { Pricing } from '@/components/sections/Pricing';
+import { WorkWithUsCTA } from '@/components/sections/WorkWithUsCTA';
 import { Team } from '@/components/sections/Team';
 import { initLenis, destroyLenis } from '@/lib/lenis';
 
@@ -38,6 +39,7 @@ function App() {
         <Process />
         <PromiseCarousel />
         <Pricing />
+        <WorkWithUsCTA />
         <Team />
       </main>
 
