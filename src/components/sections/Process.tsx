@@ -19,7 +19,7 @@ const steps = [
           alt="Set the Goal"
           decoding="async"
           draggable={false}
-          className="h-36 md:h-48 w-auto object-contain mix-blend-multiply"
+          className="h-36 md:h-48 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -37,7 +37,7 @@ const steps = [
           alt="Plan the Work"
           decoding="async"
           draggable={false}
-          className="h-36 md:h-48 w-auto object-contain mix-blend-multiply"
+          className="h-36 md:h-48 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -55,7 +55,7 @@ const steps = [
           alt="Build and Test"
           decoding="async"
           draggable={false}
-          className="h-36 md:h-48 w-auto object-contain mix-blend-multiply"
+          className="h-36 md:h-48 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -73,7 +73,7 @@ const steps = [
           alt="Review and Ship"
           decoding="async"
           draggable={false}
-          className="h-36 md:h-48 w-auto object-contain mix-blend-multiply"
+          className="h-36 md:h-48 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -122,26 +122,26 @@ function CardItem({ step, index, total }: { step: typeof steps[0]; index: number
           willChange: 'transform',
           backfaceVisibility: 'hidden',
         }}
-        className="bg-[#EEEBE4] border border-[#E2DED5] rounded-[2.5rem] p-8 md:p-12 shadow-[0_-10px_30px_-14px_rgba(18,18,18,0.16),0_24px_60px_-28px_rgba(18,18,18,0.30)] min-h-[320px] md:min-h-[360px] flex flex-col justify-center"
+        className="bg-[#F0EFE6] border border-[#DDD8CC] rounded-[2.5rem] p-8 md:p-12 shadow-[0_12px_30px_-12px_rgba(11,66,42,0.08)] min-h-[320px] md:min-h-[360px] flex flex-col justify-center"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Left Column */}
           <div className="lg:col-span-5">
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-sm text-zinc-500 font-normal uppercase tracking-wider">({step.num})</span>
-              <span className="text-xs font-medium text-emerald-800 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+              <span className="text-sm text-[#6B7E76] font-normal uppercase tracking-wider">({step.num})</span>
+              <span className="text-xs font-semibold text-[#A67F2E] px-3 py-1 bg-[#F5EDD6] rounded-full border border-[#D9B75B]/40">
                 {step.topTag}
               </span>
             </div>
-            <h3 className="font-syne font-bold text-4xl md:text-5xl lg:text-6xl text-[#2A331F] tracking-tight leading-none">
+            <h3 className="font-syne font-bold text-4xl md:text-5xl lg:text-6xl text-[#0B422A] tracking-tight leading-none">
               {step.title}
             </h3>
           </div>
 
           {/* Right Column */}
           <div className="lg:col-span-7 flex flex-col sm:flex-row items-center justify-between gap-8">
-            <p className="font-syne text-lg md:text-xl text-[#2A331F] leading-relaxed font-normal flex-1">
+            <p className="font-syne text-lg md:text-xl text-[#121212] leading-relaxed font-normal flex-1">
               {step.subtitle}
             </p>
             {step.visualCard}
@@ -155,15 +155,32 @@ function CardItem({ step, index, total }: { step: typeof steps[0]; index: number
 
 export function Process() {
   return (
-    <section id="process" className="relative bg-[#FAF8F6] pt-24 pb-32 border-t border-[#EEEBE4]">
+    <section id="process" className="relative bg-[#FDFCF0] pt-24 pb-32 border-t border-[#DDD8CC]">
+      {/* Brand Green Silhouette SVG Filter - Tints illustrations to #0B422A and removes off-white backgrounds */}
+      <svg width="0" height="0" className="absolute pointer-events-none opacity-0 w-0 h-0 overflow-hidden" aria-hidden="true">
+        <filter id="brand-green-silhouette" colorInterpolationFilters="sRGB">
+          <feComponentTransfer>
+            <feFuncR type="linear" slope="1.8" intercept="-0.4" />
+            <feFuncG type="linear" slope="1.8" intercept="-0.4" />
+            <feFuncB type="linear" slope="1.8" intercept="-0.4" />
+          </feComponentTransfer>
+          <feColorMatrix type="matrix" values="
+            0 0 0 0 0.043
+            0 0 0 0 0.258
+            0 0 0 0 0.165
+            -0.333 -0.333 -0.333 1 0
+          " />
+        </filter>
+      </svg>
+
       <div className="max-w-6xl mx-auto px-6">
         
         {/* Header */}
         <div className="max-w-3xl mb-16">
-          <h2 className="font-syne text-3xl md:text-5xl font-bold tracking-tight text-[#2A331F]">
+          <h2 className="font-syne text-3xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
             More Gets Built Each Week
           </h2>
-          <p className="text-zinc-600 text-base font-normal mt-3">
+          <p className="text-[#6B7E76] text-base font-normal mt-3">
             Our AI-native team picks one goal, works in short sprints, and ships useful work each week.
           </p>
         </div>

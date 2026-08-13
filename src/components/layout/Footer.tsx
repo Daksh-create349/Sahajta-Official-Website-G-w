@@ -87,7 +87,7 @@ function MetaColumn({
             >
               <span
                 aria-hidden="true"
-                className="h-px w-0 bg-[#B99A62] transition-all duration-300 group-hover/link:w-3"
+                className="h-px w-0 bg-[#D9B75B] transition-all duration-300 group-hover/link:w-3"
               />
               <span>{link.label}</span>
               {link.external && (
@@ -108,7 +108,7 @@ export function Footer() {
   return (
     <footer
       id="contact"
-      className="relative overflow-hidden rounded-t-[2.5rem] bg-[#1A2013] pt-16 pb-12 text-[#faf8f6] md:rounded-t-[3.5rem] md:pt-20 border-t border-[#B99A62]/20 shadow-2xl isolate"
+      className="relative overflow-hidden rounded-t-[2.5rem] bg-[#0B2818] pt-16 pb-12 text-[#FDFCF0] md:rounded-t-[3.5rem] md:pt-20 border-t border-[#DDD8CC] isolate"
       style={{ transform: 'translateZ(0)' }}
     >
       <FooterDither />
@@ -137,7 +137,7 @@ export function Footer() {
             </button>
           </div>
 
-          <h2 className="font-syne mb-8 max-w-2xl text-3xl font-bold leading-[1.12] tracking-tight text-[#faf8f6] md:text-5xl">
+          <h2 className="font-syne mb-8 max-w-2xl text-3xl font-bold leading-[1.12] tracking-tight text-[#FDFCF0] md:text-5xl">
             Tell us what you&rsquo;re building.
           </h2>
 
@@ -145,14 +145,14 @@ export function Footer() {
             href="mailto:hello@sahajta.com"
             className="group/mail inline-block max-w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-white"
           >
-            <span className="font-syne flex flex-wrap items-baseline gap-x-4 text-[1.65rem] font-bold leading-none tracking-tight text-[#faf8f6] transition-colors duration-300 group-hover/mail:text-zinc-300 sm:text-4xl md:text-6xl lg:text-7xl">
+            <span className="font-syne flex flex-wrap items-baseline gap-x-4 text-[1.65rem] font-bold leading-none tracking-tight text-[#FDFCF0] transition-colors duration-300 group-hover/mail:text-zinc-300 sm:text-4xl md:text-6xl lg:text-7xl">
               <span>hello@sahajta.com</span>
-              <ArrowGlyph className="h-4 w-4 shrink-0 text-[#B99A62] transition-transform duration-300 group-hover/mail:translate-x-1.5 group-hover/mail:-translate-y-1.5 md:h-7 md:w-7" />
+              <ArrowGlyph className="h-4 w-4 shrink-0 text-[#D9B75B] transition-transform duration-300 group-hover/mail:translate-x-1.5 group-hover/mail:-translate-y-1.5 md:h-7 md:w-7" />
             </span>
             {/* Rule that draws in under the address on hover */}
             <span
               aria-hidden="true"
-              className="mt-4 block h-px w-full origin-left scale-x-0 bg-[#B99A62]/70 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/mail:scale-x-100"
+              className="mt-4 block h-px w-full origin-left scale-x-0 bg-[#D9B75B]/70 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/mail:scale-x-100"
             />
           </a>
 
@@ -164,26 +164,23 @@ export function Footer() {
         {/* ── Meta ───────────────────────────────────────────── */}
         <div className="border-t border-white/10 pt-14">
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-12">
+            {/* Logo column */}
             <div className="col-span-2 md:col-span-4">
-              {/*
-                * Was `brightness-0 invert`, which crushes the mark to flat
-                * white and throws away the gold leaf — the one warm note in
-                * the identity. Instead: lift the dark green wordmark until it
-                * reads on the olive ground while leaving hue intact, so the
-                * leaf stays gold.
-                */}
-              <img
-                src={logoImg}
-                alt="Sahajta AI"
-                width={160}
-                height={48}
-                className="mb-6 h-10 w-auto object-contain brightness-[2.6] contrast-[1.05] saturate-[1.15] md:h-12 opacity-95 transition-opacity hover:opacity-100"
-              />
+              <div className="mb-6 inline-flex items-center rounded-2xl bg-[#FDFCF0] px-4 py-2.5 shadow-lg ring-1 ring-white/10 transition-opacity opacity-95 hover:opacity-100">
+                <img
+                  src={logoImg}
+                  alt="Sahajta AI"
+                  width={160}
+                  height={48}
+                  className="h-8 w-auto object-contain md:h-9"
+                />
+              </div>
               <p className="max-w-xs text-[13px] font-normal leading-relaxed text-zinc-400 mb-4">
                 Your fractional CTO and build team in one. We plan it, build it, fix it, and ship
                 it — in short weekly sprints.
               </p>
             </div>
+
 
             <div className="md:col-span-3">
               <MetaColumn title="Engagements" links={engagements} />
@@ -209,7 +206,7 @@ export function Footer() {
               FAQs
             </button>
             <p className="font-mono-custom tracking-wide flex items-center gap-2 text-zinc-400">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#B99A62]"></span>
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#D9B75B]"></span>
               Replies within 24 hours.
             </p>
           </div>

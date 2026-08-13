@@ -66,7 +66,7 @@ export const AuroraBackground = ({
     <div
       ref={containerRef}
       className={cn(
-        "relative flex flex-col items-center justify-center bg-[#faf8f6] text-[#2A331F] isolate",
+        "relative flex flex-col items-center justify-center bg-[#FDFCF0] text-[#121212] isolate",
         className
       )}
       {...props}

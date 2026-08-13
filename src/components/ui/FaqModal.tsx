@@ -67,7 +67,7 @@ export function FaqModal({ isOpen, onClose }: FaqModalProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#12170D]/85 backdrop-blur-md"
+            className="fixed inset-0 bg-[#0B2818]/85 backdrop-blur-md"
           />
 
           {/* Modal Card */}
@@ -76,18 +76,18 @@ export function FaqModal({ isOpen, onClose }: FaqModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-10 w-full max-w-2xl overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-white/10 bg-[#1A2013] p-6 sm:p-10 shadow-2xl text-[#faf8f6] max-h-[90vh] flex flex-col"
+            className="relative z-10 w-full max-w-2xl overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-white/10 bg-[#0B422A] p-6 sm:p-10 shadow-2xl text-[#FDFCF0] max-h-[90vh] flex flex-col"
           >
             {/* Header */}
             <div className="flex items-start justify-between gap-4 pb-6 border-b border-white/10 shrink-0">
               <div>
-                <span className="font-mono-custom text-xs font-semibold uppercase tracking-widest text-zinc-400 block mb-1">
+                <span className="font-mono-custom text-xs font-semibold uppercase tracking-widest text-zinc-300 block mb-1">
                   Still wondering if this is for you?
                 </span>
-                <h2 className="font-syne text-3xl sm:text-4xl font-bold tracking-tight text-[#faf8f6]">
+                <h2 className="font-syne text-3xl sm:text-4xl font-bold tracking-tight text-[#FDFCF0]">
                   FAQs
                 </h2>
-                <p className="mt-1.5 text-xs sm:text-sm font-normal text-zinc-400">
+                <p className="mt-1.5 text-xs sm:text-sm font-normal text-zinc-300">
                   Everything you need to know about working with Sahajta.
                 </p>
               </div>
@@ -96,7 +96,7 @@ export function FaqModal({ isOpen, onClose }: FaqModalProps) {
                 type="button"
                 onClick={onClose}
                 aria-label="Close modal"
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-400 transition-colors hover:bg-white/15 hover:text-white"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-400 transition-colors hover:bg-white/15 hover:text-white cursor-pointer"
               >
                 ✕
               </button>
@@ -116,11 +116,11 @@ export function FaqModal({ isOpen, onClose }: FaqModalProps) {
                       onClick={() => setOpenIdx(isOpenIdx ? null : idx)}
                       className="flex w-full cursor-pointer items-center justify-between gap-4 p-5 text-left focus:outline-hidden"
                     >
-                      <span className="font-syne text-base font-bold tracking-tight text-[#faf8f6]">
+                      <span className="font-syne text-base font-bold tracking-tight text-[#FDFCF0]">
                         {faq.question}
                       </span>
                       <span
-                        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/15 text-xs text-zinc-400 transition-transform duration-300 ${
+                        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/15 text-xs text-zinc-300 transition-transform duration-300 ${
                           isOpenIdx ? 'rotate-180 bg-white/10 text-white' : ''
                         }`}
                       >
@@ -137,7 +137,7 @@ export function FaqModal({ isOpen, onClose }: FaqModalProps) {
                           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                           className="overflow-hidden"
                         >
-                          <p className="px-5 pb-5 pt-1 text-xs sm:text-sm font-normal leading-relaxed text-zinc-300">
+                          <p className="px-5 pb-5 pt-1 text-xs sm:text-sm font-normal leading-relaxed text-zinc-200">
                             {faq.answer}
                           </p>
                         </motion.div>
@@ -150,13 +150,13 @@ export function FaqModal({ isOpen, onClose }: FaqModalProps) {
 
             {/* Modal Footer CTA */}
             <div className="mt-6 pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0">
-              <span className="font-mono-custom text-xs text-zinc-400">
+              <span className="font-mono-custom text-xs text-zinc-300">
                 Have a specific question?
               </span>
               <a
                 href="mailto:hello@sahajta.com"
                 onClick={onClose}
-                className="inline-flex items-center gap-2 rounded-full bg-[#faf8f6] px-5 py-2.5 font-syne text-xs font-medium text-[#2A331F] transition-colors hover:bg-white hover:text-[#12170D]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#FDFCF0] px-5 py-2.5 font-syne text-xs font-medium text-[#0B422A] transition-colors hover:bg-white hover:text-[#0B422A]"
               >
                 <span>Email Team</span>
                 <span>↗</span>

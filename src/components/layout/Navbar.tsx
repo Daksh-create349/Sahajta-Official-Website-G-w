@@ -79,8 +79,8 @@ export function Navbar() {
               className={cn(
                 "px-5 py-2 text-xs font-medium tracking-tight transition-all rounded-full cursor-pointer",
                 isScrolled
-                  ? "text-zinc-800 hover:text-[#2A331F] hover:bg-white/80 hover:shadow-xs"
-                  : "text-zinc-700 hover:text-[#2A331F] hover:bg-white/60"
+                  ? "text-zinc-800 hover:text-[#0B422A] hover:bg-white/80 hover:shadow-xs"
+                  : "text-zinc-700 hover:text-[#0B422A] hover:bg-white/60"
               )}
             >
               {link.name}
@@ -93,7 +93,7 @@ export function Navbar() {
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, '#contact')}
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-medium bg-[#2A331F] text-[#faf8f6] hover:bg-zinc-800 transition-all rounded-full shadow-md group tracking-tight cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-medium bg-[#0B422A] text-[#FDFCF0] hover:bg-[#2D6E54] transition-all rounded-full shadow-md group tracking-tight cursor-pointer"
           >
             <span>Book 24h Sprint</span>
             <span className="text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
@@ -104,7 +104,7 @@ export function Navbar() {
         <div className="md:hidden relative z-10 flex items-center justify-between w-full gap-8 px-2">
           <img src={logoImg} alt="Sahajta Logo" className="h-6 w-auto object-contain" />
           <button
-            className="text-[#2A331F] p-1.5 rounded-full hover:bg-white/50 transition-colors"
+            className="text-[#0B422A] p-1.5 rounded-full hover:bg-white/50 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Navigation Menu"
           >
@@ -132,7 +132,7 @@ export function Navbar() {
                 setMobileMenuOpen(false);
                 handleNavClick(e, link.href);
               }}
-              className="text-base font-syne font-medium text-[#2A331F] hover:text-zinc-600 transition-colors cursor-pointer"
+              className="text-base font-syne font-medium text-[#0B422A] hover:text-[#2D6E54] transition-colors cursor-pointer"
             >
               {link.name}
             </a>
@@ -143,7 +143,7 @@ export function Navbar() {
               setMobileMenuOpen(false);
               handleNavClick(e, '#contact');
             }}
-            className="mt-2 text-center py-3 text-sm font-medium bg-[#2A331F] text-[#faf8f6] rounded-full shadow-md cursor-pointer"
+            className="mt-2 text-center py-3 text-sm font-medium bg-[#0B422A] text-[#FDFCF0] rounded-full shadow-md cursor-pointer"
           >
             Book 24h Sprint
           </a>

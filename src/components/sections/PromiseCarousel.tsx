@@ -320,21 +320,21 @@ export function PromiseCarousel() {
   }, []);
 
   return (
-    <section id="promises" className="py-24 bg-[#faf8f6] border-t border-[#eeebe4] relative overflow-hidden">
+    <section id="promises" className="py-24 bg-[#FDFCF0] border-t border-[#DDD8CC] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <h2 className="font-syne text-4xl md:text-5xl font-bold tracking-tight text-[#2A331F]">
+            <h2 className="font-syne text-4xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
               How We Keep Work Moving
             </h2>
           </div>
 
           {/* Controls */}
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-1.5 font-mono-custom text-xs text-zinc-400 mr-2">
-              <span className="font-bold text-[#2A331F]">
+            <div className="hidden sm:flex items-center gap-1.5 font-mono-custom text-xs text-[#6B7E76] mr-2">
+              <span className="font-bold text-[#0B422A]">
                 {String(activeSlide + 1).padStart(2, '0')}
               </span>
               <span>/</span>
@@ -345,7 +345,7 @@ export function PromiseCarousel() {
               onClick={prevSlide}
               disabled={!canPrev}
               aria-label="Previous promise"
-              className="w-12 h-12 rounded-full border border-[#e2ded5] bg-[#eeebe4] transition-colors duration-300 flex items-center justify-center text-lg text-[#2A331F] shadow-xs enabled:cursor-pointer enabled:hover:bg-[#2A331F] enabled:hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-12 h-12 rounded-full border border-[#DDD8CC] bg-[#F0EFE6] transition-colors duration-300 flex items-center justify-center text-lg text-[#0B422A] shadow-xs enabled:cursor-pointer enabled:hover:bg-[#0B422A] enabled:hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
             >
               ←
             </button>
@@ -354,7 +354,7 @@ export function PromiseCarousel() {
               onClick={nextSlide}
               disabled={!canNext}
               aria-label="Next promise"
-              className="w-12 h-12 rounded-full border border-[#e2ded5] bg-[#eeebe4] transition-colors duration-300 flex items-center justify-center text-lg text-[#2A331F] shadow-xs enabled:cursor-pointer enabled:hover:bg-[#2A331F] enabled:hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-12 h-12 rounded-full border border-[#DDD8CC] bg-[#F0EFE6] transition-colors duration-300 flex items-center justify-center text-lg text-[#0B422A] shadow-xs enabled:cursor-pointer enabled:hover:bg-[#0B422A] enabled:hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
             >
               →
             </button>
@@ -362,9 +362,6 @@ export function PromiseCarousel() {
         </div>
 
         {/* Carousel Deck */}
-        {/* overflow-x-auto forces overflow-y to compute to auto, so this element
-            clips vertically too — pt/pb keep the active card's ring and shadow
-            from being shaved off. */}
         <div
           ref={scrollContainerRef}
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory pt-6 pb-10 no-scrollbar scroll-smooth"
@@ -376,19 +373,19 @@ export function PromiseCarousel() {
               <div
                 key={slide.id}
                 onClick={() => scrollToIndex(index)}
-                className={`snap-start shrink-0 w-[300px] sm:w-[340px] md:w-[380px] group cursor-pointer transition-[border-color,box-shadow] duration-300 rounded-[2.2rem] p-8 bg-[#eeebe4] border flex flex-col justify-between relative overflow-hidden ${
+                className={`snap-start shrink-0 w-[300px] sm:w-[340px] md:w-[380px] group cursor-pointer transition-[border-color,box-shadow] duration-300 rounded-[2.2rem] p-8 bg-[#F0EFE6] border flex flex-col justify-between relative overflow-hidden ${
                   isActive
-                    ? "border-emerald-600/40 ring-1 ring-emerald-600/20 shadow-xl"
-                    : "border-[#e2ded5] hover:border-zinc-400 shadow-xs"
+                    ? "border-[#D9B75B] ring-1 ring-[#D9B75B]/30 shadow-xl"
+                    : "border-[#DDD8CC] hover:border-[#6B7E76] shadow-xs"
                 }`}
               >
                 {/* Top Tag & Index */}
                 <div>
                   <div className="flex items-center justify-between mb-8">
-                    <span className="font-mono-custom text-[11px] font-bold text-emerald-800 px-3 py-1 bg-[#faf8f6] rounded-md border border-[#e2ded5] uppercase tracking-wider">
+                    <span className="font-mono-custom text-[11px] font-bold text-[#A67F2E] px-3 py-1 bg-[#FDFCF0] rounded-md border border-[#DDD8CC] uppercase tracking-wider">
                       {slide.tag}
                     </span>
-                    <span className="font-mono-custom text-xs font-semibold text-zinc-400">
+                    <span className="font-mono-custom text-xs font-semibold text-[#9AA89F]">
                       0{slide.id}
                     </span>
                   </div>
@@ -402,21 +399,21 @@ export function PromiseCarousel() {
 
                   {/* Title & Main Text */}
                   <div className="mt-4">
-                    <h3 className="font-syne font-bold text-2xl text-[#2A331F] tracking-tight mb-2">
+                    <h3 className="font-syne font-bold text-2xl text-[#0B422A] tracking-tight mb-2">
                       {slide.title}
                     </h3>
-                    <p className="text-zinc-700 text-sm font-normal leading-relaxed">
+                    <p className="text-[#121212] text-sm font-normal leading-relaxed">
                       {slide.text}
                     </p>
                   </div>
                 </div>
 
                 {/* Bottom Footer Accent */}
-                <div className="mt-8 pt-4 border-t border-[#e2ded5] flex items-center justify-between">
-                  <span className="font-mono-custom text-xs font-medium text-zinc-500">
+                <div className="mt-8 pt-4 border-t border-[#DDD8CC] flex items-center justify-between">
+                  <span className="font-mono-custom text-xs font-medium text-[#6B7E76]">
                     {slide.smallText}
                   </span>
-                  <span className="text-emerald-700 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-[#2D6E54] text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     ✓
                   </span>
                 </div>
@@ -432,7 +429,7 @@ export function PromiseCarousel() {
               key={idx}
               onClick={() => scrollToIndex(idx)}
               className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                idx === activeSlide ? "w-8 bg-emerald-700" : "w-2 bg-zinc-300 hover:bg-zinc-400"
+                idx === activeSlide ? "w-8 bg-[#0B422A]" : "w-2 bg-[#DDD8CC] hover:bg-[#6B7E76]"
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />

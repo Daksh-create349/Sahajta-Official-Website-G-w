@@ -25,7 +25,7 @@ function App() {
   // to compute to `auto`, making this a scroll container and breaking
   // `position: sticky` in every descendant section.
   return (
-    <div className="min-h-screen bg-[#faf8f6] text-[#2A331F] selection:bg-emerald-500/20 selection:text-[#2A331F] font-sans antialiased overflow-x-clip relative">
+    <div className="min-h-screen bg-[#FDFCF0] text-[#121212] selection:bg-[#D9B75B]/30 selection:text-[#0B422A] font-sans antialiased overflow-x-clip relative">
       <Preloader />
       <Navbar />
       

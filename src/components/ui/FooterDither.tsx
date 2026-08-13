@@ -83,10 +83,8 @@ export function FooterDither() {
           disableAnimation={reduced}
           enableMouseInteraction={!coarse && !reduced}
           mouseRadius={0.4}
-          // Sage-olive rather than neutral grey: the dither sits directly on the
-          // deep-olive footer, and an achromatic wave reads as dust on top of it
-          // instead of light moving through it.
-          waveColor={[0.44, 0.51, 0.34]}
+          // Gold-forest wave color matching #D9B75B [0.85, 0.72, 0.36]
+          waveColor={[0.85, 0.72, 0.36]}
           waveSpeed={0.014}
           waveFrequency={2.6}
           waveAmplitude={0.36}
@@ -95,8 +93,8 @@ export function FooterDither() {
         />
       </div>
 
-      {/* Settles the dither into the footer olive instead of letting it sit on top. */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1A2013] via-[#1A2013]/25 to-[#1A2013]/90" />
+      {/* Settles the dither into the footer dark forest green instead of letting it sit on top. */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0B2818] via-[#0B2818]/25 to-[#0B2818]/90" />
     </div>
   );
 }

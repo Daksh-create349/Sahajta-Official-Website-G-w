@@ -77,7 +77,7 @@ export function Preloader() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 0.97 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#faf8f6] text-[#2A331F] select-none overflow-hidden"
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#FDFCF0] text-[#0B422A] select-none overflow-hidden"
           role="progressbar"
           aria-valuenow={progress}
           aria-valuemin={0}
@@ -88,7 +88,7 @@ export function Preloader() {
             
             {/* SVG Leaf Logo */}
             <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center">
-              <svg viewBox="0 0 1024 1024" className="w-full h-full text-[#2A331F]" aria-hidden="true">
+              <svg viewBox="0 0 1024 1024" className="w-full h-full text-[#0B422A]" aria-hidden="true">
                 <defs>
                   <mask id="slow-synced-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024">
                     <rect x="0" y="0" width="1024" height="1024" fill="black" />
@@ -126,13 +126,13 @@ export function Preloader() {
             {/* Syne Font Fill Progress Text */}
             <div className="relative font-syne text-xl sm:text-2xl font-bold tracking-tight text-center mt-6 select-none overflow-hidden px-4">
               {/* Faint Outline Guide Text */}
-              <span className="text-[#2A331F]/15 block">
+              <span className="text-[#0B422A]/15 block">
                 Get ready to grow with us!
               </span>
               
               {/* Progress Filled Text */}
               <span
-                className="text-[#2A331F] absolute inset-0 block overflow-hidden transition-all duration-200 ease-out whitespace-nowrap px-4"
+                className="text-[#0B422A] absolute inset-0 block overflow-hidden transition-all duration-200 ease-out whitespace-nowrap px-4"
                 style={{ clipPath: `inset(0 ${Math.max(0, 100 - progress)}% 0 0)` }}
               >
                 Get ready to grow with us!

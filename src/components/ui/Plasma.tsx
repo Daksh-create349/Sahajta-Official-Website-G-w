@@ -17,7 +17,7 @@ interface PlasmaProps {
 
 const hexToRgb = (hex: string): [number, number, number] => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) return [0.39, 0.47, 0.29]; // fallback theme olive #64794A
+  if (!result) return [0.043, 0.258, 0.165]; // fallback brand forest green #0B422A
   return [
     parseInt(result[1], 16) / 255,
     parseInt(result[2], 16) / 255,

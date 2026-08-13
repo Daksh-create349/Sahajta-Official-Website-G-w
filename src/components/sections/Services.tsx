@@ -171,7 +171,7 @@ export function Services() {
     <section
       ref={wrapperRef}
       id="services"
-      className="relative bg-[#faf8f6] border-t border-[#EEEBE4]"
+      className="relative bg-[#FDFCF0] border-t border-[#DDD8CC]"
       style={isPinned ? { height: `${WRAPPER_VH}vh` } : undefined}
     >
       {/* Pinned frame: stays put while the phases advance, then releases. */}
@@ -186,7 +186,7 @@ export function Services() {
 
         {/* Header */}
         <div className="mb-12">
-          <h2 className="font-syne text-3xl md:text-5xl font-bold tracking-tight text-[#2A331F]">
+          <h2 className="font-syne text-3xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
             Your Fractional CTO and Build Team in One
           </h2>
         </div>
@@ -203,31 +203,31 @@ export function Services() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 20, scale: 0.98 }}
                 transition={{ duration: 0.22, ease: "easeOut" }}
-                className="relative bg-[#eeebe4] p-8 md:p-12 rounded-[2.5rem] border border-[#e2ded5] shadow-xl min-h-[380px] md:min-h-[420px] flex flex-col justify-between overflow-hidden group"
+                className="relative bg-[#F0EFE6] p-8 md:p-12 rounded-[2.5rem] border border-[#DDD8CC] shadow-md min-h-[380px] md:min-h-[420px] flex flex-col justify-between overflow-hidden group"
               >
                 {/* Background Image Layer */}
                 <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
                   <img
                     src={activeService.bgImg}
                     alt={activeService.title}
-                    className="w-full h-full object-cover object-center opacity-90 transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="w-full h-full object-cover object-center opacity-85 transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#eeebe4]/80 via-[#eeebe4]/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#F0EFE6]/90 via-[#F0EFE6]/50 to-[#0B422A]/10 pointer-events-none" />
                 </div>
 
                 {/* Top Content */}
                 <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-2xl bg-[#FAF8F6]/90 backdrop-blur-md flex items-center justify-center font-mono-custom font-bold text-[#2A331F] text-sm border border-[#e2ded5] shadow-xs mb-8">
+                  <div className="w-12 h-12 rounded-2xl bg-[#FDFCF0]/90 backdrop-blur-md flex items-center justify-center font-mono-custom font-bold text-[#0B422A] text-sm border border-[#DDD8CC] shadow-xs mb-8">
                     {activeService.num}
                   </div>
 
-                  <h3 className="font-syne font-bold text-3xl md:text-5xl text-[#2A331F] tracking-tight leading-tight">
+                  <h3 className="font-syne font-bold text-3xl md:text-5xl text-[#0B422A] tracking-tight leading-tight">
                     {activeService.title}
                   </h3>
                 </div>
 
                 {/* Bottom Tags */}
-                <div className="relative z-10 pt-8 border-t border-[#2A331F]/10">
+                <div className="relative z-10 pt-8 border-t border-[#0B422A]/10">
                   <div className="flex flex-wrap gap-3">
                     {activeService.deliverables.map((item, i) => (
                       <motion.span
@@ -235,7 +235,7 @@ export function Services() {
                         initial={{ opacity: 0, scale: 0.92 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: i * 0.04, duration: 0.18 }}
-                        className="px-4 py-2 bg-[#FAF8F6]/90 backdrop-blur-md text-[#2A331F] text-xs font-mono-custom font-semibold rounded-xl border border-[#e2ded5] shadow-2xs tracking-wider"
+                        className="px-4 py-2 bg-[#FDFCF0]/90 backdrop-blur-md text-[#0B422A] text-xs font-mono-custom font-semibold rounded-xl border border-[#DDD8CC] shadow-2xs tracking-wider"
                       >
                         {item}
                       </motion.span>
@@ -254,26 +254,21 @@ export function Services() {
                 {/* Dashed background track */}
                 <path
                   d={ARC_PATH}
-                  fill="none" stroke="#E2DED5" strokeWidth="3" strokeDasharray="6 6"
+                  fill="none" stroke="#DDD8CC" strokeWidth="3" strokeDasharray="6 6"
                 />
-                {/* Progress stroke, written directly from the scroll handler.
-                    No CSS transition — the value already updates once per frame,
-                    so easing it again only makes the arc lag behind the wheel.
-                    Gold rather than green: the arc crosses the olive nodes, and
-                    a green-on-green trail is invisible at the exact moment it's
-                    meant to show you where you are. */}
+                {/* Progress stroke: Unified with dark forest green (#0B422A) */}
                 <path
                   ref={arcRef}
                   d={ARC_PATH}
-                  fill="none" stroke="#B99A62" strokeWidth="3.5"
+                  fill="none" stroke="#0B422A" strokeWidth="3.5"
                   style={{ strokeDasharray: ARC_LENGTH, strokeDashoffset: ARC_LENGTH }}
                 />
                 {/* Continuous moving indicator head along the arc */}
-                <circle ref={headRef} cx={50} cy={150} r="5" fill="#B99A62" />
+                <circle ref={headRef} cx={50} cy={150} r="5" fill="#0B422A" />
               </svg>
 
               <div className="text-center z-10">
-                <span className="font-mono-custom text-xs font-bold text-emerald-700 uppercase tracking-widest block mb-1">
+                <span className="font-mono-custom text-xs font-bold text-[#0B422A] uppercase tracking-widest block mb-1">
                   PHASE
                 </span>
                 <AnimatePresence mode="wait">
@@ -283,12 +278,12 @@ export function Services() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.25 }}
-                    className="font-syne text-5xl md:text-6xl font-bold text-[#2A331F] block"
+                    className="font-syne text-5xl md:text-6xl font-bold text-[#0B422A] block"
                   >
                     0{activeIdx + 1}
                   </motion.span>
                 </AnimatePresence>
-                <span className="font-mono-custom text-xs text-zinc-500 block mt-1">
+                <span className="font-mono-custom text-xs text-[#6B7E76] block mt-1">
                   of 0{services.length}
                 </span>
               </div>
@@ -308,13 +303,11 @@ export function Services() {
                       left: `${(cx / 300) * 100}%`,
                       top: `${(cy / 300) * 100}%`
                     }}
-                    // `isPast` is a continuous function of scroll, so it is carried
-                    // on a data attribute the scroll handler writes and resolved in
-                    // CSS — keeping it out of the React render path.
+                    // Unified single color scheme (#0B422A) across nodes and line
                     className={`absolute -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center font-mono-custom font-bold text-sm transition-all duration-300 z-20 cursor-pointer ${
                       isActive
-                        ? "bg-[#2A331F] text-[#faf8f6] border-2 border-[#B99A62] shadow-xl scale-125"
-                        : "data-[past=true]:bg-emerald-600 data-[past=true]:text-white data-[past=true]:border data-[past=true]:border-emerald-500 data-[past=true]:shadow-md data-[past=true]:scale-105 data-[past=false]:bg-[#EEEBE4] data-[past=false]:text-zinc-600 data-[past=false]:border data-[past=false]:border-[#E2DED5] data-[past=false]:hover:bg-[#2A331F] data-[past=false]:hover:text-white"
+                        ? "bg-[#0B422A] text-[#FDFCF0] border-2 border-[#0B422A] ring-4 ring-[#0B422A]/15 shadow-xl scale-125"
+                        : "data-[past=true]:bg-[#0B422A] data-[past=true]:text-[#FDFCF0] data-[past=true]:border data-[past=true]:border-[#0B422A] data-[past=true]:shadow-md data-[past=true]:scale-105 data-[past=false]:bg-[#F0EFE6] data-[past=false]:text-[#6B7E76] data-[past=false]:border data-[past=false]:border-[#DDD8CC] data-[past=false]:hover:bg-[#0B422A] data-[past=false]:hover:text-[#FDFCF0]"
                     }`}
                   >
                     {item.stepNum}
