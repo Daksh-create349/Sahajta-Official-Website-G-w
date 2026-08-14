@@ -9,7 +9,7 @@ const cases = [
     title: "Stratapilot",
     subtitle: "Executive Assistant",
     impact: "14x Faster Strategy",
-    stack: ["GPT-4o", "LangGraph", "VectorDB"],
+    stack: ["GPT-4o", "AI Automation", "Smart Search"],
     highlights: ["Automated report analysis", "Live competitor modeling"],
     image: coverStratapilot
   },
@@ -17,7 +17,7 @@ const cases = [
     title: "HireAI",
     subtitle: "Assessment Engine",
     impact: "72% Screening Cut",
-    stack: ["Gemini 1.5", "n8n", "FastAPI"],
+    stack: ["Gemini 1.5", "Automation", "Custom API"],
     highlights: ["Live adaptive interviews", "Voice & code evaluation"],
     image: coverHireai
   },
@@ -25,7 +25,7 @@ const cases = [
     title: "Invoice AI Parser",
     subtitle: "Document Intelligence",
     impact: "$2.4M+ Auto-Processed",
-    stack: ["Llama-3-Vision", "Postgres"],
+    stack: ["Vision AI", "Postgres"],
     highlights: ["99.7% vision parsing accuracy", "Direct ledger auto-sync"],
     image: coverInvoice
   },
@@ -33,7 +33,7 @@ const cases = [
     title: "Blog Writing Agent",
     subtitle: "Autonomous Content",
     impact: "+140% Traffic Growth",
-    stack: ["CrewAI", "Claude 3.5", "WebSearch"],
+    stack: ["Multi-Step AI", "Claude 3.5", "WebSearch"],
     highlights: ["Multi-agent research & draft", "Automated code verification"],
     image: coverBlogagent
   }

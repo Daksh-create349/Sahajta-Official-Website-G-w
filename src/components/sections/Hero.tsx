@@ -28,7 +28,7 @@ export function Hero() {
             className="font-syne text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-[#121212] leading-[1.08] mb-8"
           >
             Get More Built <br className="hidden sm:inline" />
-            <span className="text-[#9AA89F] font-normal italic">in Weeks. Not Months.</span>
+            <span className="text-[#2D6E54] font-normal italic">in Weeks. Not Months.</span>
           </motion.h1>
 
           {/* Hero Subtitle */}

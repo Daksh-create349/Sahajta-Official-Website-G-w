@@ -13,21 +13,21 @@ const services = [
     stepNum: 1,
     title: "Custom AI Solutions",
     bgImg: service1Img,
-    deliverables: ["RAG PIPELINES", "AGENTS", "FINE-TUNING", "EVALS"]
+    deliverables: ["SMART SEARCH", "AI ASSISTANTS", "TRAINED FOR YOU", "QUALITY TESTED"]
   },
   {
     num: "02",
     stepNum: 2,
     title: "Add AI to Existing Business",
     bgImg: service2Img,
-    deliverables: ["INTEGRATIONS", "COPILOTS"]
+    deliverables: ["INTEGRATIONS", "AI HELPER"]
   },
   {
     num: "03",
     stepNum: 3,
     title: "Business Automation",
     bgImg: service3Img,
-    deliverables: ["WORKFLOWS", "OPS TOOLING"]
+    deliverables: ["WORKFLOWS", "SAVE YOUR TIME"]
   },
   {
     num: "04",

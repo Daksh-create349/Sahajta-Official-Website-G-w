@@ -15,7 +15,7 @@ const pillars = [
     num: "02",
     label: "100% Code & IP Ownership",
     headline: "Sovereign Ownership",
-    sub: "Complete source code, pipeline scripts & model weights handover."
+    sub: "We hand over all the code and files — it's yours forever, no strings attached."
   },
   {
     id: "integration",
@@ -27,9 +27,9 @@ const pillars = [
   {
     id: "harnesses",
     num: "04",
-    label: "Production Validation Harnesses",
-    headline: "Deterministic Reliability",
-    sub: "Custom evaluation harnesses monitoring precision before production."
+    label: "Tested Before It Goes Live",
+    headline: "Reliable Every Time",
+    sub: "We run thorough checks before anything goes live, so there are no surprises."
   }
 ];export function Overview() {
   const [activeIdx, setActiveIdx] = useState(0);

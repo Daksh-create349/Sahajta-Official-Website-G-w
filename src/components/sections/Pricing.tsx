@@ -23,8 +23,8 @@ const engagements: Engagement[] = [
     deliverables: [
       'Next.js, Auth, Database & AI Core',
       '24–48 hours to live environment',
-      'Agentic workflows & LLM pipelines',
-      'Fully typed, production-grade repo',
+      'AI built into your product',
+      'Clean, professional codebase',
       '100% code & IP handover',
     ],
   },
@@ -34,9 +34,9 @@ const engagements: Engagement[] = [
     price: '₹40K',
     priceNote: 'Starting from',
     summary:
-      'Autonomous n8n workflows, custom Telegram bots & document parsing agents.',
+      'We build bots and automations that handle your repetitive work – so you don\'t have to.',
     deliverables: [
-      'Custom agentic architecture',
+      'Built custom for your business',
       'Zero templates — custom logic',
       'Slack, Sheets & Notion integration',
       'Delivery in 48–72 hours',
@@ -49,11 +49,11 @@ const engagements: Engagement[] = [
     price: '₹75K',
     priceNote: 'Starting from',
     summary:
-      'Safe AI integration into existing stacks without breaking production.',
+      'We add AI to your existing product without breaking anything that already works.',
     deliverables: [
       'Existing stack architecture audit',
       'OpenAI, Gemini & Claude models',
-      'RAG, vector search & embeddings',
+      'Smart search & document reading',
       'Daily deployable milestones',
       'Zero vendor lock-in',
     ],
