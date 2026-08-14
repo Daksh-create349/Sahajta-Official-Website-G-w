@@ -62,8 +62,8 @@ function FlipCard({ project }: { project: typeof cases[0] }) {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
           
-          {/* Dark Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B2818]/92 via-[#0B422A]/40 to-transparent" />
+          {/* Clean Neutral Dark Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
 
           {/* Front Content Overlay */}
           <div className="relative z-10 p-6 md:p-8 h-full flex flex-col justify-between text-white">
@@ -74,7 +74,7 @@ function FlipCard({ project }: { project: typeof cases[0] }) {
                 {project.subtitle}
               </span>
 
-              <span className="text-xs font-mono-custom text-white/80 bg-[#0B2818]/45 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10">
+              <span className="text-xs font-mono-custom text-white/80 bg-black/40 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10">
                 ↻
               </span>
             </div>

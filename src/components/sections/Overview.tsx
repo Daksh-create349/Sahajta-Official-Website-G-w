@@ -49,18 +49,10 @@ const pillars = [
         >
           
           {/* Section Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-            <div>
-              <span className="font-mono-custom text-xs font-semibold text-[#2D6E54] uppercase tracking-widest block mb-2">
-                01 / PHILOSOPHY & SLA
-              </span>
-              <h2 className="font-syne text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#121212]">
-                Production-grade AI, <span className="font-normal italic text-[#6B7E76]">shipped in days.</span>
-              </h2>
-            </div>
-            <p className="text-[#6B7E76] max-w-sm text-sm font-normal leading-relaxed">
-              Zero fluff. Autonomous AI systems built, tested, and integrated into your infrastructure.
-            </p>
+          <div className="mb-12">
+            <h2 className="font-syne text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#121212]">
+              Production-grade AI, <span className="font-normal italic text-[#2D6E54]">shipped in days.</span>
+            </h2>
           </div>
 
           {/* 2-Column Minimal Showcase */}
@@ -119,8 +111,8 @@ const pillars = [
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
 
-                {/* Gradient Overlay for Clean Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B422A]/90 via-[#0B2818]/40 to-transparent" />
+                {/* Clean Neutral Gradient Overlay for Crisp Readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
 
                 {/* Minimalist Content Overlay */}
                 <div className="relative z-10 p-8 md:p-10 h-full flex flex-col justify-end text-white">

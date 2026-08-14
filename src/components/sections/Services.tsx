@@ -63,7 +63,6 @@ const PIN_QUERY = '(min-width: 1024px) and (min-height: 620px)';
 export function Services() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const arcRef = useRef<SVGPathElement>(null);
-  const headRef = useRef<SVGCircleElement>(null);
   const nodesRef = useRef<(HTMLButtonElement | null)[]>([]);
   const [activeIdx, setActiveIdx] = useState(0);
   const [isPinned, setIsPinned] = useState(
@@ -109,12 +108,6 @@ export function Services() {
 
       if (arcRef.current) {
         arcRef.current.style.strokeDashoffset = String(ARC_LENGTH - progress * ARC_LENGTH);
-      }
-
-      if (headRef.current) {
-        const rad = (-80 + progress * 160 - 90) * (Math.PI / 180);
-        headRef.current.setAttribute('cx', String(150 + ARC_RADIUS * Math.cos(rad)));
-        headRef.current.setAttribute('cy', String(150 + ARC_RADIUS * Math.sin(rad)));
       }
 
       const idx = Math.max(
@@ -212,7 +205,7 @@ export function Services() {
                     alt={activeService.title}
                     className="w-full h-full object-cover object-center opacity-85 transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#F0EFE6]/90 via-[#F0EFE6]/50 to-[#0B422A]/10 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#F0EFE6]/90 via-[#F0EFE6]/50 to-transparent pointer-events-none" />
                 </div>
 
                 {/* Top Content */}
@@ -254,17 +247,15 @@ export function Services() {
                 {/* Dashed background track */}
                 <path
                   d={ARC_PATH}
-                  fill="none" stroke="#DDD8CC" strokeWidth="3" strokeDasharray="6 6"
+                  fill="none" stroke="#DDD8CC" strokeWidth="3" strokeDasharray="6 6" strokeLinecap="round"
                 />
-                {/* Progress stroke: Unified with dark forest green (#0B422A) */}
+                {/* Progress stroke: Smooth rounded continuous stroke */}
                 <path
                   ref={arcRef}
                   d={ARC_PATH}
-                  fill="none" stroke="#0B422A" strokeWidth="3.5"
+                  fill="none" stroke="#0B422A" strokeWidth="3.5" strokeLinecap="round"
                   style={{ strokeDasharray: ARC_LENGTH, strokeDashoffset: ARC_LENGTH }}
                 />
-                {/* Continuous moving indicator head along the arc */}
-                <circle ref={headRef} cx={50} cy={150} r="5" fill="#0B422A" />
               </svg>
 
               <div className="text-center z-10">
