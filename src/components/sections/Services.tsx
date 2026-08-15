@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback, type TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { scrollToTarget } from '@/lib/lenis';
 
@@ -42,22 +42,10 @@ const arcAngles = [-80, -25, 25, 80];
 
 const ARC_RADIUS = 100;
 const ARC_PATH = 'M 50 150 A 100 100 0 0 1 250 150';
-/** Half-circumference of the r=100 arc, so the dash covers it exactly. */
 const ARC_LENGTH = Math.PI * ARC_RADIUS;
 
-/**
- * How much page scroll (as a fraction of the viewport height) each phase gets
- * while the section is pinned. Higher = slower, more deliberate stepping.
- */
 const STEP_VH = 0.6;
-
-/**
- * Total wrapper height: one viewport for the pinned frame plus one step per
- * phase. The pin lasts exactly `services.length * STEP_VH` viewports.
- */
 const WRAPPER_VH = 100 + services.length * STEP_VH * 100;
-
-/** The pin only runs where the two-column layout fits in one viewport. */
 const PIN_QUERY = '(min-width: 1024px) and (min-height: 620px)';
 
 export function Services() {
@@ -69,6 +57,24 @@ export function Services() {
     () => typeof window !== 'undefined' && window.matchMedia(PIN_QUERY).matches
   );
 
+  // Touch gesture support for mobile swiping
+  const touchStartX = useRef<number | null>(null);
+
+  const updateArcVisuals = useCallback((progress: number, targetIdx: number) => {
+    if (arcRef.current) {
+      const offset = ARC_LENGTH - progress * ARC_LENGTH;
+      arcRef.current.style.strokeDashoffset = String(offset);
+    }
+
+    nodesRef.current.forEach((node, i) => {
+      if (node) {
+        node.dataset.past = progress >= i / (services.length - 1) - 0.02 ? 'true' : 'false';
+      }
+    });
+
+    setActiveIdx((prev) => (prev === targetIdx ? prev : targetIdx));
+  }, []);
+
   useEffect(() => {
     const mq = window.matchMedia(PIN_QUERY);
     const sync = () => setIsPinned(mq.matches);
@@ -77,20 +83,17 @@ export function Services() {
     return () => mq.removeEventListener('change', sync);
   }, []);
 
-  // While pinned, the arc stroke and active phase are derived continuously from
-  // how far the page has scrolled into the wrapper.
-  //
-  // The continuous parts (stroke, indicator head, node "past" state) are written
-  // straight to the DOM rather than held in React state. A setState per scroll
-  // frame would re-render this whole subtree — which contains a multi-megabyte
-  // background image and an AnimatePresence pair — 60+ times a second. Only
-  // `activeIdx` goes through React, and that changes 4 times across the pin.
+  // Sync arc stroke and node states whenever activeIdx changes (mobile & desktop)
+  useEffect(() => {
+    const progress = activeIdx / (services.length - 1);
+    updateArcVisuals(progress, activeIdx);
+  }, [activeIdx, updateArcVisuals]);
+
+  // Desktop pinned scroll handler
   useEffect(() => {
     if (!isPinned) return;
 
     let frame = 0;
-    // Cached so the scroll path never reads getBoundingClientRect(), which would
-    // force a synchronous layout on every frame.
     let wrapperTop = 0;
     let maxScrollPx = 1;
 
@@ -103,23 +106,12 @@ export function Services() {
 
     const paint = () => {
       frame = 0;
-
       const progress = Math.max(0, Math.min(1, (window.scrollY - wrapperTop) / maxScrollPx));
-
-      if (arcRef.current) {
-        arcRef.current.style.strokeDashoffset = String(ARC_LENGTH - progress * ARC_LENGTH);
-      }
-
       const idx = Math.max(
         0,
         Math.min(services.length - 1, Math.round(progress * (services.length - 1)))
       );
-
-      nodesRef.current.forEach((node, i) => {
-        if (node) node.dataset.past = progress >= i / (services.length - 1) - 0.02 ? 'true' : 'false';
-      });
-
-      setActiveIdx((prev) => (prev === idx ? prev : idx));
+      updateArcVisuals(progress, idx);
     };
 
     const onScroll = () => {
@@ -141,11 +133,12 @@ export function Services() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
     };
-  }, [isPinned]);
+  }, [isPinned, updateArcVisuals]);
 
   const goToPhase = (idx: number) => {
     if (!isPinned) {
-      setActiveIdx(idx);
+      const progress = idx / (services.length - 1);
+      updateArcVisuals(progress, idx);
       return;
     }
 
@@ -158,6 +151,23 @@ export function Services() {
     scrollToTarget(wrapperTop + (idx / (services.length - 1)) * maxScrollPx);
   };
 
+  const handleTouchStart = (e: TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+
+    if (diff > 45 && activeIdx < services.length - 1) {
+      goToPhase(activeIdx + 1);
+    } else if (diff < -45 && activeIdx > 0) {
+      goToPhase(activeIdx - 1);
+    }
+    touchStartX.current = null;
+  };
+
   const activeService = services[activeIdx];
 
   return (
@@ -167,7 +177,7 @@ export function Services() {
       className="relative bg-[#FDFCF0] border-t border-[#DDD8CC]"
       style={isPinned ? { height: `${WRAPPER_VH}vh` } : undefined}
     >
-      {/* Pinned frame: stays put while the phases advance, then releases. */}
+      {/* Pinned frame on desktop, clean spaced container on mobile */}
       <div
         className={
           isPinned
@@ -175,146 +185,168 @@ export function Services() {
             : 'py-12 sm:py-16 md:py-20 lg:py-24'
         }
       >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
 
-        {/* Header */}
-        <div className="mb-8 sm:mb-10 md:mb-12">
-          <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
-            Your Fractional CTO and Build Team in One
-          </h2>
-        </div>
-
-        {/* 2-Column Showcase */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
-
-          {/* Left: Big Service Card with Rich Background Image */}
-          <div className="lg:col-span-7">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeService.num}
-                initial={{ opacity: 0, x: -20, scale: 0.98 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: 20, scale: 0.98 }}
-                transition={{ duration: 0.22, ease: "easeOut" }}
-                className="relative bg-[#F0EFE6] p-5 sm:p-6 md:p-8 lg:p-12 rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-[#DDD8CC] shadow-md min-h-[320px] sm:min-h-[360px] md:min-h-[400px] lg:min-h-[420px] flex flex-col justify-between overflow-hidden group touch-manipulation"
-              >
-                {/* Background Image Layer */}
-                <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
-                  <img
-                    src={activeService.bgImg}
-                    alt={activeService.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover object-center opacity-85 transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#F0EFE6]/90 via-[#F0EFE6]/50 to-transparent pointer-events-none" />
-                </div>
-
-                {/* Top Content */}
-                <div className="relative z-10">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#FDFCF0]/90 backdrop-blur-md flex items-center justify-center font-mono-custom font-bold text-[#0B422A] text-xs sm:text-sm border border-[#DDD8CC] shadow-xs mb-6 sm:mb-8">
-                    {activeService.num}
-                  </div>
-
-                  <h3 className="font-syne font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#0B422A] tracking-tight leading-tight">
-                    {activeService.title}
-                  </h3>
-                </div>
-
-                {/* Bottom Tags */}
-                <div className="relative z-10 pt-6 sm:pt-8 border-t border-[#0B422A]/10">
-                  <div className="flex flex-wrap gap-2 sm:gap-3">
-                    {activeService.deliverables.map((item, i) => (
-                      <motion.span
-                        key={i}
-                        initial={{ opacity: 0, scale: 0.92 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: i * 0.04, duration: 0.18 }}
-                        className="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FDFCF0]/90 backdrop-blur-md text-[#0B422A] text-[10px] sm:text-xs font-mono-custom font-semibold rounded-lg sm:rounded-xl border border-[#DDD8CC] shadow-2xs tracking-wider"
-                      >
-                        {item}
-                      </motion.span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+          {/* Header */}
+          <div className="mb-8 sm:mb-10 md:mb-12">
+            <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
+              Your Fractional CTO and Build Team in One
+            </h2>
           </div>
 
-          {/* Right: Arc Dial with Continuous Scroll Progress */}
-          <div className="lg:col-span-5 flex items-center justify-center relative py-4 sm:py-6">
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 flex items-center justify-center">
+          {/* 2-Column Showcase */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
 
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 300">
-                {/* Dashed background track */}
-                <path
-                  d={ARC_PATH}
-                  fill="none" stroke="#DDD8CC" strokeWidth="3" strokeDasharray="6 6" strokeLinecap="round"
-                />
-                {/* Progress stroke: Smooth rounded continuous stroke */}
-                <path
-                  ref={arcRef}
-                  d={ARC_PATH}
-                  fill="none" stroke="#0B422A" strokeWidth="3.5" strokeLinecap="round"
-                  style={{ strokeDasharray: ARC_LENGTH, strokeDashoffset: ARC_LENGTH }}
-                />
-              </svg>
+            {/* Left: Service Card with Rich Background Image & Swipe on Mobile */}
+            <div
+              className="lg:col-span-7"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeService.num}
+                  initial={{ opacity: 0, x: -20, scale: 0.98 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 20, scale: 0.98 }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
+                  className="relative bg-[#F0EFE6] p-5 sm:p-6 md:p-8 lg:p-12 rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-[#DDD8CC] shadow-md min-h-[320px] sm:min-h-[360px] md:min-h-[400px] lg:min-h-[420px] flex flex-col justify-between overflow-hidden group touch-manipulation"
+                >
+                  {/* Background Image Layer */}
+                  <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+                    <img
+                      src={activeService.bgImg}
+                      alt={activeService.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover object-center opacity-85 transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[#F0EFE6]/90 via-[#F0EFE6]/50 to-transparent pointer-events-none" />
+                  </div>
 
-              <div className="text-center z-10">
-                <span className="font-mono-custom text-[10px] sm:text-xs font-bold text-[#0B422A] uppercase tracking-widest block mb-1">
-                  PHASE
-                </span>
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={activeIdx}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.25 }}
-                    className="font-syne text-4xl sm:text-5xl md:text-6xl font-bold text-[#0B422A] block"
-                  >
-                    0{activeIdx + 1}
-                  </motion.span>
-                </AnimatePresence>
-                <span className="font-mono-custom text-[10px] sm:text-xs text-[#6B7E76] block mt-1">
-                  of 0{services.length}
-                </span>
-              </div>
+                  {/* Top Content */}
+                  <div className="relative z-10">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#FDFCF0]/90 backdrop-blur-md flex items-center justify-center font-mono-custom font-bold text-[#0B422A] text-xs sm:text-sm border border-[#DDD8CC] shadow-xs mb-6 sm:mb-8">
+                      {activeService.num}
+                    </div>
 
-              {services.map((item, idx) => {
-                const radAngle = (arcAngles[idx] - 90) * (Math.PI / 180);
-                const cx = 150 + ARC_RADIUS * Math.cos(radAngle);
-                const cy = 150 + ARC_RADIUS * Math.sin(radAngle);
-                const isActive = activeIdx === idx;
+                    <h3 className="font-syne font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#0B422A] tracking-tight leading-tight">
+                      {activeService.title}
+                    </h3>
+                  </div>
 
-                return (
-                  <button
-                    key={item.num}
-                    ref={(node) => { nodesRef.current[idx] = node; }}
-                    onClick={() => goToPhase(idx)}
-                    style={{
-                      left: `${(cx / 300) * 100}%`,
-                      top: `${(cy / 300) * 100}%`
-                    }}
-                    // Unified single color scheme (#0B422A) across nodes and line
-                    className={`absolute -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-mono-custom font-bold text-xs sm:text-sm transition-all duration-300 z-20 cursor-pointer touch-manipulation ${
-                      isActive
-                        ? "bg-[#0B422A] text-[#FDFCF0] border-2 border-[#0B422A] ring-4 ring-[#0B422A]/15 shadow-xl scale-125"
-                        : "data-[past=true]:bg-[#0B422A] data-[past=true]:text-[#FDFCF0] data-[past=true]:border data-[past=true]:border-[#0B422A] data-[past=true]:shadow-md data-[past=true]:scale-105 data-[past=false]:bg-[#F0EFE6] data-[past=false]:text-[#6B7E76] data-[past=false]:border data-[past=false]:border-[#DDD8CC] data-[past=false]:hover:bg-[#0B422A] data-[past=false]:hover:text-[#FDFCF0]"
-                    }`}
-                  >
-                    {item.stepNum}
-                  </button>
-                );
-              })}
-
+                  {/* Bottom Tags */}
+                  <div className="relative z-10 pt-6 sm:pt-8 border-t border-[#0B422A]/10">
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                      {activeService.deliverables.map((item, i) => (
+                        <motion.span
+                          key={i}
+                          initial={{ opacity: 0, scale: 0.92 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: i * 0.04, duration: 0.18 }}
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FDFCF0]/90 backdrop-blur-md text-[#0B422A] text-[10px] sm:text-xs font-mono-custom font-semibold rounded-lg sm:rounded-xl border border-[#DDD8CC] shadow-2xs tracking-wider"
+                        >
+                          {item}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
+
+            {/* Right: Arc Dial with Connected Stroke & Interactive Nodes */}
+            <div className="lg:col-span-5 flex items-center justify-center relative py-4 sm:py-6">
+              <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 flex items-center justify-center">
+
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 300">
+                  {/* Dashed background track */}
+                  <path
+                    d={ARC_PATH}
+                    fill="none"
+                    stroke="#DDD8CC"
+                    strokeWidth="3"
+                    strokeDasharray="6 6"
+                    strokeLinecap="round"
+                  />
+                  {/* Progress stroke: Smooth rounded continuous stroke (animated on mobile and desktop) */}
+                  <path
+                    ref={arcRef}
+                    d={ARC_PATH}
+                    fill="none"
+                    stroke="#0B422A"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    style={{
+                      strokeDasharray: ARC_LENGTH,
+                      strokeDashoffset: ARC_LENGTH - (activeIdx / (services.length - 1)) * ARC_LENGTH,
+                      transition: isPinned ? 'none' : 'stroke-dashoffset 0.35s ease-out',
+                    }}
+                  />
+                </svg>
+
+                {/* Center Phase Indicator */}
+                <div className="text-center z-10 select-none pointer-events-none">
+                  <span className="font-mono-custom text-[10px] sm:text-xs font-bold text-[#0B422A] uppercase tracking-widest block mb-1">
+                    PHASE
+                  </span>
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={activeIdx}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.25 }}
+                      className="font-syne text-4xl sm:text-5xl md:text-6xl font-bold text-[#0B422A] block"
+                    >
+                      0{activeIdx + 1}
+                    </motion.span>
+                  </AnimatePresence>
+                  <span className="font-mono-custom text-[10px] sm:text-xs text-[#6B7E76] block mt-1">
+                    of 0{services.length}
+                  </span>
+                </div>
+
+                {/* Interactive Node Buttons on the Arc */}
+                {services.map((item, idx) => {
+                  const radAngle = (arcAngles[idx] - 90) * (Math.PI / 180);
+                  const cx = 150 + ARC_RADIUS * Math.cos(radAngle);
+                  const cy = 150 + ARC_RADIUS * Math.sin(radAngle);
+                  const isActive = activeIdx === idx;
+                  const isPast = activeIdx >= idx;
+
+                  return (
+                    <button
+                      key={item.num}
+                      ref={(node) => { nodesRef.current[idx] = node; }}
+                      onClick={() => goToPhase(idx)}
+                      data-past={isPast ? 'true' : 'false'}
+                      style={{
+                        left: `${(cx / 300) * 100}%`,
+                        top: `${(cy / 300) * 100}%`
+                      }}
+                      className={`absolute -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-mono-custom font-bold text-xs sm:text-sm transition-all duration-300 z-20 cursor-pointer touch-manipulation ${
+                        isActive
+                          ? "bg-[#0B422A] text-[#FDFCF0] border-2 border-[#0B422A] ring-4 ring-[#0B422A]/15 shadow-xl scale-125"
+                          : isPast
+                          ? "bg-[#0B422A] text-[#FDFCF0] border border-[#0B422A] shadow-md scale-105"
+                          : "bg-[#F0EFE6] text-[#6B7E76] border border-[#DDD8CC] hover:bg-[#0B422A] hover:text-[#FDFCF0]"
+                      }`}
+                    >
+                      {item.stepNum}
+                    </button>
+                  );
+                })}
+
+              </div>
+            </div>
+
           </div>
 
         </div>
-
-      </div>
       </div>
     </section>
   );
 }
+
+export default Services;

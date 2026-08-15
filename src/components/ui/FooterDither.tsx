@@ -1,11 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import Dither from '@/components/ui/Dither';
+import { isMobileDevice } from '@/lib/device';
 
 export function FooterDither() {
   const hostRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [tabActive, setTabActive] = useState(true);
   const [reduced, setReduced] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    setIsMobile(isMobileDevice());
+    const onResize = () => setIsMobile(isMobileDevice());
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   useEffect(() => {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -16,6 +25,7 @@ export function FooterDither() {
   }, []);
 
   useEffect(() => {
+    if (isMobile) return;
     const el = hostRef.current;
     if (!el) return;
     if (typeof IntersectionObserver === 'undefined') {
@@ -30,7 +40,7 @@ export function FooterDither() {
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     const sync = () => setTabActive(!document.hidden);
@@ -38,11 +48,16 @@ export function FooterDither() {
     return () => document.removeEventListener('visibilitychange', sync);
   }, []);
 
+  // Completely omitted on mobile for max scroll speed and 0 GPU overhead
+  if (isMobile) {
+    return null;
+  }
+
   return (
     <div
       ref={hostRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-t-[2.5rem] md:rounded-t-[3.5rem]"
+      className="hidden md:block pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-t-[2.5rem] md:rounded-t-[3.5rem]"
     >
       <div
         className="absolute inset-0 opacity-0 transition-opacity duration-700 ease-out data-[ready=true]:opacity-[0.45]"
