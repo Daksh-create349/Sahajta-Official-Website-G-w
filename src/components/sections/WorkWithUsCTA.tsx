@@ -94,7 +94,7 @@ export function WorkWithUsCTA() {
                   <button
                     onClick={() => setSubmitted(false)}
                     aria-label="Send another message"
-                    className="mt-8 text-xs font-mono-custom text-[#A67F2E] underline underline-offset-4 hover:text-[#0B422A] transition-colors"
+                    className="mt-8 text-xs font-mono-custom text-[#A67F2E] underline underline-offset-4 hover:text-[#0B422A] transition-colors cursor-pointer"
                   >
                     Send another message
                   </button>
@@ -102,54 +102,67 @@ export function WorkWithUsCTA() {
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col justify-between h-full space-y-5">
                   <div className="space-y-4">
-                    {/* Top Row: Email & First Name */}
+                    
+                    {/* Row 1: Your Name * & Email * */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Your Name * */}
                       <div>
-                        <label htmlFor="email" className="sr-only">Email Address</label>
+                        <label htmlFor="yourName" className="block text-xs font-semibold text-[#0B422A] mb-1.5 font-syne">
+                          Your Name <span className="text-[#A67F2E]">*</span>
+                        </label>
+                        <input
+                          id="yourName"
+                          type="text"
+                          required
+                          placeholder="Pranamya Jain"
+                          aria-label="Your Name"
+                          className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs"
+                        />
+                      </div>
+
+                      {/* Email * */}
+                      <div>
+                        <label htmlFor="email" className="block text-xs font-semibold text-[#0B422A] mb-1.5 font-syne">
+                          Email <span className="text-[#A67F2E]">*</span>
+                        </label>
                         <input
                           id="email"
                           type="email"
                           required
-                          placeholder="Email"
-                          aria-label="Email Address"
-                          className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3.5 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-none focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="firstName" className="sr-only">First Name</label>
-                        <input
-                          id="firstName"
-                          type="text"
-                          required
-                          placeholder="First Name"
-                          aria-label="First Name"
-                          className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3.5 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-none focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs"
+                          placeholder="you@startup.com"
+                          aria-label="Email"
+                          className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs"
                         />
                       </div>
                     </div>
 
-                    {/* Middle Row: Company Name */}
+                    {/* Row 2: Contact Number * */}
                     <div>
-                      <label htmlFor="companyName" className="sr-only">Company Name</label>
+                      <label htmlFor="contactNumber" className="block text-xs font-semibold text-[#0B422A] mb-1.5 font-syne">
+                        Contact Number <span className="text-[#A67F2E]">*</span>
+                      </label>
                       <input
-                        id="companyName"
-                        type="text"
-                        placeholder="Company Name"
-                        aria-label="Company Name"
-                        className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3.5 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-none focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs"
+                        id="contactNumber"
+                        type="tel"
+                        required
+                        placeholder="+91 98765 43210"
+                        aria-label="Contact Number"
+                        className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs"
                       />
                     </div>
 
-                    {/* Textarea: How can we help? */}
+                    {/* Row 3: What are you building? * */}
                     <div>
-                      <label htmlFor="helpMessage" className="sr-only">How can we help?</label>
+                      <label htmlFor="whatBuilding" className="block text-xs font-semibold text-[#0B422A] mb-1.5 font-syne">
+                        What are you building? <span className="text-[#A67F2E]">*</span>
+                      </label>
                       <textarea
-                        id="helpMessage"
-                        rows={5}
+                        id="whatBuilding"
+                        rows={4}
                         required
-                        placeholder="How can we help?"
-                        aria-label="How can we help?"
-                        className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3.5 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-none focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs resize-none"
+                        placeholder="Tell us about your product, timeline, and goals..."
+                        aria-label="What are you building?"
+                        className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs resize-none leading-relaxed"
                       />
                     </div>
                   </div>

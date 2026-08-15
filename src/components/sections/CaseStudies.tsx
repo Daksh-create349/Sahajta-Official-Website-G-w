@@ -51,41 +51,54 @@ const cases = [
   }
 ];
 
-function FlipCard({ project }: { project: typeof cases[0] }) {
-  const [isFlipped, setIsFlipped] = useState(false);
+interface FlipCardProps {
+  project: typeof cases[0];
+  isFlipped: boolean;
+  onToggle: () => void;
+}
+
+function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      onClick={() => setIsFlipped((prev) => !prev)}
-      className="group [perspective:1200px] cursor-pointer h-[460px] md:h-[490px] w-full select-none"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onToggle}
+      className="group cursor-pointer h-[420px] sm:h-[460px] md:h-[490px] w-full select-none touch-manipulation"
+      style={{ perspective: '1200px' }}
     >
-      {/* 3D Flipping Container with GPU layer promotion */}
+      {/* 3D Flipping Container — hover on desktop, tap on mobile */}
       <div
-        style={{ willChange: 'transform' }}
-        className={`relative w-full h-full rounded-[2.2rem] transition-transform duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] [transform-style:preserve-3d] transform-gpu ${
-          isFlipped ? '[transform:rotateY(180deg)]' : 'group-hover:[transform:rotateY(180deg)]'
-        }`}
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          transformStyle: 'preserve-3d',
+          transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1)',
+          transform: (isHovered || isFlipped) ? 'rotateY(180deg)' : 'rotateY(0deg)',
+        }}
       >
-        
+
         {/* ================= FRONT SIDE ================= */}
-        <div className="absolute inset-0 w-full h-full rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] p-8 md:p-10 flex flex-col justify-center items-center text-center [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-colors group-hover:border-[#0B422A]/40 shadow-xs">
+        <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] p-6 sm:p-8 md:p-10 flex flex-col justify-center items-center text-center [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-colors hover:border-[#0B422A]/40 shadow-xs">
           {/* Center Content: Giant Monogram Index & Bold Title */}
           <div className="relative z-10 flex flex-col items-center pointer-events-none">
-            <span className="font-syne text-7xl md:text-8xl font-bold text-[#DDD8CC]/80 leading-none select-none tracking-tighter block mb-2 transition-transform duration-500 group-hover:scale-105">
+            <span className="font-syne text-6xl sm:text-7xl md:text-8xl font-bold text-[#DDD8CC]/80 leading-none select-none tracking-tighter block mb-2 transition-transform duration-500 group-hover:scale-105">
               {project.num}
             </span>
-            <h3 className="font-syne font-bold text-2xl md:text-3xl text-[#121212] tracking-tight leading-tight">
+            <h3 className="font-syne font-bold text-xl sm:text-2xl md:text-3xl text-[#121212] tracking-tight leading-tight">
               {project.title}
             </h3>
           </div>
         </div>
 
         {/* ================= BACK SIDE ================= */}
-        <div className="absolute inset-0 w-full h-full rounded-[2.2rem] bg-[#0B422A] text-[#FDFCF0] border border-[#0B422A] p-7 md:p-8 flex flex-col justify-between [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)_translateZ(1px)] shadow-md">
+        <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#0B422A] text-[#FDFCF0] border border-[#0B422A] p-5 sm:p-6 md:p-7 lg:p-8 flex flex-col justify-between [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)_translateZ(1px)] shadow-md">
           {/* Top Header */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="font-mono-custom text-[10px] font-semibold text-[#D9B75B] uppercase tracking-[0.2em]">
+              <span className="font-mono-custom text-[9px] sm:text-[10px] font-semibold text-[#D9B75B] uppercase tracking-[0.2em]">
                 {project.subtitle}
               </span>
               <span className="font-mono-custom text-xs text-white/50">
@@ -93,20 +106,20 @@ function FlipCard({ project }: { project: typeof cases[0] }) {
               </span>
             </div>
 
-            <h3 className="font-syne font-bold text-xl md:text-2xl text-white tracking-tight leading-snug">
+            <h3 className="font-syne font-bold text-lg sm:text-xl md:text-2xl text-white tracking-tight leading-snug">
               {project.title}
             </h3>
 
-            <div className="mt-2 text-xs font-mono-custom text-[#D9B75B] font-semibold uppercase tracking-wider">
+            <div className="mt-2 text-[10px] sm:text-xs font-mono-custom text-[#D9B75B] font-semibold uppercase tracking-wider">
               {project.impact}
             </div>
           </div>
 
           {/* 3-Step Execution Highlights */}
-          <div className="space-y-3.5 my-auto py-2">
+          <div className="space-y-2.5 sm:space-y-3 md:space-y-3.5 my-auto py-2">
             {project.highlights.map((highlight, idx) => (
-              <div key={idx} className="flex items-start gap-3 text-xs text-[#EBF2EE] font-normal leading-relaxed">
-                <span className="font-mono-custom text-[11px] font-bold text-[#D9B75B] select-none pt-0.5">
+              <div key={idx} className="flex items-start gap-2 sm:gap-3 text-[11px] sm:text-xs text-[#EBF2EE] font-normal leading-relaxed">
+                <span className="font-mono-custom text-[10px] sm:text-[11px] font-bold text-[#D9B75B] select-none pt-0.5">
                   0{idx + 1}
                 </span>
                 <span>{highlight}</span>
@@ -115,12 +128,12 @@ function FlipCard({ project }: { project: typeof cases[0] }) {
           </div>
 
           {/* Bottom Tech Metadata & CTA */}
-          <div className="pt-4 border-t border-white/15 flex items-center justify-between gap-3">
+          <div className="pt-3 sm:pt-4 border-t border-white/15 flex items-center justify-between gap-3">
             <div className="flex flex-wrap gap-x-2 gap-y-1">
               {project.stack.map((tech, idx) => (
                 <span
                   key={idx}
-                  className="font-mono-custom text-[10px] text-white/70 tracking-wide"
+                  className="font-mono-custom text-[9px] sm:text-[10px] text-white/70 tracking-wide"
                 >
                   {tech}{idx < project.stack.length - 1 ? ' · ' : ''}
                 </span>
@@ -129,7 +142,7 @@ function FlipCard({ project }: { project: typeof cases[0] }) {
 
             <a
               href="#contact"
-              className="font-syne text-xs font-bold text-[#D9B75B] hover:text-white transition-colors flex items-center gap-1 shrink-0"
+              className="font-syne text-xs font-bold text-[#D9B75B] hover:text-white transition-colors flex items-center gap-1 shrink-0 touch-manipulation"
             >
               <span>Build</span>
               <span>↗</span>
@@ -143,21 +156,32 @@ function FlipCard({ project }: { project: typeof cases[0] }) {
 }
 
 export function CaseStudies() {
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+
+  const handleToggle = (index: number) => {
+    setFlippedIndex((prev) => (prev === index ? null : index));
+  };
+
   return (
-    <section id="case-studies" className="py-24 bg-[#FDFCF0] border-t border-[#DDD8CC]">
-      <div className="max-w-7xl mx-auto px-6">
-        
+    <section id="case-studies" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#FDFCF0] border-t border-[#DDD8CC]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+
         {/* Header */}
-        <div className="mb-16">
-          <h2 className="font-syne text-4xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
+        <div className="mb-10 sm:mb-12 md:mb-16">
+          <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
             AI Case Studies
           </h2>
         </div>
 
         {/* Single Row 4-Column Rectangular Cards Grid (||||) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
           {cases.map((project, idx) => (
-            <FlipCard key={idx} project={project} />
+            <FlipCard
+              key={idx}
+              project={project}
+              isFlipped={flippedIndex === idx}
+              onToggle={() => handleToggle(idx)}
+            />
           ))}
         </div>
 

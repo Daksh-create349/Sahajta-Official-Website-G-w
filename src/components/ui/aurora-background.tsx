@@ -16,6 +16,15 @@ export const AuroraBackground = ({
   const auroraRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
   const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [shouldAnimate, setShouldAnimate] = useState(true);
+
+  useEffect(() => {
+    // Only disable on very low-power devices, not all mobiles
+    const cores = navigator.hardwareConcurrency;
+    const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+    const isVeryLowPower = (typeof cores === 'number' && cores <= 2) || (typeof memory === 'number' && memory <= 2);
+    setShouldAnimate(!isVeryLowPower);
+  }, []);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -34,21 +43,25 @@ export const AuroraBackground = ({
   // The gradient animation triggers a full repaint of the blurred layer every
   // frame — pausing it during scroll frees that entire cost instantly.
   const pauseAurora = useCallback(() => {
+    if (!shouldAnimate) return;
     const el = auroraRef.current;
     if (!el) return;
     el.style.animationPlayState = 'paused';
     // Also pause the ::after pseudo-element via a CSS class
     el.classList.add('aurora-paused');
-  }, []);
+  }, [shouldAnimate]);
 
   const resumeAurora = useCallback(() => {
+    if (!shouldAnimate) return;
     const el = auroraRef.current;
     if (!el) return;
     el.style.animationPlayState = 'running';
     el.classList.remove('aurora-paused');
-  }, []);
+  }, [shouldAnimate]);
 
   useEffect(() => {
+    if (!shouldAnimate) return;
+
     const onScroll = () => {
       pauseAurora();
       if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current);
@@ -60,7 +73,7 @@ export const AuroraBackground = ({
       window.removeEventListener('scroll', onScroll);
       if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current);
     };
-  }, [pauseAurora, resumeAurora]);
+  }, [pauseAurora, resumeAurora, shouldAnimate]);
 
   return (
     <div
@@ -86,15 +99,15 @@ export const AuroraBackground = ({
           dark:[background-image:var(--dark-gradient),var(--aurora)]
           [background-size:300%,_200%]
           [background-position:50%_50%,50%_50%]
-          filter blur-[14px] opacity-35
-          after:content-[""] after:absolute after:inset-0 after:[background-image:var(--white-gradient),var(--aurora)]
-          after:dark:[background-image:var(--dark-gradient),var(--aurora)]
-          after:[background-size:200%,_100%]
-          after:mix-blend-difference
           pointer-events-none
           absolute -inset-[10px]
           motion-reduce:after:animate-none`,
-            isVisible && "after:animate-aurora",
+            "filter blur-[14px] opacity-35",
+            "after:content-[''] after:absolute after:inset-0 after:[background-image:var(--white-gradient),var(--aurora)]",
+            "after:dark:[background-image:var(--dark-gradient),var(--aurora)]",
+            "after:[background-size:200%,_100%]",
+            "after:mix-blend-difference",
+            isVisible && shouldAnimate && "after:animate-aurora",
             showRadialGradient &&
               `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
           )}

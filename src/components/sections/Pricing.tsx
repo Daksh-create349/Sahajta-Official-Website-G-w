@@ -116,7 +116,7 @@ function Row({
         onClick={onToggle}
         aria-expanded={isOpen}
         aria-controls={panelId}
-        className="relative flex w-full cursor-pointer items-center gap-5 px-6 py-7 text-left focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-zinc-400 md:gap-8 md:px-12 md:py-8"
+        className="relative flex w-full cursor-pointer items-center gap-3 sm:gap-4 md:gap-5 lg:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 py-5 sm:py-6 md:py-7 lg:py-8 text-left focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-zinc-400 touch-manipulation"
       >
         <span
           className={`font-mono-custom hidden text-xs font-bold tabular-nums transition-colors duration-400 sm:block ${
@@ -128,7 +128,7 @@ function Row({
 
         <span className="min-w-0 flex-1">
           <span
-            className={`font-syne block truncate text-xl font-bold tracking-tight transition-colors duration-400 md:text-[1.7rem] ${
+            className={`font-syne block truncate text-lg sm:text-xl md:text-[1.7rem] font-bold tracking-tight transition-colors duration-400 ${
               isOpen ? 'text-[#FDFCF0]' : 'text-[#121212]'
             }`}
           >
@@ -136,7 +136,7 @@ function Row({
           </span>
           {item.flag && (
             <span
-              className={`font-mono-custom mt-1.5 inline-block rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] transition-colors duration-400 ${
+              className={`font-mono-custom mt-1 sm:mt-1.5 inline-block rounded-full border px-2 py-0.5 sm:px-2.5 sm:py-0.5 text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.16em] transition-colors duration-400 ${
                 isOpen
                   ? 'border-white/20 bg-white/10 text-[#EBF2EE]'
                   : 'border-[#DDD8CC] bg-[#F0EFE6] text-[#6B7E76]'
@@ -149,14 +149,14 @@ function Row({
 
         <span className="shrink-0 text-right">
           <span
-            className={`font-mono-custom block text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors duration-400 ${
+            className={`font-mono-custom block text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors duration-400 ${
               isOpen ? 'text-[#9AA89F]' : 'text-[#6B7E76]'
             }`}
           >
             {item.priceNote}
           </span>
           <span
-            className={`font-syne block text-[1.9rem] font-bold leading-none tracking-tight tabular-nums transition-colors duration-400 md:text-[2.6rem] ${
+            className={`font-syne block text-[1.5rem] sm:text-[1.9rem] md:text-[2.6rem] font-bold leading-none tracking-tight tabular-nums transition-colors duration-400 ${
               isOpen ? 'text-[#FDFCF0]' : 'text-[#121212]'
             }`}
           >
@@ -165,7 +165,7 @@ function Row({
         </span>
 
         <span
-          className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border transition-all duration-500 ${
+          className={`grid h-8 w-8 sm:h-9 sm:w-9 shrink-0 place-items-center rounded-full border transition-all duration-500 ${
             isOpen
               ? 'rotate-180 border-white/20 bg-white/10 text-white'
               : 'border-[#DDD8CC] bg-[#FDFCF0] text-[#6B7E76]'
@@ -198,20 +198,20 @@ function Row({
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="relative overflow-hidden"
           >
-            <div className="grid grid-cols-1 gap-8 px-6 pb-9 md:grid-cols-12 md:gap-10 md:px-12 md:pb-11 md:pl-[4.75rem]">
-              <p className="font-syne text-base font-normal leading-relaxed text-[#EBF2EE] md:col-span-5 md:text-lg">
+            <div className="grid grid-cols-1 gap-6 sm:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 pb-7 sm:pb-9 md:pb-11 md:grid-cols-12 md:gap-10 md:pl-[3.5rem] lg:pl-[4.75rem]">
+              <p className="font-syne text-sm sm:text-base md:text-lg font-normal leading-relaxed text-[#EBF2EE] md:col-span-5">
                 {item.summary}
               </p>
 
               <div className="md:col-span-7">
-                <ul className="grid grid-cols-1 gap-x-8 gap-y-2.5 sm:grid-cols-2">
+                <ul className="grid grid-cols-1 gap-x-6 sm:gap-x-8 gap-y-2 sm:gap-y-2.5 sm:grid-cols-2">
                   {item.deliverables.map((d) => (
-                    <li key={d} className="flex items-start gap-3">
+                    <li key={d} className="flex items-start gap-2 sm:gap-3">
                       <span
                         aria-hidden="true"
-                        className="mt-[0.55rem] h-px w-3 shrink-0 bg-[#9AA89F]"
+                        className="mt-[0.55rem] h-px w-2.5 sm:w-3 shrink-0 bg-[#9AA89F]"
                       />
-                      <span className="text-[13px] font-normal leading-snug text-[#9AA89F]">
+                      <span className="text-xs sm:text-[13px] font-normal leading-snug text-[#9AA89F]">
                         {d}
                       </span>
                     </li>
@@ -220,7 +220,7 @@ function Row({
 
                 <a
                   href="#contact"
-                  className="group/cta mt-7 inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#FDFCF0] px-6 py-3 font-syne text-xs font-medium tracking-tight text-[#0B422A] transition-colors duration-300 hover:bg-white hover:text-[#0B422A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  className="group/cta mt-5 sm:mt-6 md:mt-7 inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#FDFCF0] px-5 sm:px-6 py-2.5 sm:py-3 font-syne text-xs font-medium tracking-tight text-[#0B422A] transition-colors duration-300 hover:bg-white hover:text-[#0B422A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white touch-manipulation"
                 >
                   <span>Start a project</span>
                   <ArrowGlyph className="h-3 w-3 transition-transform duration-300 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
@@ -239,18 +239,18 @@ export function Pricing() {
   const [openLine, setOpenLine] = useState<string | null>('01');
 
   return (
-    <section id="pricing" className="border-t border-[#DDD8CC] bg-[#FDFCF0] py-24">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id="pricing" className="border-t border-[#DDD8CC] bg-[#FDFCF0] py-12 sm:py-16 md:py-20 lg:py-24">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* ── Header ─────────────────────────────────────────── */}
-        <div className="mb-12 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        <div className="mb-8 sm:mb-10 md:mb-12 flex flex-col justify-between gap-6 sm:gap-8 md:flex-row md:items-end">
           <div>
-            <h2 className="font-syne text-4xl font-bold tracking-tight text-[#0B422A] md:text-5xl">
+            <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
               What it costs to ship
             </h2>
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono-custom text-xs font-semibold text-[#6B7E76] uppercase tracking-widest md:justify-end">
-            <span className="text-[#121212] flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-2 font-mono-custom text-[10px] sm:text-xs font-semibold text-[#6B7E76] uppercase tracking-widest md:justify-end">
+            <span className="text-[#121212] flex items-center gap-1.5 sm:gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2D6E54]" />
               24h Fixed Quote
             </span>
@@ -267,7 +267,7 @@ export function Pricing() {
           whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="overflow-hidden rounded-[2.5rem] border border-[#DDD8CC] bg-[#F0EFE6] shadow-md"
+          className="overflow-hidden rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-[#DDD8CC] bg-[#F0EFE6] shadow-md"
         >
           {engagements.map((item) => (
             <Row
@@ -280,13 +280,13 @@ export function Pricing() {
         </motion.div>
 
         {/* ── Closing terms ──────────────────────────────────── */}
-        <div className="mt-7 flex flex-col items-start justify-between gap-4 px-2 sm:flex-row sm:items-center">
-          <p className="font-mono-custom text-xs text-[#6B7E76]">
+        <div className="mt-5 sm:mt-6 md:mt-7 flex flex-col items-start justify-between gap-3 sm:gap-4 px-2 sm:flex-row sm:items-center">
+          <p className="font-mono-custom text-[10px] sm:text-xs text-[#6B7E76]">
             No retainers. No lock-in. Scope agreed before a line of code is written.
           </p>
           <a
             href="#contact"
-            className="group/all inline-flex cursor-pointer items-center gap-2 font-syne text-xs font-bold tracking-tight text-[#0B422A] transition-colors duration-300 hover:text-[#2D6E54] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-600"
+            className="group/all inline-flex cursor-pointer items-center gap-2 font-syne text-xs font-bold tracking-tight text-[#0B422A] transition-colors duration-300 hover:text-[#2D6E54] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-600 touch-manipulation"
           >
             <span>Get a number in 24 hours</span>
             <ArrowGlyph className="h-3 w-3 transition-transform duration-300 group-hover/all:translate-x-0.5 group-hover/all:-translate-y-0.5" />

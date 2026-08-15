@@ -41,9 +41,10 @@ export function Preloader() {
 
       if (assetsDone && rounded >= 99) {
         setProgress(100);
+        // Wait longer so the ColorBends WebGL shader has time to fully initialize
         hideTimer = window.setTimeout(() => {
           if (!cancelled) setIsLoading(false);
-        }, 350);
+        }, 900);
         return;
       }
 

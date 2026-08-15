@@ -23,19 +23,17 @@ export function TalentShowcaseCTA() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setShouldLoad(true);
-          io.disconnect();
+          videoRef.current?.play().catch(() => {});
+        } else {
+          videoRef.current?.pause();
         }
       },
-      { rootMargin: '400px 0px' }
+      { rootMargin: '100px 0px', threshold: 0.1 }
     );
 
     io.observe(el);
     return () => io.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (shouldLoad) videoRef.current?.play().catch(() => {});
-  }, [shouldLoad]);
 
   return (
     <div ref={containerRef} className="mb-16 md:mb-20 px-4 max-w-3xl mx-auto overflow-hidden">
@@ -46,7 +44,7 @@ export function TalentShowcaseCTA() {
         style={{ willChange: 'transform, opacity' }}
         className="relative rounded-2xl md:rounded-3xl overflow-hidden"
       >
-        {/* Full Uncropped Video Frame - No cuts, no heavy box shadows */}
+        {/* Full Uncropped Video Frame */}
         <div className="relative w-full overflow-hidden flex items-center justify-center rounded-2xl md:rounded-3xl">
           <video
             ref={videoRef}

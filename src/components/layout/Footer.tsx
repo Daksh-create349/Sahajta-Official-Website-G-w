@@ -13,6 +13,10 @@ const explore = [
   { label: 'Methodology', href: '#process' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'FAQs', href: '#faq', isFaq: true },
+  { label: 'Privacy Policy', href: '/privacy', isPrivacy: true },
+  { label: 'Cookie Policy', href: '/cookies', isCookie: true },
+  { label: 'Refund Policy', href: '/refund', isRefund: true },
+  { label: 'How We Use AI', href: '/ai-usage', isAiUsage: true },
 ];
 
 const engagements = [
@@ -49,10 +53,27 @@ function MetaColumn({
   title,
   links,
   onFaqClick,
+  onPrivacyClick,
+  onCookieClick,
+  onRefundClick,
+  onAiUsageClick,
 }: {
   title: string;
-  links: { label: string; href: string; external?: boolean; isFaq?: boolean }[];
+  links: {
+    label: string;
+    href: string;
+    external?: boolean;
+    isFaq?: boolean;
+    isPrivacy?: boolean;
+    isCookie?: boolean;
+    isRefund?: boolean;
+    isAiUsage?: boolean;
+  }[];
   onFaqClick?: () => void;
+  onPrivacyClick?: () => void;
+  onCookieClick?: () => void;
+  onRefundClick?: () => void;
+  onAiUsageClick?: () => void;
 }) {
   return (
     <div>
@@ -71,6 +92,26 @@ function MetaColumn({
                 if (link.isFaq && onFaqClick) {
                   e.preventDefault();
                   onFaqClick();
+                  return;
+                }
+                if (link.isPrivacy && onPrivacyClick) {
+                  e.preventDefault();
+                  onPrivacyClick();
+                  return;
+                }
+                if (link.isCookie && onCookieClick) {
+                  e.preventDefault();
+                  onCookieClick();
+                  return;
+                }
+                if (link.isRefund && onRefundClick) {
+                  e.preventDefault();
+                  onRefundClick();
+                  return;
+                }
+                if (link.isAiUsage && onAiUsageClick) {
+                  e.preventDefault();
+                  onAiUsageClick();
                   return;
                 }
                 if (!link.external && link.href.startsWith('#')) {
@@ -101,7 +142,19 @@ function MetaColumn({
   );
 }
 
-export function Footer() {
+export type FooterProps = {
+  onPrivacyClick?: () => void;
+  onCookieClick?: () => void;
+  onRefundClick?: () => void;
+  onAiUsageClick?: () => void;
+};
+
+export function Footer({
+  onPrivacyClick,
+  onCookieClick,
+  onRefundClick,
+  onAiUsageClick,
+}: FooterProps) {
   const reduce = useReducedMotion();
   const [faqOpen, setFaqOpen] = useState(false);
 
@@ -124,7 +177,16 @@ export function Footer() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 md:mb-20"
         >
-          <div className="mb-6 flex items-center justify-end gap-4">
+          <div className="mb-6 flex items-center justify-end gap-3 flex-wrap">
+            {/* Privacy Policy Pill */}
+            <button
+              type="button"
+              onClick={onPrivacyClick}
+              className="group/privacy inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 font-mono-custom text-xs font-medium text-zinc-300 transition-all hover:border-white/30 hover:bg-white/10 hover:text-white"
+            >
+              <span>Privacy Policy</span>
+              <span className="text-zinc-400 transition-transform group-hover/privacy:translate-x-0.5">↗</span>
+            </button>
 
             {/* Quick FAQ Trigger Pill */}
             <button
@@ -181,12 +243,19 @@ export function Footer() {
               </p>
             </div>
 
-
             <div className="md:col-span-3">
               <MetaColumn title="Engagements" links={engagements} />
             </div>
             <div className="md:col-span-3">
-              <MetaColumn title="Explore" links={explore} onFaqClick={() => setFaqOpen(true)} />
+              <MetaColumn
+                title="Explore"
+                links={explore}
+                onFaqClick={() => setFaqOpen(true)}
+                onPrivacyClick={onPrivacyClick}
+                onCookieClick={onCookieClick}
+                onRefundClick={onRefundClick}
+                onAiUsageClick={onAiUsageClick}
+              />
             </div>
             <div className="md:col-span-2">
               <MetaColumn title="Elsewhere" links={elsewhere} />
@@ -196,8 +265,36 @@ export function Footer() {
 
         {/* ── Bottom bar ─────────────────────────────────────── */}
         <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-8 text-xs font-normal text-zinc-500 sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} Sahajta AI. All rights reserved.</p>
-          <div className="flex items-center gap-6">
+          <p>© {new Date().getFullYear()} Sahajta AI Solution Private Limited. All rights reserved.</p>
+          <div className="flex items-center gap-5 flex-wrap">
+            <button
+              type="button"
+              onClick={onPrivacyClick}
+              className="font-mono-custom text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            >
+              Privacy Policy
+            </button>
+            <button
+              type="button"
+              onClick={onCookieClick}
+              className="font-mono-custom text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            >
+              Cookie Policy
+            </button>
+            <button
+              type="button"
+              onClick={onRefundClick}
+              className="font-mono-custom text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            >
+              Refund Policy
+            </button>
+            <button
+              type="button"
+              onClick={onAiUsageClick}
+              className="font-mono-custom text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            >
+              AI Usage
+            </button>
             <button
               type="button"
               onClick={() => setFaqOpen(true)}

@@ -14,6 +14,10 @@
 export function isLowPowerDevice(): boolean {
   if (typeof window === 'undefined') return false;
 
+  // Mobile devices are always considered low-power for heavy effects
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) return true;
+
   const cores = navigator.hardwareConcurrency;
   if (typeof cores === 'number' && cores > 0 && cores <= 4) return true;
 
@@ -21,6 +25,11 @@ export function isLowPowerDevice(): boolean {
   if (typeof memory === 'number' && memory > 0 && memory <= 4) return true;
 
   return false;
+}
+
+export function isMobileDevice(): boolean {
+  if (typeof window === 'undefined') return false;
+  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
 }
 
 export function prefersReducedMotion(): boolean {

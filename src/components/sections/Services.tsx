@@ -172,20 +172,20 @@ export function Services() {
         className={
           isPinned
             ? 'sticky top-0 h-screen flex flex-col justify-center overflow-hidden'
-            : 'py-24'
+            : 'py-12 sm:py-16 md:py-20 lg:py-24'
         }
       >
-      <div className="max-w-7xl mx-auto px-6 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
 
         {/* Header */}
-        <div className="mb-12">
-          <h2 className="font-syne text-3xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
+        <div className="mb-8 sm:mb-10 md:mb-12">
+          <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
             Your Fractional CTO and Build Team in One
           </h2>
         </div>
 
         {/* 2-Column Showcase */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
 
           {/* Left: Big Service Card with Rich Background Image */}
           <div className="lg:col-span-7">
@@ -196,13 +196,15 @@ export function Services() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 20, scale: 0.98 }}
                 transition={{ duration: 0.22, ease: "easeOut" }}
-                className="relative bg-[#F0EFE6] p-8 md:p-12 rounded-[2.5rem] border border-[#DDD8CC] shadow-md min-h-[380px] md:min-h-[420px] flex flex-col justify-between overflow-hidden group"
+                className="relative bg-[#F0EFE6] p-5 sm:p-6 md:p-8 lg:p-12 rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-[#DDD8CC] shadow-md min-h-[320px] sm:min-h-[360px] md:min-h-[400px] lg:min-h-[420px] flex flex-col justify-between overflow-hidden group touch-manipulation"
               >
                 {/* Background Image Layer */}
                 <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
                   <img
                     src={activeService.bgImg}
                     alt={activeService.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-center opacity-85 transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-tr from-[#F0EFE6]/90 via-[#F0EFE6]/50 to-transparent pointer-events-none" />
@@ -210,25 +212,25 @@ export function Services() {
 
                 {/* Top Content */}
                 <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-2xl bg-[#FDFCF0]/90 backdrop-blur-md flex items-center justify-center font-mono-custom font-bold text-[#0B422A] text-sm border border-[#DDD8CC] shadow-xs mb-8">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#FDFCF0]/90 backdrop-blur-md flex items-center justify-center font-mono-custom font-bold text-[#0B422A] text-xs sm:text-sm border border-[#DDD8CC] shadow-xs mb-6 sm:mb-8">
                     {activeService.num}
                   </div>
 
-                  <h3 className="font-syne font-bold text-3xl md:text-5xl text-[#0B422A] tracking-tight leading-tight">
+                  <h3 className="font-syne font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#0B422A] tracking-tight leading-tight">
                     {activeService.title}
                   </h3>
                 </div>
 
                 {/* Bottom Tags */}
-                <div className="relative z-10 pt-8 border-t border-[#0B422A]/10">
-                  <div className="flex flex-wrap gap-3">
+                <div className="relative z-10 pt-6 sm:pt-8 border-t border-[#0B422A]/10">
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
                     {activeService.deliverables.map((item, i) => (
                       <motion.span
                         key={i}
                         initial={{ opacity: 0, scale: 0.92 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: i * 0.04, duration: 0.18 }}
-                        className="px-4 py-2 bg-[#FDFCF0]/90 backdrop-blur-md text-[#0B422A] text-xs font-mono-custom font-semibold rounded-xl border border-[#DDD8CC] shadow-2xs tracking-wider"
+                        className="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FDFCF0]/90 backdrop-blur-md text-[#0B422A] text-[10px] sm:text-xs font-mono-custom font-semibold rounded-lg sm:rounded-xl border border-[#DDD8CC] shadow-2xs tracking-wider"
                       >
                         {item}
                       </motion.span>
@@ -240,8 +242,8 @@ export function Services() {
           </div>
 
           {/* Right: Arc Dial with Continuous Scroll Progress */}
-          <div className="lg:col-span-5 flex items-center justify-center relative py-6">
-            <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center">
+          <div className="lg:col-span-5 flex items-center justify-center relative py-4 sm:py-6">
+            <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 flex items-center justify-center">
 
               <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 300">
                 {/* Dashed background track */}
@@ -259,7 +261,7 @@ export function Services() {
               </svg>
 
               <div className="text-center z-10">
-                <span className="font-mono-custom text-xs font-bold text-[#0B422A] uppercase tracking-widest block mb-1">
+                <span className="font-mono-custom text-[10px] sm:text-xs font-bold text-[#0B422A] uppercase tracking-widest block mb-1">
                   PHASE
                 </span>
                 <AnimatePresence mode="wait">
@@ -269,12 +271,12 @@ export function Services() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.25 }}
-                    className="font-syne text-5xl md:text-6xl font-bold text-[#0B422A] block"
+                    className="font-syne text-4xl sm:text-5xl md:text-6xl font-bold text-[#0B422A] block"
                   >
                     0{activeIdx + 1}
                   </motion.span>
                 </AnimatePresence>
-                <span className="font-mono-custom text-xs text-[#6B7E76] block mt-1">
+                <span className="font-mono-custom text-[10px] sm:text-xs text-[#6B7E76] block mt-1">
                   of 0{services.length}
                 </span>
               </div>
@@ -295,7 +297,7 @@ export function Services() {
                       top: `${(cy / 300) * 100}%`
                     }}
                     // Unified single color scheme (#0B422A) across nodes and line
-                    className={`absolute -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center font-mono-custom font-bold text-sm transition-all duration-300 z-20 cursor-pointer ${
+                    className={`absolute -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-mono-custom font-bold text-xs sm:text-sm transition-all duration-300 z-20 cursor-pointer touch-manipulation ${
                       isActive
                         ? "bg-[#0B422A] text-[#FDFCF0] border-2 border-[#0B422A] ring-4 ring-[#0B422A]/15 shadow-xl scale-125"
                         : "data-[past=true]:bg-[#0B422A] data-[past=true]:text-[#FDFCF0] data-[past=true]:border data-[past=true]:border-[#0B422A] data-[past=true]:shadow-md data-[past=true]:scale-105 data-[past=false]:bg-[#F0EFE6] data-[past=false]:text-[#6B7E76] data-[past=false]:border data-[past=false]:border-[#DDD8CC] data-[past=false]:hover:bg-[#0B422A] data-[past=false]:hover:text-[#FDFCF0]"

@@ -105,7 +105,7 @@ function CardItem({ step, index, total }: { step: typeof steps[0]; index: number
   return (
     <div
       ref={containerRef}
-      className="sticky top-[calc(8rem_+_var(--peek))] md:top-[calc(9rem_+_var(--peek))] mb-12"
+      className="sticky top-[calc(6rem_+_var(--peek))] sm:top-[calc(8rem_+_var(--peek))] md:top-[calc(9rem_+_var(--peek))] mb-8 sm:mb-10 md:mb-12"
       style={{ zIndex: index + 1, '--peek': `${index * PEEK_REM}rem` } as CSSProperties}
     >
       <motion.div
@@ -122,26 +122,26 @@ function CardItem({ step, index, total }: { step: typeof steps[0]; index: number
           willChange: 'transform',
           backfaceVisibility: 'hidden',
         }}
-        className="bg-[#F0EFE6] border border-[#DDD8CC] rounded-[2.5rem] p-7 sm:p-8 md:p-12 shadow-[0_12px_30px_-12px_rgba(11,66,42,0.08)] min-h-[280px] sm:min-h-[320px] md:min-h-[360px] flex flex-col justify-center"
+        className="bg-[#F0EFE6] border border-[#DDD8CC] rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] p-5 sm:p-6 md:p-8 lg:p-12 shadow-[0_12px_30px_-12px_rgba(11,66,42,0.08)] min-h-[240px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[360px] flex flex-col justify-center"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-center">
-          
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-6 lg:gap-8 items-center">
+
           {/* Left Column */}
           <div className="lg:col-span-5">
-            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
+            <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3 md:mb-4 flex-wrap">
               <span className="text-xs sm:text-sm text-[#6B7E76] font-normal uppercase tracking-wider">({step.num})</span>
-              <span className="text-xs font-semibold text-[#A67F2E] px-2.5 py-0.5 sm:px-3 sm:py-1 bg-[#F5EDD6] rounded-full border border-[#D9B75B]/40">
+              <span className="text-[10px] sm:text-xs font-semibold text-[#A67F2E] px-2 py-0.5 sm:px-2.5 sm:py-0.5 md:px-3 md:py-1 bg-[#F5EDD6] rounded-full border border-[#D9B75B]/40">
                 {step.topTag}
               </span>
             </div>
-            <h3 className="font-syne font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#0B422A] tracking-tight leading-none">
+            <h3 className="font-syne font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-[#0B422A] tracking-tight leading-none">
               {step.title}
             </h3>
           </div>
 
           {/* Right Column: stacks text then image on mobile, side-by-side from sm */}
-          <div className="lg:col-span-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-8">
-            <p className="font-syne text-base sm:text-lg md:text-xl text-[#121212] leading-relaxed font-normal flex-1">
+          <div className="lg:col-span-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 md:gap-8">
+            <p className="font-syne text-sm sm:text-base md:text-lg lg:text-xl text-[#121212] leading-relaxed font-normal flex-1">
               {step.subtitle}
             </p>
             {step.visualCard}
@@ -155,7 +155,7 @@ function CardItem({ step, index, total }: { step: typeof steps[0]; index: number
 
 export function Process() {
   return (
-    <section id="process" className="relative bg-[#FDFCF0] pt-24 pb-32 border-t border-[#DDD8CC]">
+    <section id="process" className="relative bg-[#FDFCF0] pt-16 sm:pt-20 md:pt-24 pb-20 sm:pb-24 md:pb-32 border-t border-[#DDD8CC]">
       {/* Brand Green Silhouette SVG Filter - Tints illustrations to #0B422A and removes off-white backgrounds */}
       <svg width="0" height="0" className="absolute pointer-events-none opacity-0 w-0 h-0 overflow-hidden" aria-hidden="true">
         <filter id="brand-green-silhouette" colorInterpolationFilters="sRGB">
@@ -173,14 +173,14 @@ export function Process() {
         </filter>
       </svg>
 
-      <div className="max-w-6xl mx-auto px-6">
-        
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+
         {/* Header */}
-        <div className="max-w-3xl mb-16">
-          <h2 className="font-syne text-3xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
+        <div className="max-w-3xl mb-10 sm:mb-12 md:mb-16">
+          <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
             More Gets Built Each Week
           </h2>
-          <p className="text-[#6B7E76] text-base font-normal mt-3">
+          <p className="text-[#6B7E76] text-sm sm:text-base font-normal mt-2 sm:mt-3">
             Our AI-native team picks one goal, works in short sprints, and ships useful work each week.
           </p>
         </div>

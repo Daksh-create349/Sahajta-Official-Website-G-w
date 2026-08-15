@@ -216,8 +216,10 @@ export function ColorBends({
     });
     rendererRef.current = renderer;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
-    // Cap pixel ratio at 1.25 to guarantee silky 60fps even on low-spec/integrated GPUs
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
+    // Cap pixel ratio: 1.0 for mobile/low-end, 1.25 for desktop
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+    const maxPixelRatio = isMobile ? 1.0 : 1.25;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxPixelRatio));
     renderer.setClearColor(0x000000, transparent ? 0 : 1);
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
