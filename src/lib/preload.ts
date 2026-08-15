@@ -4,10 +4,6 @@ import discovery from '@/assets/discovery-inspect.png';
 import slaBuild from '@/assets/sla-build.png';
 import integration from '@/assets/integration-connect.png';
 import handover from '@/assets/handover-ownership.png';
-import coverStratapilot from '@/assets/cover-stratapilot.png';
-import coverHireai from '@/assets/cover-hireai.png';
-import coverInvoice from '@/assets/cover-invoice.png';
-import coverBlogagent from '@/assets/cover-blogagent.png';
 import service1 from '@/assets/services/service-1.png';
 import service2 from '@/assets/services/service-2.png';
 import service3 from '@/assets/services/service-3.png';
@@ -25,10 +21,6 @@ const SITE_IMAGES = [
   slaBuild,
   integration,
   handover,
-  coverStratapilot,
-  coverHireai,
-  coverInvoice,
-  coverBlogagent,
   service1,
   service2,
   service3,

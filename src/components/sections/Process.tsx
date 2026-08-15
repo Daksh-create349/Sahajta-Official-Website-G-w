@@ -13,13 +13,13 @@ const steps = [
     time: "Sprint Step 01",
     subtitle: "You tell us what matters now. We help pick the right work.",
     visualCard: (
-      <div className="flex items-center justify-center h-full w-full lg:w-64 shrink-0 overflow-hidden">
+      <div className="flex items-center justify-center w-full sm:w-auto sm:shrink-0 sm:w-56 lg:w-64 overflow-hidden">
         <img
           src={discoveryImg}
           alt="Set the Goal"
           decoding="async"
           draggable={false}
-          className="h-36 md:h-48 w-auto object-contain [filter:url(#brand-green-silhouette)]"
+          className="h-28 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -31,13 +31,13 @@ const steps = [
     time: "Sprint Step 02",
     subtitle: "We break big work into small parts. You can see it all in Linear.",
     visualCard: (
-      <div className="flex items-center justify-center h-full w-full lg:w-64 shrink-0 overflow-hidden">
+      <div className="flex items-center justify-center w-full sm:w-auto sm:shrink-0 sm:w-56 lg:w-64 overflow-hidden">
         <img
           src={slaBuildImg}
           alt="Plan the Work"
           decoding="async"
           draggable={false}
-          className="h-36 md:h-48 w-auto object-contain [filter:url(#brand-green-silhouette)]"
+          className="h-28 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -49,13 +49,13 @@ const steps = [
     time: "Sprint Step 03",
     subtitle: "We use AI to help us code, test, and fix work fast.",
     visualCard: (
-      <div className="flex items-center justify-center h-full w-full lg:w-64 shrink-0 overflow-hidden">
+      <div className="flex items-center justify-center w-full sm:w-auto sm:shrink-0 sm:w-56 lg:w-64 overflow-hidden">
         <img
           src={integrationImg}
           alt="Build and Test"
           decoding="async"
           draggable={false}
-          className="h-36 md:h-48 w-auto object-contain [filter:url(#brand-green-silhouette)]"
+          className="h-28 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -67,13 +67,13 @@ const steps = [
     time: "Sprint Step 04",
     subtitle: "You review the work. When you say yes, we make it live.",
     visualCard: (
-      <div className="flex items-center justify-center h-full w-full lg:w-64 shrink-0 overflow-hidden">
+      <div className="flex items-center justify-center w-full sm:w-auto sm:shrink-0 sm:w-56 lg:w-64 overflow-hidden">
         <img
           src={handoverImg}
           alt="Review and Ship"
           decoding="async"
           draggable={false}
-          className="h-36 md:h-48 w-auto object-contain [filter:url(#brand-green-silhouette)]"
+          className="h-28 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -122,26 +122,26 @@ function CardItem({ step, index, total }: { step: typeof steps[0]; index: number
           willChange: 'transform',
           backfaceVisibility: 'hidden',
         }}
-        className="bg-[#F0EFE6] border border-[#DDD8CC] rounded-[2.5rem] p-8 md:p-12 shadow-[0_12px_30px_-12px_rgba(11,66,42,0.08)] min-h-[320px] md:min-h-[360px] flex flex-col justify-center"
+        className="bg-[#F0EFE6] border border-[#DDD8CC] rounded-[2.5rem] p-7 sm:p-8 md:p-12 shadow-[0_12px_30px_-12px_rgba(11,66,42,0.08)] min-h-[280px] sm:min-h-[320px] md:min-h-[360px] flex flex-col justify-center"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-center">
           
           {/* Left Column */}
           <div className="lg:col-span-5">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-sm text-[#6B7E76] font-normal uppercase tracking-wider">({step.num})</span>
-              <span className="text-xs font-semibold text-[#A67F2E] px-3 py-1 bg-[#F5EDD6] rounded-full border border-[#D9B75B]/40">
+            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
+              <span className="text-xs sm:text-sm text-[#6B7E76] font-normal uppercase tracking-wider">({step.num})</span>
+              <span className="text-xs font-semibold text-[#A67F2E] px-2.5 py-0.5 sm:px-3 sm:py-1 bg-[#F5EDD6] rounded-full border border-[#D9B75B]/40">
                 {step.topTag}
               </span>
             </div>
-            <h3 className="font-syne font-bold text-4xl md:text-5xl lg:text-6xl text-[#0B422A] tracking-tight leading-none">
+            <h3 className="font-syne font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#0B422A] tracking-tight leading-none">
               {step.title}
             </h3>
           </div>
 
-          {/* Right Column */}
-          <div className="lg:col-span-7 flex flex-col sm:flex-row items-center justify-between gap-8">
-            <p className="font-syne text-lg md:text-xl text-[#121212] leading-relaxed font-normal flex-1">
+          {/* Right Column: stacks text then image on mobile, side-by-side from sm */}
+          <div className="lg:col-span-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-8">
+            <p className="font-syne text-base sm:text-lg md:text-xl text-[#121212] leading-relaxed font-normal flex-1">
               {step.subtitle}
             </p>
             {step.visualCard}
