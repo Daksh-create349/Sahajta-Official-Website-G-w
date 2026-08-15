@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Dither from '@/components/ui/Dither';
-import { isMobileDevice } from '@/lib/device';
+import { isMobileDevice, isWindowsDevice } from '@/lib/device';
 
 export function FooterDither() {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -8,10 +8,15 @@ export function FooterDither() {
   const [tabActive, setTabActive] = useState(true);
   const [reduced, setReduced] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
+  const [isWin, setIsWin] = useState(false);
 
   useEffect(() => {
     setIsMobile(isMobileDevice());
-    const onResize = () => setIsMobile(isMobileDevice());
+    setIsWin(isWindowsDevice());
+    const onResize = () => {
+      setIsMobile(isMobileDevice());
+      setIsWin(isWindowsDevice());
+    };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
@@ -53,23 +58,36 @@ export function FooterDither() {
     return null;
   }
 
+  const maskStyle: React.CSSProperties = isWin
+    ? {
+        maskImage:
+          'radial-gradient(120% 62% at 50% 30%, transparent 34%, #000 88%)',
+        WebkitMaskImage:
+          'radial-gradient(120% 62% at 50% 30%, transparent 34%, #000 88%)',
+      }
+    : {
+        maskImage:
+          'radial-gradient(120% 62% at 50% 30%, transparent 34%, #000 88%), linear-gradient(to bottom, transparent 0%, #000 30%, #000 72%, transparent 97%)',
+        WebkitMaskImage:
+          'radial-gradient(120% 62% at 50% 30%, transparent 34%, #000 88%), linear-gradient(to bottom, transparent 0%, #000 30%, #000 72%, transparent 97%)',
+        maskComposite: 'intersect',
+        WebkitMaskComposite: 'source-in',
+      };
+
   return (
     <div
       ref={hostRef}
       aria-hidden="true"
-      className="hidden md:block pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-t-[2.5rem] md:rounded-t-[3.5rem]"
+      className={
+        isWin
+          ? 'hidden md:block pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-t-[2.5rem] md:rounded-t-[3.5rem] will-change-transform translate-z-0'
+          : 'hidden md:block pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-t-[2.5rem] md:rounded-t-[3.5rem]'
+      }
     >
       <div
         className="absolute inset-0 opacity-0 transition-opacity duration-700 ease-out data-[ready=true]:opacity-[0.45]"
         data-ready={visible || undefined}
-        style={{
-          maskImage:
-            'radial-gradient(120% 62% at 50% 30%, transparent 34%, #000 88%), linear-gradient(to bottom, transparent 0%, #000 30%, #000 72%, transparent 97%)',
-          WebkitMaskImage:
-            'radial-gradient(120% 62% at 50% 30%, transparent 34%, #000 88%), linear-gradient(to bottom, transparent 0%, #000 30%, #000 72%, transparent 97%)',
-          maskComposite: 'intersect',
-          WebkitMaskComposite: 'source-in',
-        }}
+        style={maskStyle}
       >
         <Dither
           active={visible && tabActive}
@@ -90,3 +108,4 @@ export function FooterDither() {
     </div>
   );
 }
+

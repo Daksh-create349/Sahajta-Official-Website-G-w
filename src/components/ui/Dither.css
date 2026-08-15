@@ -3,8 +3,15 @@
   height: 100%;
   position: relative;
   display: block;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .dither-container canvas {
   display: block;
+  width: 100% !important;
+  height: 100% !important;
+  image-rendering: pixelated;
+  transform: translateZ(0);
 }
+

@@ -36,3 +36,9 @@ export function prefersReducedMotion(): boolean {
   if (typeof window === 'undefined') return false;
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
+
+export function isWindowsDevice(): boolean {
+  if (typeof window === 'undefined') return false;
+  return /Win/i.test(navigator.userAgent);
+}
+
