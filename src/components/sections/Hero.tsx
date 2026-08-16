@@ -1,6 +1,42 @@
 import { motion } from 'framer-motion';
 import { AuroraBackground } from '@/components/ui/aurora-background';
 
+const trustedTeams = [
+  {
+    name: '100xEngineers',
+    render: () => (
+      <div className="flex items-center gap-1.5">
+        <span className="font-syne font-extrabold tracking-tight text-[#0B422A] text-base sm:text-lg">
+          100<span className="text-[#A67F2E]">x</span>Engineers
+        </span>
+      </div>
+    ),
+  },
+  {
+    name: 'Namyah',
+    render: () => (
+      <div className="flex items-center gap-1.5">
+        <span className="font-syne font-bold tracking-[0.14em] uppercase text-[#0B422A] text-sm sm:text-base">
+          NAMYAH
+        </span>
+      </div>
+    ),
+  },
+  {
+    name: 'Stratapilot AI',
+    render: () => (
+      <div className="flex items-center gap-2">
+        <span className="font-syne font-bold tracking-tight text-[#0B422A] text-base sm:text-lg">
+          Stratapilot
+        </span>
+        <span className="font-mono-custom text-[10px] font-bold text-[#A67F2E] px-1.5 py-0.5 rounded-md bg-[#F5EDD6] border border-[#D9B75B]/40">
+          AI
+        </span>
+      </div>
+    ),
+  },
+];
+
 export function Hero() {
   return (
     <AuroraBackground className="pt-24 pb-16 sm:pt-32 sm:pb-20 md:pt-40 md:pb-28 lg:pt-48 lg:pb-36 overflow-hidden">
@@ -64,12 +100,41 @@ export function Hero() {
             </a>
           </motion.div>
 
+          {/* TRUSTED BY TEAMS AT Strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.45 }}
+            className="mt-12 sm:mt-14 md:mt-16 w-full max-w-3xl px-4 sm:px-0"
+          >
+            <div className="flex flex-col items-center">
+              <div className="flex items-center gap-3 mb-4 sm:mb-5">
+                <span className="h-px w-6 sm:w-10 bg-[#DDD8CC]" />
+                <span className="font-mono-custom text-[10px] sm:text-xs font-bold text-[#6B7E76] uppercase tracking-[0.25em]">
+                  TRUSTED BY TEAMS AT
+                </span>
+                <span className="h-px w-6 sm:w-10 bg-[#DDD8CC]" />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 w-full">
+                {trustedTeams.map((team) => (
+                  <div
+                    key={team.name}
+                    className="flex items-center justify-center py-3.5 px-5 rounded-xl sm:rounded-2xl bg-[#F0EFE6]/90 backdrop-blur-md border border-[#DDD8CC] shadow-2xs hover:border-[#0B422A]/30 hover:bg-[#FAF8F6] transition-all duration-300 group"
+                  >
+                    {team.render()}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
           {/* Minimal Proof Badges */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-10 sm:mt-12 md:mt-16 pt-6 sm:pt-7 md:pt-8 border-t border-[#DDD8CC]/80 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-left w-full max-w-2xl px-4 sm:px-0"
+            transition={{ duration: 0.8, delay: 0.55 }}
+            className="mt-8 sm:mt-10 pt-6 sm:pt-7 border-t border-[#DDD8CC]/80 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-left w-full max-w-2xl px-4 sm:px-0"
           >
             <div className="flex items-center justify-between p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-[#F0EFE6]/80 border border-[#DDD8CC] shadow-2xs">
               <span className="font-syne font-bold text-lg sm:text-xl text-[#121212] tracking-tight">UNLIMITED</span>

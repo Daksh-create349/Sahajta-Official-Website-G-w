@@ -1,11 +1,46 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react';
 import Plasma from '@/components/ui/Plasma';
+import { COUNTRIES, type Country } from '@/data/countryCodes';
+import { ChevronDown, Search, Check } from 'lucide-react';
 
 export function WorkWithUsCTA() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [shouldRenderPlasma, setShouldRenderPlasma] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  // Country Code selector state
+  const [selectedCountry, setSelectedCountry] = useState<Country>(COUNTRIES[0]); // Default India +91
+  const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
+  const [countrySearch, setCountrySearch] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setCountryDropdownOpen(false);
+      }
+    }
+    if (countryDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      // Focus search input when dropdown opens
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 50);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [countryDropdownOpen]);
+
+  const filteredCountries = COUNTRIES.filter(c =>
+    c.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
+    c.dialCode.includes(countrySearch) ||
+    c.code.toLowerCase().includes(countrySearch.toLowerCase())
+  );
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -136,19 +171,106 @@ export function WorkWithUsCTA() {
                       </div>
                     </div>
 
-                    {/* Row 2: Contact Number * */}
-                    <div>
+                    {/* Row 2: Contact Number with International Country Code selector */}
+                    <div className="relative" ref={dropdownRef}>
                       <label htmlFor="contactNumber" className="block text-xs font-semibold text-[#0B422A] mb-1.5 font-syne">
                         Contact Number <span className="text-[#A67F2E]">*</span>
                       </label>
-                      <input
-                        id="contactNumber"
-                        type="tel"
-                        required
-                        placeholder="+91 98765 43210"
-                        aria-label="Contact Number"
-                        className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs"
-                      />
+                      <div className="flex rounded-xl bg-white border border-[#DDD8CC] focus-within:border-[#0B422A] focus-within:ring-1 focus-within:ring-[#0B422A] transition-all shadow-2xs overflow-visible">
+                        {/* Country Code Trigger Button */}
+                        <button
+                          type="button"
+                          onClick={() => setCountryDropdownOpen(!countryDropdownOpen)}
+                          aria-expanded={countryDropdownOpen}
+                          aria-haspopup="listbox"
+                          className="flex items-center gap-1.5 px-3 py-3 bg-[#F7F6EE] hover:bg-[#EFECE0] text-[#121212] text-sm border-r border-[#DDD8CC] rounded-l-xl transition-colors cursor-pointer select-none shrink-0"
+                          title={`${selectedCountry.name} (${selectedCountry.dialCode})`}
+                        >
+                          <span className="text-base leading-none">{selectedCountry.flag}</span>
+                          <span className="font-mono-custom text-xs font-medium text-[#0B422A]">{selectedCountry.dialCode}</span>
+                          <ChevronDown className={`w-3.5 h-3.5 text-[#6B7E76] transition-transform duration-200 ${countryDropdownOpen ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        {/* Phone Number Input */}
+                        <input
+                          id="contactNumber"
+                          type="tel"
+                          required
+                          value={phoneNumber}
+                          onChange={(e) => setPhoneNumber(e.target.value)}
+                          placeholder="98765 43210"
+                          aria-label="Contact Number"
+                          className="w-full bg-transparent px-3.5 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden"
+                        />
+                      </div>
+
+                      {/* Searchable Country Code Dropdown Popover */}
+                      {countryDropdownOpen && (
+                        <div
+                          data-lenis-prevent
+                          onWheel={(e) => e.stopPropagation()}
+                          onTouchMove={(e) => e.stopPropagation()}
+                          className="absolute top-full left-0 mt-1.5 w-full sm:w-80 bg-white border border-[#DDD8CC] rounded-2xl shadow-xl z-50 overflow-hidden flex flex-col max-h-72 animate-in fade-in-0 zoom-in-95 duration-150"
+                        >
+                          {/* Search bar inside dropdown */}
+                          <div className="p-2 border-b border-[#EFECE0] bg-[#FDFCF0] sticky top-0 z-10">
+                            <div className="relative flex items-center">
+                              <Search className="w-4 h-4 text-[#6B7E76] absolute left-3 pointer-events-none" />
+                              <input
+                                ref={searchInputRef}
+                                type="text"
+                                value={countrySearch}
+                                onChange={(e) => setCountrySearch(e.target.value)}
+                                placeholder="Search country or code..."
+                                className="w-full bg-white border border-[#DDD8CC] rounded-lg pl-9 pr-3 py-1.5 text-xs text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A]"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Country List */}
+                          <div
+                            data-lenis-prevent
+                            onWheel={(e) => e.stopPropagation()}
+                            onTouchMove={(e) => e.stopPropagation()}
+                            className="overflow-y-auto overscroll-contain divide-y divide-[#F7F6EE] flex-1 p-1 max-h-56"
+                          >
+                            {filteredCountries.length === 0 ? (
+                              <div className="py-6 text-center text-xs text-[#6B7E76]">
+                                No country found
+                              </div>
+                            ) : (
+                              filteredCountries.map((c) => {
+                                const isSelected = selectedCountry.code === c.code && selectedCountry.dialCode === c.dialCode;
+                                return (
+                                  <button
+                                    key={`${c.code}-${c.dialCode}`}
+                                    type="button"
+                                    onClick={() => {
+                                      setSelectedCountry(c);
+                                      setCountryDropdownOpen(false);
+                                      setCountrySearch('');
+                                    }}
+                                    className={`w-full flex items-center justify-between px-3 py-2 text-left rounded-lg text-xs transition-colors cursor-pointer ${
+                                      isSelected
+                                        ? 'bg-[#0B422A]/10 text-[#0B422A] font-semibold'
+                                        : 'hover:bg-[#F7F6EE] text-[#2D3748]'
+                                    }`}
+                                  >
+                                    <div className="flex items-center gap-2.5 min-w-0">
+                                      <span className="text-base leading-none shrink-0">{c.flag}</span>
+                                      <span className="truncate">{c.name}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 shrink-0 ml-2">
+                                      <span className="font-mono-custom text-[11px] text-[#A67F2E]">{c.dialCode}</span>
+                                      {isSelected && <Check className="w-3.5 h-3.5 text-[#0B422A]" />}
+                                    </div>
+                                  </button>
+                                );
+                              })
+                            )}
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* Row 3: What are you building? * */}
