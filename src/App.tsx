@@ -18,6 +18,7 @@ import { CookiePage } from '@/components/pages/CookiePage';
 import { RefundPage } from '@/components/pages/RefundPage';
 import { AiUsagePage } from '@/components/pages/AiUsagePage';
 import { initLenis, destroyLenis } from '@/lib/lenis';
+import { WhatsAppWidget } from '@/components/ui/WhatsAppWidget';
 
 function getInitialPath(): string {
   if (typeof window === 'undefined') return '/';
@@ -88,28 +89,7 @@ function App() {
       <Preloader />
       <Navbar />
 
-      {/* WhatsApp Floating Button */}
-      <a
-        href="https://wa.me/918082943205?text=Hi%20Sahajta%20team%2C%20I%20want%20to%20discuss%20a%20project%20with%20you."
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group fixed bottom-6 right-6 z-50 flex items-center gap-2"
-        aria-label="Chat with us on WhatsApp"
-      >
-        <span
-          className="pointer-events-none opacity-0 group-hover:opacity-100 translate-x-1 group-hover:translate-x-0 transition-[opacity,transform] duration-150 ease-out bg-[#121212] text-white text-sm font-medium px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap select-none"
-        >
-          Talk with us
-        </span>
-        <div className="flex items-center justify-center w-14 h-14 rounded-full shadow-xl transition-transform duration-150 group-hover:scale-110" style={{ background: '#25D366' }}>
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-            alt="WhatsApp"
-            className="w-8 h-8 relative z-10"
-            draggable={false}
-          />
-        </div>
-      </a>
+      <WhatsAppWidget />
       
       <main>
         <Hero />

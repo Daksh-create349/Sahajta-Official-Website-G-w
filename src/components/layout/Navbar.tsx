@@ -52,7 +52,7 @@ export function Navbar() {
   };
 
   return (
-    <header className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 transition-all duration-500">
+    <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 transition-all duration-500">
       
       {/* Streamlined Liquid Glass Floating Oval Navbar */}
       <div

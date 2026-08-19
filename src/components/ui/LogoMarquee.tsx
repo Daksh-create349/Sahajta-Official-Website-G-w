@@ -285,15 +285,15 @@ export function LogoMarquee() {
                       className="hidden sm:block h-16 w-px bg-gradient-to-b from-transparent via-[#C8C2B4] to-transparent mr-12 lg:mr-14 group-hover/card:via-[#4A8C6F]/60 transition-colors duration-300"
                       aria-hidden="true"
                     />
-                    {/* Bare brand mark — no chip, no border */}
-                    <div className="flex items-center justify-center shrink-0 w-12 h-12 sm:w-16 sm:h-16 mr-5 transition-transform duration-300 ease-out group-hover/card:-translate-y-1">
+                    {/* Bare brand mark */}
+                    <div className="flex items-center justify-center shrink-0 w-9 h-9 sm:w-16 sm:h-16 mr-3 sm:mr-5 transition-transform duration-300 ease-out group-hover/card:-translate-y-1">
                       {tool.renderIcon()}
                     </div>
                     <div className="flex flex-col text-left transition-transform duration-300 ease-out group-hover/card:-translate-y-1">
-                      <span className="font-syne font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight group-hover/card:text-[#0B422A] transition-colors duration-300 leading-none">
+                      <span className="font-syne font-bold text-xl sm:text-4xl text-[#1A1A1A] tracking-tight group-hover/card:text-[#0B422A] transition-colors duration-300 leading-none">
                         {tool.name}
                       </span>
-                      <span className="font-mono-custom text-[11px] sm:text-[13px] text-[#9A9385] font-medium uppercase tracking-[0.14em] leading-none mt-3 group-hover/card:text-[#6B7E76] transition-colors duration-300">
+                      <span className="font-mono-custom text-[9px] sm:text-[13px] text-[#9A9385] font-medium uppercase tracking-[0.12em] sm:tracking-[0.14em] leading-none mt-1.5 sm:mt-3 group-hover/card:text-[#6B7E76] transition-colors duration-300">
                         {tool.category}
                       </span>
                     </div>

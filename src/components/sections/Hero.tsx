@@ -61,27 +61,22 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="font-syne text-[2rem] sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-[#121212] leading-[1.08] mb-5 sm:mb-6 md:mb-8"
+              className="font-syne text-[2.1rem] sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-[#121212] leading-[1.18] sm:leading-[1.08] mb-5 sm:mb-8 text-center"
             >
-              Get More Built <br className="hidden sm:inline" />
-              <span className="text-[#2D6E54] font-normal italic">
+              Get More Built <br />
+              <span className="text-[#2D6E54] font-normal italic inline-block mt-0.5 sm:mt-0">
                 in{' '}
-                <span className="relative inline-block ml-2 sm:ml-3">
+                <span className="relative inline-block px-2 sm:px-3 py-0.5 mx-1">
                   Weeks
-                  {/* Hand-drawn marker circle — loops "Weeks" with a natural
-                      overshoot. pathLength=1 normalizes the draw so no JS
-                      measuring; stroke-dashoffset eases in once the preloader
-                      has cleared and the main thread is idle. */}
+                  {/* Hand-drawn marker circle — framed with guaranteed 12px clearance */}
                   <svg
                     aria-hidden="true"
                     viewBox="0 0 360 154"
                     preserveAspectRatio="none"
-                    className="pointer-events-none absolute overflow-visible"
+                    className="pointer-events-none absolute -inset-x-2.5 -inset-y-1 sm:-inset-x-4 sm:-inset-y-2 w-[calc(100%+1.25rem)] sm:w-[calc(100%+2rem)] h-[calc(100%+0.5rem)] sm:h-[calc(100%+1rem)] overflow-visible"
                     style={{
-                      left: '52%',
+                      left: '50%',
                       top: '50%',
-                      width: '132%',
-                      height: '150%',
                       transform: 'translate(-50%, -50%) rotate(-2.4deg)',
                     }}
                   >
@@ -119,9 +114,10 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-base sm:text-lg md:text-xl text-[#6B7E76] font-normal leading-relaxed max-w-xl mb-6 sm:mb-8 md:mb-10 tracking-tight px-4 sm:px-0"
+              className="text-sm sm:text-lg md:text-xl text-[#6B7E76] font-normal leading-relaxed max-w-sm sm:max-w-xl mb-6 sm:mb-10 tracking-tight px-3 sm:px-0 text-center"
             >
-              We plan it, build it, fix it, and ship it. No long hiring, no equity dilution.
+              We plan it, build it, fix it, and ship it. <br className="hidden sm:inline" />
+              No long hiring, no equity dilution.
             </motion.p>
 
             {/* Action CTAs */}
@@ -129,11 +125,11 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto px-4 sm:px-0"
+              className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full max-w-[280px] sm:max-w-none sm:w-auto px-2 sm:px-0"
             >
               <a
                 href="#contact"
-                className="w-full sm:w-auto px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-[#0B422A] text-[#FDFCF0] font-syne font-medium text-sm sm:text-base rounded-full hover:bg-[#2D6E54] transition-all flex items-center justify-center gap-2 shadow-md group touch-manipulation"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-[#0B422A] text-[#FDFCF0] font-syne font-semibold text-xs sm:text-base rounded-full hover:bg-[#2D6E54] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md group touch-manipulation"
               >
                 <span>See If We Can Help</span>
                 <span className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
@@ -141,7 +137,7 @@ export function Hero() {
 
               <a
                 href="#case-studies"
-                className="w-full sm:w-auto px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-[#F0EFE6]/90 backdrop-blur-md text-[#121212] font-syne font-medium text-sm sm:text-base rounded-full border border-[#DDD8CC] hover:bg-[#DDD8CC] transition-all flex items-center justify-center shadow-xs touch-manipulation"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-[#F0EFE6]/90 backdrop-blur-md text-[#121212] font-syne font-semibold text-xs sm:text-base rounded-full border border-[#DDD8CC] hover:bg-[#DDD8CC] active:scale-[0.98] transition-all flex items-center justify-center shadow-xs touch-manipulation"
               >
                 See What We Have Built
               </a>
