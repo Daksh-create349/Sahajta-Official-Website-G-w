@@ -27,6 +27,7 @@ const engagements = [
 ];
 
 const elsewhere = [
+  { label: 'Sahajta AI (LinkedIn)', href: 'https://www.linkedin.com/company/sahajta-ai/', external: true },
   { label: 'Shubhang (LinkedIn)', href: 'https://www.linkedin.com/in/shubhangsethi/', external: true },
   { label: 'Pranamya (LinkedIn)', href: 'https://www.linkedin.com/in/pranamya-jainn/', external: true },
   { label: 'vibe2real.codes', href: 'https://vibe2real.codes', external: true },
@@ -221,6 +222,25 @@ export function Footer({
           <p className="mt-7 max-w-md text-sm font-normal leading-relaxed text-zinc-400">
             One email is enough. We reply within 24 hours with a scope, a timeline, and a number.
           </p>
+
+          {/* Sahajta Company LinkedIn CTA Button */}
+          <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3.5 pt-6 border-t border-white/10">
+            <a
+              href="https://www.linkedin.com/company/sahajta-ai/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/li inline-flex items-center gap-2.5 rounded-full border border-[#D9B75B]/30 bg-[#D9B75B]/10 px-5 py-2.5 font-syne text-xs font-semibold text-[#FDFCF0] transition-all hover:bg-[#D9B75B] hover:text-[#0B2818] hover:border-[#D9B75B] shadow-sm w-fit"
+            >
+              <svg className="h-4 w-4 fill-current transition-transform group-hover/li:scale-110" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.78a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28Z"/>
+              </svg>
+              <span>Follow Sahajta on LinkedIn</span>
+              <span className="text-[10px] transition-transform group-hover/li:translate-x-0.5 group-hover/li:-translate-y-0.5">↗</span>
+            </a>
+            <span className="text-xs font-mono-custom text-zinc-400">
+              Follow our journey, build updates &amp; engineering insights.
+            </span>
+          </div>
         </motion.div>
 
         {/* ── Meta ───────────────────────────────────────────── */}
