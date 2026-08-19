@@ -16,6 +16,16 @@ export function WorkWithUsCTA() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  // Auto-grow the message box with content (up to a cap), so long text is
+  // visible without fighting the page's smooth-scroll for the inner scrollbar.
+  const autoGrowMessage = () => {
+    const el = messageRef.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${Math.min(el.scrollHeight, 260)}px`;
+  };
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -65,13 +75,37 @@ export function WorkWithUsCTA() {
     return () => io.disconnect();
   }, []);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 600);
+
+    const form = e.currentTarget;
+    const name = (form.elements.namedItem('yourName') as HTMLInputElement).value;
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+    const message = (form.elements.namedItem('whatBuilding') as HTMLTextAreaElement).value;
+    const contact = `${selectedCountry.dialCode} ${phoneNumber}`;
+
+    try {
+      await fetch('https://formsubmit.co/ajax/dakshshrivastav56@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          Name: name,
+          Email: email,
+          Contact: contact,
+          'What are you building?': message,
+          _subject: `New Enquiry from ${name}`,
+          _replyto: email,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      });
+    } catch (_) {
+      // silently fail — still show success to user
+    }
+
+    setLoading(false);
+    setSubmitted(true);
   };
 
   return (
@@ -280,11 +314,16 @@ export function WorkWithUsCTA() {
                       </label>
                       <textarea
                         id="whatBuilding"
+                        ref={messageRef}
                         rows={4}
                         required
+                        onInput={autoGrowMessage}
+                        data-lenis-prevent
+                        onWheel={(e) => e.stopPropagation()}
+                        onTouchMove={(e) => e.stopPropagation()}
                         placeholder="Tell us about your product, timeline, and goals..."
                         aria-label="What are you building?"
-                        className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs resize-none leading-relaxed"
+                        className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs resize-y leading-relaxed overflow-y-auto max-h-[260px] min-h-[112px] overscroll-contain"
                       />
                     </div>
                   </div>

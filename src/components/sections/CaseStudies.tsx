@@ -1,58 +1,86 @@
 import { useState } from 'react';
 
-const cases = [
+interface CaseStudyProject {
+  num: string;
+  title: string;
+  headline: string;
+  highlights: string[];
+  shippedIn: string;
+  link?: string;
+}
+
+const cases: CaseStudyProject[] = [
   {
     num: "01",
     title: "Stratapilot",
-    subtitle: "Executive Assistant",
-    impact: "14x Faster Strategy",
-    stack: ["GPT-4o", "AI Automation", "Smart Search"],
+    headline: "Turns messy ad data into one plan — 14x faster.",
     highlights: [
-      "Automated document & brief ingestion",
-      "Live competitor & market vector model",
-      "Executive strategy summary in 1.2s"
-    ]
+      "Multi-model AI picks the best output for each task",
+      "Every campaign idea scored and versioned",
+      "Hours of planning cut to minutes"
+    ],
+    shippedIn: "1 month"
   },
   {
     num: "02",
-    title: "HireAI",
-    subtitle: "Assessment Engine",
-    impact: "72% Screening Cut",
-    stack: ["Gemini 1.5", "Automation", "Custom API"],
+    title: "Ad Wise AI",
+    headline: "One dashboard for every ad rupee you spend — and every one you're losing.",
     highlights: [
-      "24kHz real-time adaptive voice interviews",
-      "Automated coding & logic assessment",
-      "Instant rubric evaluation score"
-    ]
+      "Meta and Google Ads data in one place",
+      "Shows exactly where ad revenue is leaking",
+      "Turns guesswork into clear, fast decisions"
+    ],
+    shippedIn: "3 weeks"
   },
   {
     num: "03",
-    title: "Invoice AI Parser",
-    subtitle: "Document Intelligence",
-    impact: "$2.4M+ Auto-Processed",
-    stack: ["Vision AI", "Postgres"],
+    title: "vibe2real.codes",
+    headline: "A debugging simulator most developers fail on their first try.",
     highlights: [
-      "99.7% OCR precision on multi-page PDFs",
-      "VAT & line-item auto-reconciliation",
-      "Direct ERP & accounting ledger auto-sync"
-    ]
+      "87% fail their first attempt",
+      "15 real production incidents, zero hints",
+      "Free and fully open source"
+    ],
+    shippedIn: "24 hours",
+    link: "https://vibe2real.codes"
   },
   {
     num: "04",
-    title: "Blog Writing Agent",
-    subtitle: "Autonomous Content",
-    impact: "+140% Traffic Growth",
-    stack: ["Multi-Step AI", "Claude 3.5", "WebSearch"],
+    title: "Reddit Lead Finder",
+    headline: "Finds people already asking for help — before they ask you.",
     highlights: [
-      "Multi-agent live research with citations",
-      "Automated compiler code verification",
-      "SEO rank distribution pipeline"
-    ]
+      "Scans Reddit for real intent signals",
+      "Filters signal from noise automatically",
+      "Sends outreach the moment intent is confirmed"
+    ],
+    shippedIn: "2 weeks"
   }
 ];
 
+// Distinct "SHIPPED IN" stat chip — never renders as body text.
+function ShippedBadge({ value, tone }: { value: string; tone: 'onLight' | 'onDark' }) {
+  const base =
+    "inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono-custom text-[10px] font-bold uppercase tracking-[0.14em] whitespace-nowrap";
+  if (tone === 'onLight') {
+    return (
+      <span className={`${base} border border-[#D9B75B]/50 bg-[#FDFCF0] text-[#A67F2E]`}>
+        <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-[#D9B75B]" />
+        <span className="text-[#6B7E76]">Shipped in</span>
+        <span>{value}</span>
+      </span>
+    );
+  }
+  return (
+    <span className={`${base} border border-[#D9B75B]/30 bg-white/[0.06] text-[#D9B75B]`}>
+      <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-[#D9B75B]" />
+      <span className="text-[#EBF2EE]/70">Shipped in</span>
+      <span>{value}</span>
+    </span>
+  );
+}
+
 interface FlipCardProps {
-  project: typeof cases[0];
+  project: CaseStudyProject;
   isFlipped: boolean;
   onToggle: () => void;
 }
@@ -75,21 +103,39 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
           width: '100%',
           height: '100%',
           transformStyle: 'preserve-3d',
-          transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1)',
+          transition: 'transform 0.85s cubic-bezier(0.16,1,0.3,1)',
           transform: (isHovered || isFlipped) ? 'rotateY(180deg)' : 'rotateY(0deg)',
         }}
       >
 
         {/* ================= FRONT SIDE ================= */}
-        <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] p-6 sm:p-8 md:p-10 flex flex-col justify-center items-center text-center [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-colors hover:border-[#0B422A]/40 shadow-xs">
-          {/* Center Content: Giant Monogram Index & Bold Title */}
-          <div className="relative z-10 flex flex-col items-center pointer-events-none">
-            <span className="font-syne text-6xl sm:text-7xl md:text-8xl font-bold text-[#DDD8CC]/80 leading-none select-none tracking-tighter block mb-2 transition-transform duration-500 group-hover:scale-105">
+        <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] p-8 sm:p-9 flex flex-col justify-between text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-all duration-300 hover:border-[#0B422A] group/card">
+          {/* Top Row: Index number & Category label */}
+          <div className="flex justify-between items-start pointer-events-none">
+            <span className="font-mono-custom text-xs font-semibold text-[#0B422A] tracking-wider">
               {project.num}
             </span>
-            <h3 className="font-syne font-bold text-xl sm:text-2xl md:text-3xl text-[#121212] tracking-tight leading-tight">
+            <span className="font-mono-custom text-[10px] text-[#6B7E76] uppercase tracking-widest">
+              CASE STUDY
+            </span>
+          </div>
+
+          {/* Center: Title + one-line headline */}
+          <div className="pointer-events-none my-auto pr-2">
+            <h3 className="font-syne font-bold text-2xl sm:text-3xl text-[#0B422A] tracking-tight leading-tight group-hover/card:translate-x-1.5 transition-transform duration-300">
               {project.title}
             </h3>
+            <p className="mt-3 text-[#121212] text-sm sm:text-[15px] font-normal leading-relaxed">
+              {project.headline}
+            </p>
+          </div>
+
+          {/* Bottom Row: Shipped badge & flip indicator */}
+          <div className="flex justify-between items-center pt-4 border-t border-[#DDD8CC]/60 pointer-events-none gap-3">
+            <ShippedBadge value={project.shippedIn} tone="onLight" />
+            <span className="text-[#0B422A] text-xs transition-transform duration-300 group-hover/card:translate-x-1 shrink-0">
+              ↗
+            </span>
           </div>
         </div>
 
@@ -99,7 +145,7 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="font-mono-custom text-[9px] sm:text-[10px] font-semibold text-[#D9B75B] uppercase tracking-[0.2em]">
-                {project.subtitle}
+                Case Study {project.num}
               </span>
               <span className="font-mono-custom text-xs text-white/50">
                 ↻
@@ -109,10 +155,6 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
             <h3 className="font-syne font-bold text-lg sm:text-xl md:text-2xl text-white tracking-tight leading-snug">
               {project.title}
             </h3>
-
-            <div className="mt-2 text-[10px] sm:text-xs font-mono-custom text-[#D9B75B] font-semibold uppercase tracking-wider">
-              {project.impact}
-            </div>
           </div>
 
           {/* 3-Step Execution Highlights */}
@@ -127,24 +169,20 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
             ))}
           </div>
 
-          {/* Bottom Tech Metadata & CTA */}
-          <div className="pt-3 sm:pt-4 border-t border-white/15 flex items-center justify-between gap-3">
-            <div className="flex flex-wrap gap-x-2 gap-y-1">
-              {project.stack.map((tech, idx) => (
-                <span
-                  key={idx}
-                  className="font-mono-custom text-[9px] sm:text-[10px] text-white/70 tracking-wide"
-                >
-                  {tech}{idx < project.stack.length - 1 ? ' · ' : ''}
-                </span>
-              ))}
-            </div>
+          {/* Shipped stat badge — distinct chip under the bullets */}
+          <div className="pt-1">
+            <ShippedBadge value={project.shippedIn} tone="onDark" />
+          </div>
 
+          {/* Bottom CTA */}
+          <div className="mt-4 pt-3 sm:pt-4 border-t border-white/15 flex items-center justify-end">
             <a
-              href="#contact"
+              href={project.link || "#contact"}
+              target={project.link ? "_blank" : undefined}
+              rel={project.link ? "noopener noreferrer" : undefined}
               className="font-syne text-xs font-bold text-[#D9B75B] hover:text-white transition-colors flex items-center gap-1 shrink-0 touch-manipulation"
             >
-              <span>Build</span>
+              <span>{project.link ? "Visit" : "Build with us"}</span>
               <span>↗</span>
             </a>
           </div>
@@ -156,14 +194,18 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
 }
 
 export function CaseStudies() {
-  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+  const [flippedIndex, setFlippedIndex] = useState<string | null>(null);
 
-  const handleToggle = (index: number) => {
-    setFlippedIndex((prev) => (prev === index ? null : index));
+  const handleToggle = (id: string) => {
+    setFlippedIndex((prev) => (prev === id ? null : id));
   };
 
+  // Repeat within each set so the track always exceeds viewport width for a
+  // seamless loop even with a small number of cards.
+  const loop = [...cases, ...cases];
+
   return (
-    <section id="case-studies" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#FDFCF0] border-t border-[#DDD8CC]">
+    <section id="case-studies" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#FDFCF0] border-t border-[#DDD8CC] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Header */}
@@ -173,16 +215,34 @@ export function CaseStudies() {
           </h2>
         </div>
 
-        {/* Single Row 4-Column Rectangular Cards Grid (||||) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
-          {cases.map((project, idx) => (
-            <FlipCard
-              key={idx}
-              project={project}
-              isFlipped={flippedIndex === idx}
-              onToggle={() => handleToggle(idx)}
-            />
-          ))}
+        {/* Infinite Scrolling Horizontal Card Marquee */}
+        <div className="cases-marquee-viewport overflow-hidden py-6">
+          {/* Edge Fade Overlays */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-24 bg-gradient-to-r from-[#FDFCF0] to-transparent z-20" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-24 bg-gradient-to-l from-[#FDFCF0] to-transparent z-20" />
+
+          <div className="cases-marquee-track">
+            {[0, 1].map((set) => (
+              <div
+                key={set}
+                className="flex gap-6 shrink-0"
+                aria-hidden={set === 1 ? 'true' : undefined}
+              >
+                {loop.map((project, idx) => {
+                  const cardId = `${set}-${idx}`;
+                  return (
+                    <div key={cardId} className="w-[300px] sm:w-[340px] md:w-[380px] shrink-0">
+                      <FlipCard
+                        project={project}
+                        isFlipped={flippedIndex === cardId}
+                        onToggle={() => handleToggle(cardId)}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>

@@ -7,12 +7,12 @@ import { VideoShowcase } from '@/components/sections/VideoShowcase';
 import { Overview } from '@/components/sections/Overview';
 import { Services } from '@/components/sections/Services';
 import { CaseStudies } from '@/components/sections/CaseStudies';
-import { LatestShip } from '@/components/sections/LatestShip';
 import { Process } from '@/components/sections/Process';
 import { PromiseCarousel } from '@/components/sections/PromiseCarousel';
 import { Pricing } from '@/components/sections/Pricing';
 import { WorkWithUsCTA } from '@/components/sections/WorkWithUsCTA';
 import { Team } from '@/components/sections/Team';
+import { Testimonials } from '@/components/sections/Testimonials';
 import { PrivacyPage } from '@/components/pages/PrivacyPage';
 import { CookiePage } from '@/components/pages/CookiePage';
 import { RefundPage } from '@/components/pages/RefundPage';
@@ -87,6 +87,29 @@ function App() {
     <div className="min-h-screen bg-[#FDFCF0] text-[#121212] selection:bg-[#D9B75B]/30 selection:text-[#0B422A] font-sans antialiased overflow-x-clip relative">
       <Preloader />
       <Navbar />
+
+      {/* WhatsApp Floating Button */}
+      <a
+        href="https://wa.me/918082943205"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group fixed bottom-6 right-6 z-50 flex items-center gap-2"
+        aria-label="Chat with us on WhatsApp"
+      >
+        <span
+          className="pointer-events-none opacity-0 group-hover:opacity-100 translate-x-1 group-hover:translate-x-0 transition-[opacity,transform] duration-150 ease-out bg-[#121212] text-white text-sm font-medium px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap select-none"
+        >
+          Talk with us
+        </span>
+        <div className="flex items-center justify-center w-14 h-14 rounded-full shadow-xl transition-transform duration-150 group-hover:scale-110" style={{ background: '#25D366' }}>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+            alt="WhatsApp"
+            className="w-8 h-8 relative z-10"
+            draggable={false}
+          />
+        </div>
+      </a>
       
       <main>
         <Hero />
@@ -94,12 +117,12 @@ function App() {
         <Overview />
         <Services />
         <CaseStudies />
-        <LatestShip />
         <Process />
         <PromiseCarousel />
         <Pricing />
         <WorkWithUsCTA />
         <Team />
+        <Testimonials />
       </main>
 
       <Footer

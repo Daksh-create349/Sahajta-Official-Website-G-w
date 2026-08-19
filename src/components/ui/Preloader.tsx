@@ -43,7 +43,12 @@ export function Preloader() {
         setProgress(100);
         // Wait longer so the ColorBends WebGL shader has time to fully initialize
         hideTimer = window.setTimeout(() => {
-          if (!cancelled) setIsLoading(false);
+          if (!cancelled) {
+            setIsLoading(false);
+            // Signal the hero (and anything else) that the stage is clear, so
+            // intro animations play in view instead of behind this overlay.
+            window.dispatchEvent(new Event('sahajta:preloaded'));
+          }
         }, 900);
         return;
       }

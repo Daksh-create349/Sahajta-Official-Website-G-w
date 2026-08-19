@@ -283,6 +283,50 @@
   }
 }
 
+/* Trusted-tools logo marquee - buttery smooth CSS keyframe animation running
+   on the GPU compositor thread for 100% jitter-free rendering. */
+.logo-marquee-viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  --marquee-gap: 3.5rem;
+}
+
+@media (min-width: 640px) {
+  .logo-marquee-viewport {
+    --marquee-gap: 5rem;
+  }
+}
+
+.logo-marquee-track {
+  display: flex;
+  gap: var(--marquee-gap);
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.logo-marquee-group {
+  display: flex;
+  gap: var(--marquee-gap);
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee-track {
+    animation: none;
+    transform: none !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1.25rem;
+  }
+  .logo-marquee-group:last-child {
+    display: none;
+  }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -303,3 +347,85 @@ html {
   scrollbar-color: #D9B75B #FDFCF0;
   scrollbar-width: thin;
 }
+
+/* Shipped Work Cases Marquee */
+.cases-marquee-viewport {
+  position: relative;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  --cases-gap: 1.5rem;
+}
+
+.cases-marquee-track {
+  display: flex;
+  gap: var(--cases-gap);
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  animation: cases-scroll 75s linear infinite;
+}
+
+.cases-marquee-viewport:hover .cases-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes cases-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(-50% - var(--cases-gap) / 2), 0, 0);
+  }
+}
+
+/* On mobile/tablet, support full marquee scroll but allow swipe gesture if necessary.
+   Alternatively, CSS marquee is smooth enough on all screen sizes. */
+
+/* Logo marquee: smooth SVG fill color transitions on hover */
+.logo-marquee-group .group\/card svg {
+  transition: fill 0.3s ease, transform 0.2s ease;
+}
+
+/* Testimonials Marquee — full-bleed, GPU-composited dual rows.
+   Motion is driven by rAF in Testimonials.tsx (smooth hover slow-down);
+   CSS only owns layout + the reduced-motion fallback. */
+.testimonials-marquee-viewport {
+  position: relative;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  --testimonials-gap: 1.5rem;
+}
+
+.testimonials-marquee-track {
+  display: flex;
+  gap: var(--testimonials-gap);
+  width: max-content;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@media (max-width: 639.98px) {
+  .testimonials-marquee-track {
+    --testimonials-gap: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonials-marquee-track {
+    transform: none !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1.5rem;
+  }
+  .testimonials-marquee-track > div:last-child {
+    display: none;
+  }
+}
+
+

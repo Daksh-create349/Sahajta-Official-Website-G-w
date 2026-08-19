@@ -56,22 +56,22 @@ const slides: PromiseSlide[] = [
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28 drop-shadow-md">
         <defs>
           <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#B99A62" />
-            <stop offset="100%" stopColor="#8A6F3C" />
+            <stop offset="0%" stopColor="#55693E" />
+            <stop offset="100%" stopColor="#38472A" />
           </linearGradient>
         </defs>
         {/* Outer Ring */}
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#B99A62" strokeWidth="2" strokeDasharray="6 4" opacity="0.6" />
-        <circle cx="60" cy="60" r="34" fill="#B99A62" fillOpacity="0.1" stroke="url(#grad2)" strokeWidth="2" />
-        <circle cx="60" cy="60" r="20" fill="none" stroke="#8A6F3C" strokeWidth="2.5" />
+        <circle cx="60" cy="60" r="44" fill="none" stroke="#55693E" strokeWidth="2" strokeDasharray="6 4" opacity="0.6" />
+        <circle cx="60" cy="60" r="34" fill="#55693E" fillOpacity="0.1" stroke="url(#grad2)" strokeWidth="2" />
+        <circle cx="60" cy="60" r="20" fill="none" stroke="#38472A" strokeWidth="2.5" />
         {/* Center Target Focal Point */}
         <circle cx="60" cy="60" r="9" fill="url(#grad2)" />
         <circle cx="60" cy="60" r="4" fill="#FFFFFF" />
         {/* Crosshair accents */}
-        <line x1="60" y1="8" x2="60" y2="20" stroke="#B99A62" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="60" y1="100" x2="60" y2="112" stroke="#B99A62" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="8" y1="60" x2="20" y2="60" stroke="#B99A62" strokeWidth="2.5" strokeLinecap="round" />
-        <line x1="100" y1="60" x2="112" y2="60" stroke="#B99A62" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="60" y1="8" x2="60" y2="20" stroke="#55693E" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="60" y1="100" x2="60" y2="112" stroke="#55693E" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="8" y1="60" x2="20" y2="60" stroke="#55693E" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="100" y1="60" x2="112" y2="60" stroke="#55693E" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
     )
   },
@@ -85,17 +85,17 @@ const slides: PromiseSlide[] = [
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28 drop-shadow-md">
         <defs>
           <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#829366" />
-            <stop offset="100%" stopColor="#5C6B47" />
+            <stop offset="0%" stopColor="#55693E" />
+            <stop offset="100%" stopColor="#38472A" />
           </linearGradient>
         </defs>
         {/* Stepping Blocks */}
-        <rect x="18" y="78" width="22" height="24" rx="6" fill="#829366" opacity="0.3" />
-        <rect x="44" y="58" width="22" height="44" rx="6" fill="#829366" opacity="0.6" />
+        <rect x="18" y="78" width="22" height="24" rx="6" fill="#55693E" opacity="0.3" />
+        <rect x="44" y="58" width="22" height="44" rx="6" fill="#55693E" opacity="0.6" />
         <rect x="70" y="38" width="22" height="64" rx="6" fill="url(#grad3)" />
         {/* Ascending Arrow Curve */}
-        <path d="M 22 68 Q 50 35 90 22" fill="none" stroke="#829366" strokeWidth="3" strokeLinecap="round" strokeDasharray="4 3" />
-        <polygon points="94,22 84,18 86,28" fill="#829366" />
+        <path d="M 22 68 Q 50 35 90 22" fill="none" stroke="#55693E" strokeWidth="3" strokeLinecap="round" strokeDasharray="4 3" />
+        <polygon points="94,22 84,18 86,28" fill="#55693E" />
         <circle cx="92" cy="22" r="4" fill="#FFFFFF" />
       </svg>
     )
@@ -110,20 +110,20 @@ const slides: PromiseSlide[] = [
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28 drop-shadow-md">
         <defs>
           <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#A87F4E" />
-            <stop offset="100%" stopColor="#7A5A34" />
+            <stop offset="0%" stopColor="#55693E" />
+            <stop offset="100%" stopColor="#38472A" />
           </linearGradient>
         </defs>
         {/* Stacked Cards Queue */}
-        <rect x="30" y="65" width="60" height="35" rx="8" fill="#7A5A34" opacity="0.25" transform="rotate(-6 60 82)" />
-        <rect x="30" y="48" width="60" height="35" rx="8" fill="#A87F4E" opacity="0.55" transform="rotate(-3 60 65)" />
+        <rect x="30" y="65" width="60" height="35" rx="8" fill="#38472A" opacity="0.25" transform="rotate(-6 60 82)" />
+        <rect x="30" y="48" width="60" height="35" rx="8" fill="#55693E" opacity="0.55" transform="rotate(-3 60 65)" />
         <rect x="30" y="30" width="60" height="35" rx="8" fill="url(#grad4)" stroke="#FFFFFF" strokeWidth="1.5" />
         {/* Card Content Lines */}
         <rect x="40" y="40" width="24" height="4" rx="2" fill="#FFFFFF" />
         <rect x="40" y="48" width="40" height="4" rx="2" fill="#FFFFFF" opacity="0.8" />
         {/* Infinite Plus Badge */}
         <circle cx="80" cy="35" r="11" fill="#2A331F" stroke="#FFFFFF" strokeWidth="1.5" />
-        <path d="M 80 29 V 41 M 74 35 H 86" stroke="#A87F4E" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M 80 29 V 41 M 74 35 H 86" stroke="#55693E" strokeWidth="2.5" strokeLinecap="round" />
       </svg>
     )
   },
@@ -137,8 +137,8 @@ const slides: PromiseSlide[] = [
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28 drop-shadow-md">
         <defs>
           <linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#4E603B" />
-            <stop offset="100%" stopColor="#2F3B21" />
+            <stop offset="0%" stopColor="#55693E" />
+            <stop offset="100%" stopColor="#38472A" />
           </linearGradient>
         </defs>
         {/* Infinity Loop */}
@@ -151,9 +151,9 @@ const slides: PromiseSlide[] = [
           strokeLinejoin="round"
         />
         {/* Motion Pulse Circles */}
-        <circle cx="38" cy="60" r="6" fill="#4E603B" />
-        <circle cx="82" cy="60" r="6" fill="#FFFFFF" stroke="#2F3B21" strokeWidth="2" />
-        <circle cx="60" cy="60" r="4" fill="#4E603B" opacity="0.8" />
+        <circle cx="38" cy="60" r="6" fill="#55693E" />
+        <circle cx="82" cy="60" r="6" fill="#FFFFFF" stroke="#38472A" strokeWidth="2" />
+        <circle cx="60" cy="60" r="4" fill="#55693E" opacity="0.8" />
       </svg>
     )
   },
@@ -167,8 +167,8 @@ const slides: PromiseSlide[] = [
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28 drop-shadow-md">
         <defs>
           <linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#8F8B4A" />
-            <stop offset="100%" stopColor="#6A6634" />
+            <stop offset="0%" stopColor="#55693E" />
+            <stop offset="100%" stopColor="#38472A" />
           </linearGradient>
         </defs>
         {/* Shield Badge */}
@@ -201,14 +201,14 @@ const slides: PromiseSlide[] = [
       <svg viewBox="0 0 120 120" className="w-24 h-24 md:w-28 md:h-28 drop-shadow-md">
         <defs>
           <linearGradient id="grad7" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#4E603B" />
-            <stop offset="100%" stopColor="#33421F" />
+            <stop offset="0%" stopColor="#55693E" />
+            <stop offset="100%" stopColor="#38472A" />
           </linearGradient>
         </defs>
         {/* Lock Vault Frame */}
         <rect x="30" y="48" width="60" height="48" rx="12" fill="url(#grad7)" stroke="#FFFFFF" strokeWidth="1.5" />
         {/* Lock Shackle */}
-        <path d="M 42 48 V 34 C 42 24, 78 24, 78 34 V 48" fill="none" stroke="#4E603B" strokeWidth="5" strokeLinecap="round" />
+        <path d="M 42 48 V 34 C 42 24, 78 24, 78 34 V 48" fill="none" stroke="#55693E" strokeWidth="5" strokeLinecap="round" />
         {/* Keyhole Node */}
         <circle cx="60" cy="68" r="7" fill="#FFFFFF" />
         <polygon points="60,68 56,82 64,82" fill="#FFFFFF" />

@@ -147,22 +147,6 @@ function Row({
           )}
         </span>
 
-        <span className="shrink-0 text-right">
-          <span
-            className={`font-mono-custom block text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors duration-400 ${
-              isOpen ? 'text-[#9AA89F]' : 'text-[#6B7E76]'
-            }`}
-          >
-            {item.priceNote}
-          </span>
-          <span
-            className={`font-syne block text-[1.5rem] sm:text-[1.9rem] md:text-[2.6rem] font-bold leading-none tracking-tight tabular-nums transition-colors duration-400 ${
-              isOpen ? 'text-[#FDFCF0]' : 'text-[#121212]'
-            }`}
-          >
-            {item.price}
-          </span>
-        </span>
 
         <span
           className={`grid h-8 w-8 sm:h-9 sm:w-9 shrink-0 place-items-center rounded-full border transition-all duration-500 ${

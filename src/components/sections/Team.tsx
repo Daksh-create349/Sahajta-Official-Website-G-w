@@ -1,3 +1,6 @@
+import shubhangImg from '@/assets/shubhang.png';
+import pranamyaImg from '@/assets/pranamya.png';
+
 export function Team() {
   const team = [
     {
@@ -5,14 +8,22 @@ export function Team() {
       role: "Co-founder & Product Lead",
       bio: "Product strategy & weekly sprint delivery. Turns business goals into clean, shipped software.",
       tags: ["Product Strategy", "Sprint Delivery", "Namyah Lead"],
-      linkedin: "https://www.linkedin.com/in/shubhangsethi/"
+      linkedin: "https://www.linkedin.com/in/shubhangsethi/",
+      initials: "SS",
+      slotId: "PHOTO_SLOT_01 // SHUBHANG",
+      image: shubhangImg,
+      imgClass: "absolute bottom-0 h-[98%] w-auto object-contain pointer-events-none"
     },
     {
       name: "Pranamya Jain",
       role: "Co-founder & Tech Lead",
       bio: "AI systems & full-stack architecture. Built vibe2real.codes from concept to live production in 24 hours.",
       tags: ["AI Architect", "Full-Stack Eng", "vibe2real Founder"],
-      linkedin: "https://www.linkedin.com/in/pranamya-jainn/"
+      linkedin: "https://www.linkedin.com/in/pranamya-jainn/",
+      initials: "PJ",
+      slotId: "PHOTO_SLOT_02 // PRANAMYA",
+      image: pranamyaImg,
+      imgClass: "absolute bottom-0 h-[98%] w-auto object-contain pointer-events-none"
     }
   ];
 
@@ -37,10 +48,20 @@ export function Team() {
           {team.map((member, idx) => (
             <div
               key={idx}
-              className="bg-[#F0EFE6] p-8 md:p-10 rounded-[2rem] border border-[#DDD8CC] flex flex-col justify-between hover:border-[#6B7E76] transition-all duration-300 shadow-xs"
+              className="bg-[#F0EFE6] p-6 sm:p-8 md:p-10 rounded-[2.5rem] border border-[#DDD8CC] flex flex-col justify-between hover:border-[#6B7E76] transition-all duration-300 shadow-xs group/card"
             >
               <div>
-                <div className="mb-6">
+                {/* Minimalistic Photo Slot Frame */}
+                <div className="relative w-full h-[380px] lg:h-[480px] mb-8 rounded-[2rem] border border-[#DDD8CC] bg-[#FDFCF0] overflow-hidden flex items-center justify-center">
+                  {/* Co-founder Cutout Image */}
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className={`transition-transform duration-500 ease-out group-hover/card:scale-[1.03] ${member.imgClass}`}
+                  />
+                </div>
+
+                <div className="mb-4">
                   <h3 className="font-syne font-bold text-3xl text-[#0B422A] tracking-tight">
                     {member.name}
                   </h3>
@@ -49,7 +70,7 @@ export function Team() {
                   </p>
                 </div>
 
-                <p className="text-[#121212] text-sm font-normal leading-relaxed mb-8">
+                <p className="text-[#121212] text-sm sm:text-base font-normal leading-relaxed mb-8">
                   {member.bio}
                 </p>
               </div>
@@ -89,3 +110,4 @@ export function Team() {
     </section>
   );
 }
+

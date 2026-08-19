@@ -6,6 +6,7 @@ export function FooterDither() {
   const hostRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [tabActive, setTabActive] = useState(true);
+  const [scrolling, setScrolling] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
   const [isWin, setIsWin] = useState(false);
@@ -53,6 +54,24 @@ export function FooterDither() {
     return () => document.removeEventListener('visibilitychange', sync);
   }, []);
 
+  // Pause the GPU shader while the user is actively scrolling so its
+  // per-frame render loop never competes with smooth-scroll on the main
+  // thread. The wave is near-static, so a brief idle-resume is invisible.
+  useEffect(() => {
+    if (isMobile) return;
+    let idleTimer = 0;
+    const onScroll = () => {
+      setScrolling(true);
+      clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(() => setScrolling(false), 140);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      clearTimeout(idleTimer);
+    };
+  }, [isMobile]);
+
   // Completely omitted on mobile for max scroll speed and 0 GPU overhead
   if (isMobile) {
     return null;
@@ -90,7 +109,7 @@ export function FooterDither() {
         style={maskStyle}
       >
         <Dither
-          active={visible && tabActive}
+          active={visible && tabActive && !scrolling}
           disableAnimation={reduced}
           enableMouseInteraction={true}
           mouseRadius={0.4}

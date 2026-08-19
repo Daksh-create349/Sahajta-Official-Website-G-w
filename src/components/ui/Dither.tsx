@@ -181,6 +181,7 @@ type DitheredWavesProps = {
   disableAnimation: boolean;
   enableMouseInteraction: boolean;
   mouseRadius: number;
+  active: boolean;
 };
 
 function DitheredWavesOriginal({
@@ -193,10 +194,31 @@ function DitheredWavesOriginal({
   disableAnimation,
   enableMouseInteraction,
   mouseRadius,
+  active,
 }: DitheredWavesProps) {
   const mouseTargetRef = useRef(new THREE.Vector2(-9999, -9999));
   const mouseCurrentRef = useRef(new THREE.Vector2(-9999, -9999));
   const { viewport, size, gl, invalidate } = useThree();
+
+  // Drive rendering with our own rAF in R3F "demand" mode. Toggling
+  // frameloop 'never' <-> 'always' does not reliably restart R3F's loop
+  // (it stays parked until an event fires), which is why it needed a click.
+  // Continuously calling invalidate() while active is robust and stops
+  // cleanly when paused, freeing the main thread during scroll.
+  useEffect(() => {
+    if (!active) return;
+    if (disableAnimation) {
+      invalidate();
+      return;
+    }
+    let raf = 0;
+    const loop = () => {
+      invalidate();
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [active, disableAnimation, invalidate]);
 
   const waveUniformsRef = useRef({
     time: new THREE.Uniform(0),
@@ -424,10 +446,27 @@ function DitheredWavesWin({
   disableAnimation,
   enableMouseInteraction,
   mouseRadius,
+  active,
 }: DitheredWavesProps) {
   const mouseTargetRef = useRef(new THREE.Vector2(-9999, -9999));
   const mouseCurrentRef = useRef(new THREE.Vector2(-9999, -9999));
   const { viewport, size, gl, invalidate } = useThree();
+
+  // Re-kick the render loop whenever it resumes (see original variant).
+  useEffect(() => {
+    if (!active) return;
+    if (disableAnimation) {
+      invalidate();
+      return;
+    }
+    let raf = 0;
+    const loop = () => {
+      invalidate();
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [active, disableAnimation, invalidate]);
 
   const waveUniformsRef = useRef({
     time: new THREE.Uniform(0),
@@ -561,7 +600,7 @@ export default function Dither({
         className={className ? `dither-container ${className}` : 'dither-container'}
         camera={{ position: [0, 0, 6] }}
         dpr={0.75}
-        frameloop={active ? 'always' : 'never'}
+        frameloop="demand"
         gl={{ antialias: false, powerPreference: 'high-performance', depth: false, stencil: false }}
       >
         <DitheredWavesWin
@@ -574,6 +613,7 @@ export default function Dither({
           disableAnimation={disableAnimation}
           enableMouseInteraction={enableMouseInteraction}
           mouseRadius={mouseRadius}
+          active={active}
         />
       </Canvas>
     );
@@ -584,7 +624,7 @@ export default function Dither({
       className={className ? `dither-container ${className}` : 'dither-container'}
       camera={{ position: [0, 0, 6] }}
       dpr={1}
-      frameloop={active ? 'always' : 'never'}
+      frameloop="demand"
       gl={{ antialias: false, powerPreference: 'high-performance' }}
     >
       <DitheredWavesOriginal
@@ -597,6 +637,7 @@ export default function Dither({
         disableAnimation={disableAnimation}
         enableMouseInteraction={enableMouseInteraction}
         mouseRadius={mouseRadius}
+        active={active}
       />
     </Canvas>
   );
