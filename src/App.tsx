@@ -90,7 +90,7 @@ function App() {
 
       {/* WhatsApp Floating Button */}
       <a
-        href="https://wa.me/918082943205"
+        href="https://wa.me/918082943205?text=Hi%20Sahajta%20team%2C%20I%20want%20to%20discuss%20a%20project%20with%20you."
         target="_blank"
         rel="noopener noreferrer"
         className="group fixed bottom-6 right-6 z-50 flex items-center gap-2"
