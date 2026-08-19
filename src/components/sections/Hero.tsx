@@ -66,7 +66,7 @@ export function Hero() {
               Get More Built <br className="hidden sm:inline" />
               <span className="text-[#2D6E54] font-normal italic">
                 in{' '}
-                <span className="relative inline-block">
+                <span className="relative inline-block ml-2 sm:ml-3">
                   Weeks
                   {/* Hand-drawn marker circle — loops "Weeks" with a natural
                       overshoot. pathLength=1 normalizes the draw so no JS
@@ -74,15 +74,15 @@ export function Hero() {
                       has cleared and the main thread is idle. */}
                   <svg
                     aria-hidden="true"
-                    viewBox="0 0 348 154"
+                    viewBox="0 0 360 154"
                     preserveAspectRatio="none"
                     className="pointer-events-none absolute overflow-visible"
                     style={{
-                      left: '52.5%',
+                      left: '52%',
                       top: '50%',
-                      width: '128%',
-                      height: '154%',
-                      transform: 'translate(-50%, -50%) rotate(-2.1deg)',
+                      width: '132%',
+                      height: '150%',
+                      transform: 'translate(-50%, -50%) rotate(-2.4deg)',
                     }}
                   >
                     <defs>
@@ -92,11 +92,12 @@ export function Hero() {
                       </linearGradient>
                     </defs>
                     <path
-                      d="M250 23C162 7 78 13 42 45C12 71 22 109 100 125C184 141 280 124 306 78C318 54 294 26 210 18"
+                      d="M256 28C172 12 80 18 44 50C16 76 28 114 112 127C194 139 298 121 318 77C329 50 302 26 216 21C150 16 74 26 46 56C30 74 34 100 78 116"
                       fill="none"
                       stroke="url(#wk-circle)"
-                      strokeWidth="4.3"
+                      strokeWidth="3.5"
                       strokeLinecap="round"
+                      strokeLinejoin="round"
                       pathLength={1}
                       style={{
                         strokeDasharray: 1,

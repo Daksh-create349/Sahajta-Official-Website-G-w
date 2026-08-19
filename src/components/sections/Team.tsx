@@ -23,7 +23,7 @@ export function Team() {
       initials: "PJ",
       slotId: "PHOTO_SLOT_02 // PRANAMYA",
       image: pranamyaImg,
-      imgClass: "absolute bottom-0 h-[98%] w-auto object-contain pointer-events-none"
+      imgClass: "absolute bottom-0 h-[95%] w-auto object-contain pointer-events-none"
     }
   ];
 

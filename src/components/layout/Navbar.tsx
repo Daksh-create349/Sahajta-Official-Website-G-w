@@ -127,17 +127,17 @@ export function Navbar() {
       {/* Mobile Fullscreen Navigation Overlay */}
       <div
         className={cn(
-          "fixed inset-0 w-screen h-screen bg-[#FDFCF0] z-50 flex flex-col justify-between p-6 md:hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          "fixed inset-0 w-screen h-[100dvh] bg-[#FDFCF0] z-[60] flex flex-col p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:hidden overflow-y-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
           mobileMenuOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-4 pointer-events-none"
         )}
       >
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between shrink-0">
           <img src={logoImg} alt="Sahajta AI" width={120} height={36} className="h-7 w-auto object-contain" />
           <button
-            className="text-[#0B422A] p-2 rounded-full hover:bg-[#F0EFE6] transition-colors"
+            className="text-[#0B422A] p-2 -mr-2 rounded-full hover:bg-[#F0EFE6] transition-colors"
             onClick={() => setMobileMenuOpen(false)}
             aria-label="Close Menu"
           >
@@ -147,30 +147,56 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Vertically Centered Link List */}
-        <nav className="flex flex-col gap-6 my-auto pt-8">
-          {navLinks.map((link, idx) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={(e) => {
-                setMobileMenuOpen(false);
-                handleNavClick(e, link.href);
-              }}
-              className={cn(
-                "text-3xl font-syne font-bold text-[#0B422A] hover:text-[#2D6E54] transition-all transform duration-500",
-                mobileMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"
-              )}
-              style={{ transitionDelay: `${idx * 75}ms` }}
-            >
-              <span className="font-mono-custom text-xs text-[#9AA89F] mr-4 font-normal">0{idx + 1}</span>
-              {link.name}
-            </a>
-          ))}
+        {/* Editorial Index — rows distribute across the full height, no dead space */}
+        <nav className="flex-1 flex flex-col min-h-0 pt-7">
+          {/* Eyebrow gives the upper edge a job */}
+          <div
+            className={cn(
+              "flex items-center gap-2.5 mb-3 shrink-0 transition-all duration-500",
+              mobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+            )}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D9B75B]" />
+            <span className="font-mono-custom text-[10px] tracking-[0.28em] uppercase text-[#6B7E76]">Navigate</span>
+          </div>
+
+          <ul className="flex-1 flex flex-col border-t border-[#DDD8CC]/70">
+            {navLinks.map((link, idx) => (
+              <li key={link.name} className="flex-1 flex border-b border-[#DDD8CC]/70">
+                <a
+                  href={link.href}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleNavClick(e, link.href);
+                  }}
+                  className={cn(
+                    "group flex-1 flex items-center justify-between min-h-[64px] transition-all duration-500",
+                    mobileMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"
+                  )}
+                  style={{ transitionDelay: `${120 + idx * 70}ms` }}
+                >
+                  <span className="flex items-baseline gap-4">
+                    <span className="font-mono-custom text-xs text-[#9AA89F] group-hover:text-[#B8902F] transition-colors">
+                      0{idx + 1}
+                    </span>
+                    <span className="font-syne text-[1.75rem] leading-none font-bold text-[#0B422A] group-hover:text-[#2D6E54] transition-colors">
+                      {link.name}
+                    </span>
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="text-[#B8B3A4] text-lg group-hover:text-[#2D6E54] group-hover:translate-x-1 transition-all duration-300"
+                  >
+                    ↗
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
 
         {/* Footer Area: CTA & Info */}
-        <div className="flex flex-col gap-6 pt-6 border-t border-[#DDD8CC]/60">
+        <div className="flex flex-col gap-5 pt-6 border-t border-[#DDD8CC]/60 shrink-0">
           <a
             href="#contact"
             onClick={(e) => {
@@ -181,7 +207,7 @@ export function Navbar() {
           >
             Book 24h Sprint ↗
           </a>
-          
+
           <div className="flex justify-between items-center text-xs font-mono-custom text-[#6B7E76]">
             <span>© {new Date().getFullYear()} Sahajta AI</span>
             <div className="flex gap-4">

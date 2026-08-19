@@ -67,7 +67,7 @@ export function FaqModal({ isOpen, onClose }: FaqModalProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#0B2818]/85 backdrop-blur-md"
+            className="fixed inset-0 bg-[#0B2818]/90"
           />
 
           {/* Modal Card */}
@@ -76,6 +76,7 @@ export function FaqModal({ isOpen, onClose }: FaqModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
             className="relative z-10 w-full max-w-2xl overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-white/10 bg-[#0B422A] p-6 sm:p-10 shadow-2xl text-[#FDFCF0] max-h-[90vh] flex flex-col"
           >
             {/* Header */}
