@@ -115,7 +115,7 @@ function VerticalVideoCard({ item }: { item: VideoTestimonial }) {
   };
 
   return (
-    <div className="group/card shrink-0 w-[260px] sm:w-[320px] md:w-[340px] flex flex-col bg-white border border-[#DDD8CC] rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-[0_4px_20px_-10px_rgba(18,18,18,0.06)] hover:border-[#0B422A] hover:shadow-[0_16px_32px_-16px_rgba(11,66,42,0.18)] transition-all duration-300 transform-gpu select-none">
+    <div className="group/card shrink-0 w-[260px] sm:w-[320px] md:w-[340px] flex flex-col bg-[#F0EFE6] border border-[#DDD8CC] rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-[0_4px_20px_-10px_rgba(18,18,18,0.06)] hover:border-[#0B422A] hover:shadow-[0_16px_32px_-16px_rgba(11,66,42,0.18)] transition-all duration-300 transform-gpu select-none">
       {/* Vertical Video Reel (Top) */}
       <div
         onClick={togglePlay}
@@ -239,16 +239,6 @@ export function VideoTestimonials() {
       aria-label="Client video testimonials"
       className="py-12 sm:py-20 md:py-28 bg-[#FDFCF0] border-t border-[#DDD8CC] relative overflow-hidden"
     >
-      {/* Background ambient lighting */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-40 right-0 w-[500px] h-[500px] rounded-full bg-[#D9B75B]/10 blur-3xl"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-40 left-0 w-[500px] h-[500px] rounded-full bg-[#0B422A]/8 blur-3xl"
-      />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-14 gap-4">
@@ -267,7 +257,7 @@ export function VideoTestimonials() {
               <button
                 type="button"
                 onClick={() => scroll('left')}
-                className="w-9 h-9 rounded-full border border-[#DDD8CC] bg-white hover:border-[#0B422A] hover:bg-[#0B422A] hover:text-[#FDFCF0] text-[#0B422A] flex items-center justify-center transition-all cursor-pointer shadow-sm touch-manipulation"
+                className="w-9 h-9 rounded-full border border-[#DDD8CC] bg-[#F0EFE6] hover:border-[#0B422A] hover:bg-[#0B422A] hover:text-[#FDFCF0] text-[#0B422A] flex items-center justify-center transition-all cursor-pointer shadow-xs touch-manipulation"
                 aria-label="Scroll left"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -277,7 +267,7 @@ export function VideoTestimonials() {
               <button
                 type="button"
                 onClick={() => scroll('right')}
-                className="w-9 h-9 rounded-full border border-[#DDD8CC] bg-white hover:border-[#0B422A] hover:bg-[#0B422A] hover:text-[#FDFCF0] text-[#0B422A] flex items-center justify-center transition-all cursor-pointer shadow-sm touch-manipulation"
+                className="w-9 h-9 rounded-full border border-[#DDD8CC] bg-[#F0EFE6] hover:border-[#0B422A] hover:bg-[#0B422A] hover:text-[#FDFCF0] text-[#0B422A] flex items-center justify-center transition-all cursor-pointer shadow-xs touch-manipulation"
                 aria-label="Scroll right"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useCallback, type TouchEvent } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { scrollToTarget } from '@/lib/lenis';
 
 import service1Img from '@/assets/services/service-1.png';
@@ -48,17 +48,45 @@ const STEP_VH = 0.6;
 const WRAPPER_VH = 100 + services.length * STEP_VH * 100;
 const PIN_QUERY = '(min-width: 1024px) and (min-height: 620px)';
 
+const cardVariants: Variants = {
+  enter: (direction: number) => ({
+    opacity: 0,
+    x: direction >= 0 ? 36 : -36,
+    scale: 0.98,
+  }),
+  center: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: {
+      duration: 0.24,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
+  },
+  exit: (direction: number) => ({
+    opacity: 0,
+    x: direction >= 0 ? -36 : 36,
+    scale: 0.98,
+    transition: {
+      duration: 0.2,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
+  }),
+};
+
 export function Services() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const arcRef = useRef<SVGPathElement>(null);
   const nodesRef = useRef<(HTMLButtonElement | null)[]>([]);
   const [activeIdx, setActiveIdx] = useState(0);
+  const [direction, setDirection] = useState(1);
   const [isPinned, setIsPinned] = useState(
     () => typeof window !== 'undefined' && window.matchMedia(PIN_QUERY).matches
   );
 
   // Touch gesture support for mobile swiping
   const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   const updateArcVisuals = useCallback((progress: number, targetIdx: number) => {
     if (arcRef.current) {
@@ -72,7 +100,13 @@ export function Services() {
       }
     });
 
-    setActiveIdx((prev) => (prev === targetIdx ? prev : targetIdx));
+    setActiveIdx((prev) => {
+      if (prev !== targetIdx) {
+        setDirection(targetIdx > prev ? 1 : -1);
+        return targetIdx;
+      }
+      return prev;
+    });
   }, []);
 
   useEffect(() => {
@@ -136,6 +170,9 @@ export function Services() {
   }, [isPinned, updateArcVisuals]);
 
   const goToPhase = (idx: number) => {
+    if (idx === activeIdx) return;
+    setDirection(idx > activeIdx ? 1 : -1);
+
     if (!isPinned) {
       const progress = idx / (services.length - 1);
       updateArcVisuals(progress, idx);
@@ -153,19 +190,28 @@ export function Services() {
 
   const handleTouchStart = (e: TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
   };
 
   const handleTouchEnd = (e: TouchEvent) => {
     if (touchStartX.current === null) return;
     const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX.current - touchEndX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffX = touchStartX.current - touchEndX;
+    const diffY = touchStartY.current !== null ? touchStartY.current - touchEndY : 0;
 
-    if (diff > 45 && activeIdx < services.length - 1) {
-      goToPhase(activeIdx + 1);
-    } else if (diff < -45 && activeIdx > 0) {
-      goToPhase(activeIdx - 1);
+    // Only trigger if primarily a horizontal swipe
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+      if (diffX > 0 && activeIdx < services.length - 1) {
+        // Swiped Left -> Advance to Next Phase
+        goToPhase(activeIdx + 1);
+      } else if (diffX < 0 && activeIdx > 0) {
+        // Swiped Right -> Return to Previous Phase
+        goToPhase(activeIdx - 1);
+      }
     }
     touchStartX.current = null;
+    touchStartY.current = null;
   };
 
   const activeService = services[activeIdx];
@@ -230,13 +276,14 @@ export function Services() {
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
             >
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                   key={activeService.num}
-                  initial={{ opacity: 0, x: -20, scale: 0.98 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: 20, scale: 0.98 }}
-                  transition={{ duration: 0.22, ease: "easeOut" }}
+                  custom={direction}
+                  variants={cardVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
                   className="relative bg-[#F0EFE6] p-5 sm:p-7 md:p-8 lg:p-12 rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-[#DDD8CC] shadow-md min-h-[300px] sm:min-h-[360px] md:min-h-[400px] lg:min-h-[420px] flex flex-col justify-between overflow-hidden group touch-manipulation"
                 >
                   {/* Background Image Layer */}
