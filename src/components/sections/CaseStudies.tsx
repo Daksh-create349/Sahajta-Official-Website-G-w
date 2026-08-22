@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { RotateCcw } from 'lucide-react';
 
 interface CaseStudyProject {
   num: string;
@@ -20,7 +21,8 @@ const cases: CaseStudyProject[] = [
       "Every campaign idea scored and versioned",
       "Hours of planning cut to minutes"
     ],
-    shippedIn: "1 month"
+    shippedIn: "1 month",
+    image: "/cases/stratapilot.jpg"
   },
   {
     num: "02",
@@ -31,7 +33,8 @@ const cases: CaseStudyProject[] = [
       "Shows exactly where ad revenue is leaking",
       "Turns guesswork into clear, fast decisions"
     ],
-    shippedIn: "3 weeks"
+    shippedIn: "3 weeks",
+    image: "/cases/ad-wise-ai.jpg"
   },
   {
     num: "03",
@@ -43,7 +46,8 @@ const cases: CaseStudyProject[] = [
       "Free and fully open source"
     ],
     shippedIn: "24 hours",
-    link: "https://vibe2real.codes"
+    link: "https://vibe2real.codes",
+    image: "/cases/vibe2real.jpg"
   },
   {
     num: "04",
@@ -54,7 +58,8 @@ const cases: CaseStudyProject[] = [
       "Filters signal from noise automatically",
       "Sends outreach the moment intent is confirmed"
     ],
-    shippedIn: "2 weeks"
+    shippedIn: "2 weeks",
+    image: "/cases/reddit-lead-finder.jpg"
   }
 ];
 
@@ -122,37 +127,15 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
       >
 
         {/* ================= FRONT SIDE ================= */}
-        <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] p-5 sm:p-7 md:p-8 flex flex-col justify-between text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-all duration-300 hover:border-[#0B422A] group/card overflow-hidden shadow-2xs">
+        <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] flex flex-col justify-between text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-all duration-300 hover:border-[#0B422A] group/card overflow-hidden shadow-2xs">
           {project.image ? (
-            /* Full-Bleed Edge-to-Edge Image */
-            <>
-              <img
-                src={project.image}
-                alt={project.title}
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover object-center group-hover/card:scale-105 transition-transform duration-700 ease-out"
-              />
-
-              {/* Top Row: Index number & Category label overlay */}
-              <div className="relative z-10 flex justify-between items-start pointer-events-none">
-                <span className="font-mono-custom text-xs font-semibold text-[#0B422A] tracking-wider px-2.5 py-1 rounded-full bg-[#FDFCF0]/85 backdrop-blur-sm border border-[#DDD8CC]/70 shadow-xs">
-                  {project.num}
-                </span>
-                <span className="font-mono-custom text-[10px] font-semibold text-[#0B422A] uppercase tracking-widest px-2.5 py-1 rounded-full bg-[#FDFCF0]/85 backdrop-blur-sm border border-[#DDD8CC]/70 shadow-xs">
-                  CASE STUDY
-                </span>
-              </div>
-
-              {/* Bottom Row: Shipped badge & flip indicator overlay */}
-              <div className="relative z-10 flex justify-between items-center pointer-events-none gap-3">
-                <div className="shadow-xs rounded-full">
-                  <ShippedBadge value={project.shippedIn} tone="onLight" />
-                </div>
-                <span className="w-8 h-8 rounded-full bg-[#FDFCF0]/85 backdrop-blur-sm border border-[#DDD8CC]/70 flex items-center justify-center text-[#0B422A] text-xs transition-transform duration-300 group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 shadow-xs shrink-0 font-bold">
-                  ↗
-                </span>
-              </div>
-            </>
+            /* Full-Bleed Edge-to-Edge Clean Image */
+            <img
+              src={project.image}
+              alt={project.title}
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover object-center group-hover/card:scale-105 transition-transform duration-700 ease-out"
+            />
           ) : (
             /* Standard Text-based Front */
             <>
@@ -204,9 +187,11 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
                   e.stopPropagation();
                   onToggle();
                 }}
-                className="font-mono-custom text-xs text-[#D9B75B] hover:text-white px-2.5 py-1 rounded-full bg-white/10 border border-white/15 transition-colors cursor-pointer touch-manipulation flex items-center gap-1"
+                aria-label="Flip card back"
+                className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-[#D9B75B] hover:text-white font-sans text-[11px] font-medium transition-all duration-200 cursor-pointer touch-manipulation shadow-xs"
               >
-                <span>↻ Flip back</span>
+                <RotateCcw className="w-3 h-3 stroke-[2.5]" />
+                <span>Flip back</span>
               </button>
             </div>
 
@@ -268,18 +253,13 @@ export function CaseStudies() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Header */}
-        <div className="mb-6 sm:mb-12 md:mb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-          <div>
-            <span className="font-mono-custom text-[11px] font-semibold text-[#6B7E76] uppercase tracking-[0.2em] block mb-2">
-              PROVEN RESULTS
-            </span>
-            <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
-              AI Case Studies
-            </h2>
-          </div>
-          <span className="font-mono-custom text-xs text-[#6B7E76]">
-            Tap any card to flip &amp; read highlights
+        <div className="mb-6 sm:mb-12 md:mb-16">
+          <span className="font-mono-custom text-[11px] font-semibold text-[#6B7E76] uppercase tracking-[0.2em] block mb-2">
+            PROVEN RESULTS
           </span>
+          <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
+            AI Case Studies
+          </h2>
         </div>
 
         {/* Mobile Touch Snap Carousel (Visible on mobile screens < 768px) */}

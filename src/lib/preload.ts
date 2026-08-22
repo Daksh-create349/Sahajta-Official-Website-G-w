@@ -29,6 +29,10 @@ const SITE_IMAGES = [
   '/overview-ownership.png',
   '/overview-integration.png',
   '/overview-harness.png',
+  '/cases/stratapilot.jpg',
+  '/cases/ad-wise-ai.jpg',
+  '/cases/vibe2real.jpg',
+  '/cases/reddit-lead-finder.jpg',
 ];
 
 const HEAVY_VIDEOS = [heroWebm, heroMp4, talentMp4];

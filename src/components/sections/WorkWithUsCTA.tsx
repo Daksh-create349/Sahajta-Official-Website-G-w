@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, lazy, Suspense, type FormEvent } from 'react';
 import { COUNTRIES, type Country } from '@/data/countryCodes';
 import { ChevronDown, Search, Check } from 'lucide-react';
+import { motion } from 'framer-motion';
+import confetti from 'canvas-confetti';
 
 const Plasma = lazy(() => import('@/components/ui/Plasma'));
 
@@ -53,14 +55,10 @@ export function WorkWithUsCTA() {
     c.code.toLowerCase().includes(countrySearch.toLowerCase())
   );
 
+  // Lazy-load Plasma when section comes into viewport
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-
-    if (typeof IntersectionObserver === 'undefined') {
-      setShouldRenderPlasma(true);
-      return;
-    }
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -76,6 +74,44 @@ export function WorkWithUsCTA() {
     return () => io.disconnect();
   }, []);
 
+  const triggerCelebration = () => {
+    const brandColors = ['#D9B75B', '#0B422A', '#2D6E54', '#B8902F', '#F5EDD6', '#FFFFFF'];
+
+    // Left cannon
+    confetti({
+      particleCount: 50,
+      angle: 60,
+      spread: 60,
+      origin: { x: 0.15, y: 0.65 },
+      colors: brandColors,
+      zIndex: 9999,
+    });
+
+    // Right cannon
+    confetti({
+      particleCount: 50,
+      angle: 120,
+      spread: 60,
+      origin: { x: 0.85, y: 0.65 },
+      colors: brandColors,
+      zIndex: 9999,
+    });
+
+    // High velocity center burst
+    setTimeout(() => {
+      confetti({
+        particleCount: 80,
+        spread: 100,
+        origin: { x: 0.5, y: 0.5 },
+        colors: brandColors,
+        ticks: 220,
+        gravity: 1.1,
+        scalar: 1.1,
+        zIndex: 9999,
+      });
+    }, 180);
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -87,7 +123,7 @@ export function WorkWithUsCTA() {
     const contact = `${selectedCountry.dialCode} ${phoneNumber}`;
 
     try {
-      await fetch('https://formsubmit.co/ajax/hello@sahajta.com', {
+      await fetch('https://formsubmit.co/ajax/dakshshrivastav56@gmail.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
@@ -107,6 +143,7 @@ export function WorkWithUsCTA() {
 
     setLoading(false);
     setSubmitted(true);
+    triggerCelebration();
   };
 
   return (
@@ -156,24 +193,35 @@ export function WorkWithUsCTA() {
             {/* Right Box Form - Light Mode Card */}
             <div className="lg:col-span-7 bg-[#FDFCF0] rounded-xl sm:rounded-[1.5rem] md:rounded-[2rem] p-5 sm:p-8 md:p-10 border border-[#DDD8CC] flex flex-col justify-between shadow-xs">
               {submitted ? (
-                <div className="h-full flex flex-col items-center justify-center text-center py-10 sm:py-12 px-4">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#0B422A]/15 border border-[#0B422A] flex items-center justify-center mb-5 sm:mb-6">
-                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#0B422A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="h-full flex flex-col items-center justify-center text-center py-10 sm:py-12 px-4"
+                >
+                  <motion.div
+                    initial={{ scale: 0, rotate: -20 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: 'spring', damping: 14, stiffness: 200, delay: 0.1 }}
+                    className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#0B422A] text-[#D9B75B] flex items-center justify-center mb-5 sm:mb-6 shadow-[0_10px_25px_-5px_rgba(11,66,42,0.35)]"
+                  >
+                    <div className="absolute inset-0 rounded-full border-2 border-[#D9B75B]/40 animate-ping opacity-25 pointer-events-none" />
+                    <svg className="w-7 h-7 sm:w-8 sm:h-8 text-[#D9B75B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                     </svg>
-                  </div>
-                  <h3 className="font-syne text-xl sm:text-2xl font-bold text-[#0B422A] mb-2">Enquiry Received!</h3>
-                  <p className="text-[#6B7E76] text-xs sm:text-sm max-w-sm">
-                    Thank you for reaching out. The Sahajta team will be in touch with you shortly.
+                  </motion.div>
+                  <h3 className="font-syne text-xl sm:text-2xl md:text-3xl font-bold text-[#0B422A] mb-2">Enquiry Received!</h3>
+                  <p className="text-[#6B7E76] text-xs sm:text-sm max-w-sm leading-relaxed">
+                    Thank you for reaching out. The Sahajta team will review your project and get in touch with you shortly.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
                     aria-label="Send another message"
-                    className="mt-6 sm:mt-8 text-xs font-mono-custom text-[#A67F2E] underline underline-offset-4 hover:text-[#0B422A] transition-colors cursor-pointer"
+                    className="mt-6 sm:mt-8 px-5 py-2.5 rounded-full text-xs font-mono-custom font-semibold bg-[#F0EFE6] border border-[#DDD8CC] text-[#0B422A] hover:bg-[#0B422A] hover:text-white transition-all duration-200 cursor-pointer shadow-2xs"
                   >
-                    Send another message
+                    ← Send another message
                   </button>
-                </div>
+                </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col justify-between h-full space-y-4 sm:space-y-5">
                   <div className="space-y-3.5 sm:space-y-4">
