@@ -1,86 +1,37 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { preloadEverything, releasePreloadedVideos } from '@/lib/preload';
+import { releasePreloadedVideos } from '@/lib/preload';
 
 export function Preloader() {
-  const [isLoading, setIsLoading] = useState(() => {
-    if (typeof navigator === 'undefined') return false;
-    const isBotOrLighthouse = /Lighthouse|PageSpeed|Googlebot|HeadlessChrome/i.test(navigator.userAgent);
-    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    return !isBotOrLighthouse && !prefersReducedMotion;
-  });
+  const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const animFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (!isLoading) {
-      window.dispatchEvent(new Event('sahajta:preloaded'));
-      return;
-    }
+    let start = performance.now();
+    let frame = 0;
+    const duration = 450; // 450ms smooth brand splash
 
-    let assetRatio = 0;
-    let assetsDone = false;
-    let cancelled = false;
-    let displayed = 0;
-    let lastPublished = -1;
-    let hideTimer: number | undefined;
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const pct = Math.min(100, Math.round((elapsed / duration) * 100));
+      setProgress(pct);
 
-    document.body.style.overflow = 'hidden';
-
-    preloadEverything((loaded, total) => {
-      assetRatio = total === 0 ? 1 : loaded / total;
-    }).then(() => {
-      assetsDone = true;
-    });
-
-    const tick = () => {
-      if (cancelled) return;
-
-      const target = assetsDone ? 100 : assetRatio * 100;
-
-      if (target > displayed) {
-        displayed += Math.max((target - displayed) * 0.15, 0.6);
+      if (pct < 100) {
+        frame = requestAnimationFrame(tick);
+      } else {
+        setTimeout(() => {
+          setIsLoading(false);
+          window.dispatchEvent(new Event('sahajta:preloaded'));
+        }, 120);
       }
-
-      const rounded = Math.min(100, Math.round(displayed));
-
-      if (rounded !== lastPublished) {
-        lastPublished = rounded;
-        setProgress(rounded);
-      }
-
-      if (assetsDone && rounded >= 99) {
-        setProgress(100);
-        hideTimer = window.setTimeout(() => {
-          if (!cancelled) {
-            setIsLoading(false);
-            window.dispatchEvent(new Event('sahajta:preloaded'));
-          }
-        }, 200);
-        return;
-      }
-
-      animFrameRef.current = requestAnimationFrame(tick);
     };
 
-    animFrameRef.current = requestAnimationFrame(tick);
-
-    // Absolute fallback so preloader never traps any device for more than 1.6s
-    const maxFallback = window.setTimeout(() => {
-      if (!cancelled) {
-        setIsLoading(false);
-        window.dispatchEvent(new Event('sahajta:preloaded'));
-      }
-    }, 1600);
+    frame = requestAnimationFrame(tick);
 
     return () => {
-      cancelled = true;
-      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
-      if (hideTimer) clearTimeout(hideTimer);
-      clearTimeout(maxFallback);
-      document.body.style.overflow = '';
+      if (frame) cancelAnimationFrame(frame);
     };
-  }, [isLoading]);
+  }, []);
 
   useEffect(() => {
     if (isLoading) return;

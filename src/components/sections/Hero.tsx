@@ -24,10 +24,10 @@ export function Hero() {
     const reveal = () => {
       settle = window.setTimeout(() => {
         raf = requestAnimationFrame(() => setReady(true));
-      }, 200);
+      }, 480);
     };
     window.addEventListener('sahajta:preloaded', reveal, { once: true });
-    const fallback = window.setTimeout(reveal, 1000);
+    const fallback = window.setTimeout(reveal, 4000);
     return () => {
       window.removeEventListener('sahajta:preloaded', reveal);
       clearTimeout(fallback);
