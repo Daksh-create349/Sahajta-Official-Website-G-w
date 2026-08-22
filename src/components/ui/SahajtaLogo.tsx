@@ -21,9 +21,11 @@ export function SahajtaLogo({ className, imgClassName, ...props }: SahajtaLogoPr
       <img
         src={logoImg}
         alt="Sahajta AI"
-        width={140}
-        height={40}
-        className={cn('h-8 w-auto object-contain', imgClassName)}
+        width={178}
+        height={90}
+        loading="eager"
+        decoding="async"
+        className={cn('h-8 sm:h-8.5 md:h-8 w-auto object-contain shrink-0', imgClassName)}
       />
     </a>
   );

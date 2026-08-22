@@ -116,7 +116,7 @@ function Row({
         onClick={onToggle}
         aria-expanded={isOpen}
         aria-controls={panelId}
-        className="relative flex w-full cursor-pointer items-center gap-3 sm:gap-4 md:gap-5 lg:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 py-5 sm:py-6 md:py-7 lg:py-8 text-left focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-zinc-400 touch-manipulation"
+        className="relative flex w-full cursor-pointer items-center gap-2.5 sm:gap-4 md:gap-5 lg:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-6 md:py-7 lg:py-8 text-left focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-zinc-400 touch-manipulation"
       >
         <span
           className={`font-mono-custom hidden text-xs font-bold tabular-nums transition-colors duration-400 sm:block ${
@@ -128,7 +128,7 @@ function Row({
 
         <span className="min-w-0 flex-1">
           <span
-            className={`font-syne block truncate text-lg sm:text-xl md:text-[1.7rem] font-bold tracking-tight transition-colors duration-400 ${
+            className={`font-syne block truncate text-base sm:text-xl md:text-[1.7rem] font-bold tracking-tight transition-colors duration-400 ${
               isOpen ? 'text-[#FDFCF0]' : 'text-[#121212]'
             }`}
           >
@@ -149,7 +149,7 @@ function Row({
 
 
         <span
-          className={`grid h-8 w-8 sm:h-9 sm:w-9 shrink-0 place-items-center rounded-full border transition-all duration-500 ${
+          className={`grid h-7 w-7 sm:h-9 sm:w-9 shrink-0 place-items-center rounded-full border transition-all duration-500 ${
             isOpen
               ? 'rotate-180 border-white/20 bg-white/10 text-white'
               : 'border-[#DDD8CC] bg-[#FDFCF0] text-[#6B7E76]'
@@ -182,8 +182,8 @@ function Row({
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="relative overflow-hidden"
           >
-            <div className="grid grid-cols-1 gap-6 sm:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 pb-7 sm:pb-9 md:pb-11 md:grid-cols-12 md:gap-10 md:pl-[3.5rem] lg:pl-[4.75rem]">
-              <p className="font-syne text-sm sm:text-base md:text-lg font-normal leading-relaxed text-[#EBF2EE] md:col-span-5">
+            <div className="grid grid-cols-1 gap-5 sm:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 pb-6 sm:pb-9 md:pb-11 md:grid-cols-12 md:gap-10 md:pl-[3.5rem] lg:pl-[4.75rem]">
+              <p className="font-syne text-xs sm:text-base md:text-lg font-normal leading-relaxed text-[#EBF2EE] md:col-span-5">
                 {item.summary}
               </p>
 
@@ -193,7 +193,7 @@ function Row({
                     <li key={d} className="flex items-start gap-2 sm:gap-3">
                       <span
                         aria-hidden="true"
-                        className="mt-[0.55rem] h-px w-2.5 sm:w-3 shrink-0 bg-[#9AA89F]"
+                        className="mt-[0.5rem] sm:mt-[0.55rem] h-px w-2 sm:w-3 shrink-0 bg-[#9AA89F]"
                       />
                       <span className="text-xs sm:text-[13px] font-normal leading-snug text-[#9AA89F]">
                         {d}
@@ -202,10 +202,10 @@ function Row({
                   ))}
                 </ul>
 
-                <div className="flex justify-end mt-5 sm:mt-6 md:mt-7">
+                <div className="flex justify-end mt-4 sm:mt-6 md:mt-7">
                   <a
                     href="#contact"
-                    className="group/cta inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#FDFCF0] px-5 sm:px-6 py-2.5 sm:py-3 font-syne text-xs font-medium tracking-tight text-[#0B422A] transition-colors duration-300 hover:bg-white hover:text-[#0B422A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white touch-manipulation"
+                    className="group/cta inline-flex w-full sm:w-auto justify-center cursor-pointer items-center gap-2 rounded-full bg-[#FDFCF0] px-5 sm:px-6 py-2.5 sm:py-3 font-syne text-xs font-medium tracking-tight text-[#0B422A] transition-colors duration-300 hover:bg-white hover:text-[#0B422A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white touch-manipulation shadow-xs"
                   >
                     <span>Start a project</span>
                     <ArrowGlyph className="h-3 w-3 transition-transform duration-300 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />

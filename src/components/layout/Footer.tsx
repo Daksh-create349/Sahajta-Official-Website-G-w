@@ -167,12 +167,12 @@ export function Footer({
   return (
     <footer
       id="contact"
-      className="relative overflow-hidden rounded-t-[2.5rem] bg-[#0B2818] pt-16 pb-12 text-[#FDFCF0] md:rounded-t-[3.5rem] md:pt-20 border-t border-[#DDD8CC] isolate"
+      className="relative overflow-hidden rounded-t-[2rem] bg-[#0B2818] pt-12 sm:pt-16 pb-10 sm:pb-12 text-[#FDFCF0] md:rounded-t-[3.5rem] md:pt-20 border-t border-[#DDD8CC] isolate"
       style={{ transform: 'translateZ(0)' }}
     >
       <FooterDither />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         <TalentShowcaseCTA />
 
         {/* ── The sign-off: the email is the footer ──────────── */}
@@ -181,50 +181,50 @@ export function Footer({
           whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 md:mb-20"
+          className="mb-12 sm:mb-16 md:mb-20"
         >
-          <div className="mb-6 flex items-center justify-end gap-3 flex-wrap">
+          <div className="mb-4 sm:mb-6 flex items-center justify-end gap-3 flex-wrap">
             {/* Privacy Policy Pill */}
             <button
               type="button"
               onClick={onPrivacyClick}
-              className="group/privacy inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 font-mono-custom text-xs font-medium text-zinc-300 transition-all hover:border-white/30 hover:bg-white/10 hover:text-white"
+              className="group/privacy inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 font-mono-custom text-[11px] sm:text-xs font-medium text-zinc-300 transition-all hover:border-white/30 hover:bg-white/10 hover:text-white touch-manipulation"
             >
               <span>Privacy Policy</span>
               <span className="text-zinc-400 transition-transform group-hover/privacy:translate-x-0.5">↗</span>
             </button>
           </div>
 
-          <h2 className="font-syne mb-8 max-w-2xl text-3xl font-bold leading-[1.12] tracking-tight text-[#FDFCF0] md:text-5xl">
+          <h2 className="font-syne mb-6 sm:mb-8 max-w-2xl text-2xl sm:text-3xl md:text-5xl font-bold leading-[1.15] tracking-tight text-[#FDFCF0]">
             Tell us what you&rsquo;re building.
           </h2>
 
           <a
             href="mailto:hello@sahajta.com"
-            className="group/mail inline-block max-w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-white"
+            className="group/mail inline-block max-w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-white touch-manipulation"
           >
-            <span className="font-syne flex flex-wrap items-baseline gap-x-4 text-[1.65rem] font-bold leading-none tracking-tight text-[#FDFCF0] transition-colors duration-300 group-hover/mail:text-zinc-300 sm:text-4xl md:text-6xl lg:text-7xl">
+            <span className="font-syne flex flex-wrap items-baseline gap-x-3 sm:gap-x-4 text-[1.4rem] xs:text-[1.65rem] font-bold leading-none tracking-tight text-[#FDFCF0] transition-colors duration-300 group-hover/mail:text-zinc-300 sm:text-4xl md:text-6xl lg:text-7xl break-all sm:break-normal">
               <span>hello@sahajta.com</span>
               <ArrowGlyph className="h-4 w-4 shrink-0 text-[#D9B75B] transition-transform duration-300 group-hover/mail:translate-x-1.5 group-hover/mail:-translate-y-1.5 md:h-7 md:w-7" />
             </span>
             {/* Rule that draws in under the address on hover */}
             <span
               aria-hidden="true"
-              className="mt-4 block h-px w-full origin-left scale-x-0 bg-[#D9B75B]/70 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/mail:scale-x-100"
+              className="mt-3 sm:mt-4 block h-px w-full origin-left scale-x-0 bg-[#D9B75B]/70 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/mail:scale-x-100"
             />
           </a>
 
-          <p className="mt-7 max-w-md text-sm font-normal leading-relaxed text-zinc-400">
+          <p className="mt-5 sm:mt-7 max-w-md text-xs sm:text-sm font-normal leading-relaxed text-zinc-400">
             One email is enough. We reply within 24 hours with a scope, a timeline, and a number.
           </p>
 
           {/* Sahajta Company LinkedIn CTA Button */}
-          <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3.5 pt-6 border-t border-white/10">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-3.5 pt-5 sm:pt-6 border-t border-white/10">
             <a
               href="https://www.linkedin.com/company/sahajta-ai/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group/li inline-flex items-center gap-2.5 rounded-full border border-[#D9B75B]/30 bg-[#D9B75B]/10 px-5 py-2.5 font-syne text-xs font-semibold text-[#FDFCF0] transition-all hover:bg-[#D9B75B] hover:text-[#0B2818] hover:border-[#D9B75B] shadow-sm w-fit"
+              className="group/li inline-flex items-center gap-2.5 rounded-full border border-[#D9B75B]/30 bg-[#D9B75B]/10 px-4 py-2.5 sm:px-5 font-syne text-xs font-semibold text-[#FDFCF0] transition-all hover:bg-[#D9B75B] hover:text-[#0B2818] hover:border-[#D9B75B] shadow-sm w-fit touch-manipulation"
             >
               <svg className="h-4 w-4 fill-current transition-transform group-hover/li:scale-110" viewBox="0 0 24 24">
                 <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.78a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28Z"/>
@@ -232,21 +232,21 @@ export function Footer({
               <span>Follow Sahajta on LinkedIn</span>
               <span className="text-[10px] transition-transform group-hover/li:translate-x-0.5 group-hover/li:-translate-y-0.5">↗</span>
             </a>
-            <span className="text-xs font-mono-custom text-zinc-400">
+            <span className="text-[11px] sm:text-xs font-mono-custom text-zinc-400">
               Follow our journey, build updates &amp; engineering insights.
             </span>
           </div>
         </motion.div>
 
         {/* ── Meta ───────────────────────────────────────────── */}
-        <div className="border-t border-white/10 pt-14">
-          <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-12">
+        <div className="border-t border-white/10 pt-10 sm:pt-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8 sm:gap-y-12 md:grid-cols-12">
             {/* Logo column */}
-            <div className="col-span-2 md:col-span-4">
-              <div className="mb-6 inline-flex items-center rounded-2xl bg-[#FDFCF0] px-4 py-2.5 shadow-lg ring-1 ring-white/10 transition-opacity opacity-95 hover:opacity-100">
+            <div className="col-span-1 sm:col-span-2 md:col-span-4">
+              <div className="mb-4 sm:mb-6 inline-flex items-center rounded-2xl bg-[#FDFCF0] px-4 py-2.5 shadow-lg ring-1 ring-white/10 transition-opacity opacity-95 hover:opacity-100">
                 <SahajtaLogo imgClassName="h-8 w-auto md:h-9" />
               </div>
-              <p className="max-w-xs text-[13px] font-normal leading-relaxed text-zinc-400 mb-4">
+              <p className="max-w-xs text-xs sm:text-[13px] font-normal leading-relaxed text-zinc-400 mb-4">
                 Your fractional CTO and build team in one. We plan it, build it, fix it, and ship
                 it — in short weekly sprints.
               </p>

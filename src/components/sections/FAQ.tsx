@@ -42,32 +42,32 @@ export function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-20 md:py-24 bg-[#FDFCF0] border-t border-[#DDD8CC]">
+    <section id="faq" className="py-12 sm:py-18 md:py-24 bg-[#FDFCF0] border-t border-[#DDD8CC]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Simple Centered Header */}
-        <div className="text-center mb-12 sm:mb-16">
-          <span className="font-mono-custom text-xs font-semibold uppercase tracking-widest text-[#6B7E76] block mb-2">
+        <div className="text-center mb-8 sm:mb-16">
+          <span className="font-mono-custom text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-[#6B7E76] block mb-1.5 sm:mb-2">
             Still wondering if this is for you?
           </span>
-          <h2 className="font-syne text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
+          <h2 className="font-syne text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
             FAQs
           </h2>
-          <p className="mt-3 text-sm sm:text-base font-normal text-[#6B7E76] max-w-md mx-auto">
+          <p className="mt-2 sm:mt-3 text-xs sm:text-base font-normal text-[#6B7E76] max-w-md mx-auto">
             Everything you need to know about working with Sahajta.
           </p>
         </div>
 
         {/* Clean Accordion List */}
-        <div className="space-y-3.5 sm:space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {faqs.map((faq, idx) => {
             const isOpen = openIdx === idx;
             return (
               <div
                 key={faq.num}
-                className={`rounded-2xl sm:rounded-3xl border transition-all duration-200 overflow-hidden ${
+                className={`rounded-xl sm:rounded-3xl border transition-all duration-200 overflow-hidden ${
                   isOpen
-                    ? 'bg-[#F0EFE6] border-[#0B422A]/30 shadow-xs'
+                    ? 'bg-[#F0EFE6] border-[#0B422A]/30 shadow-2xs'
                     : 'bg-[#F0EFE6]/70 border-[#DDD8CC] hover:bg-[#F0EFE6] hover:border-[#DDD8CC]'
                 }`}
               >
@@ -75,19 +75,19 @@ export function FAQ() {
                   type="button"
                   onClick={() => toggle(idx)}
                   aria-expanded={isOpen}
-                  className="flex w-full cursor-pointer items-center justify-between gap-4 p-5 sm:p-6 text-left select-none focus:outline-hidden"
+                  className="flex w-full cursor-pointer items-center justify-between gap-3 p-4 sm:p-6 text-left select-none focus:outline-hidden touch-manipulation"
                 >
-                  <div className="flex items-center gap-3.5 sm:gap-4 pr-2">
-                    <span className={`font-mono-custom text-xs font-bold transition-colors duration-200 ${isOpen ? 'text-[#0B422A]' : 'text-[#9AA89F]'}`}>
+                  <div className="flex items-center gap-3 sm:gap-4 pr-1">
+                    <span className={`font-mono-custom text-xs font-bold transition-colors duration-200 shrink-0 ${isOpen ? 'text-[#0B422A]' : 'text-[#9AA89F]'}`}>
                       {faq.num}
                     </span>
-                    <span className="font-syne text-base sm:text-lg font-bold tracking-tight text-[#121212]">
+                    <span className="font-syne text-sm sm:text-lg font-bold tracking-tight text-[#121212] leading-snug">
                       {faq.question}
                     </span>
                   </div>
 
                   <span
-                    className={`flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full border text-xs font-bold transition-all duration-300 ${
+                    className={`flex h-6 w-6 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full border text-xs font-bold transition-all duration-300 ${
                       isOpen
                         ? 'border-[#0B422A] bg-[#0B422A] text-white rotate-45'
                         : 'border-[#DDD8CC] bg-[#FDFCF0] text-[#6B7E76]'
@@ -106,7 +106,7 @@ export function FAQ() {
                       transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm md:text-[15px] font-normal leading-relaxed text-[#5A6D65] pl-10 sm:pl-12 border-t border-[#DDD8CC]/50 mt-1">
+                      <p className="px-4 sm:px-6 pb-5 pt-1 text-xs sm:text-sm md:text-[15px] font-normal leading-relaxed text-[#5A6D65] pl-8 sm:pl-12 border-t border-[#DDD8CC]/50 mt-1">
                         {faq.answer}
                       </p>
                     </motion.div>

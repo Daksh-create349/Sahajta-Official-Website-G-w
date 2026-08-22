@@ -39,7 +39,7 @@ export function Hero() {
   return (
     <>
       {/* Aurora section: headline + CTAs only */}
-      <AuroraBackground className="pt-24 pb-16 sm:pt-32 sm:pb-20 md:pt-40 md:pb-24 lg:pt-48 lg:pb-28 overflow-hidden">
+      <AuroraBackground className="pt-28 pb-14 sm:pt-36 sm:pb-20 md:pt-44 md:pb-28 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
 
@@ -48,36 +48,35 @@ export function Hero() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-5 md:mb-6"
+              className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#F0EFE6]/90 backdrop-blur-sm border border-[#DDD8CC] mb-5 sm:mb-6 shadow-2xs"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D9B75B] inline-block" />
-              <span className="font-mono-custom text-[10px] sm:text-xs font-semibold text-[#6B7E76] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
+              <span className="font-mono-custom text-[10px] sm:text-xs font-semibold text-[#0B422A] uppercase tracking-[0.2em] sm:tracking-[0.25em]">
                 YOUR RELIABLE TECH PARTNER
               </span>
             </motion.div>
 
-            {/* Hero Headline */}
+            {/* Hero Headline — Expansive, Unchopped, Elegant */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="font-syne text-[2.1rem] sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-[#121212] leading-[1.18] sm:leading-[1.08] mb-5 sm:mb-8 text-center"
+              className="font-syne text-[2.5rem] sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-[#121212] leading-[1.08] sm:leading-[1.05] mb-5 sm:mb-7 text-center"
             >
-              Get More Built <br />
-              <span className="text-[#2D6E54] font-normal italic inline-block mt-0.5 sm:mt-0">
+              Get More Built <br className="hidden sm:inline" />
+              <span className="text-[#2D6E54] font-normal italic inline-block mt-1 sm:mt-0">
                 in{' '}
-                <span className="relative inline-block px-2 sm:px-3 py-0.5 mx-1">
+                <span className="relative inline-block px-2 sm:px-3 py-0.5 font-medium not-italic text-[#0B422A]">
                   Weeks
-                  {/* Hand-drawn marker circle — framed with guaranteed 12px clearance */}
+                  {/* Hand-drawn marker circle */}
                   <svg
                     aria-hidden="true"
                     viewBox="0 0 360 154"
                     preserveAspectRatio="none"
-                    className="pointer-events-none absolute -inset-x-2.5 -inset-y-1 sm:-inset-x-4 sm:-inset-y-2 w-[calc(100%+1.25rem)] sm:w-[calc(100%+2rem)] h-[calc(100%+0.5rem)] sm:h-[calc(100%+1rem)] overflow-visible"
+                    className="pointer-events-none absolute -inset-x-2 -inset-y-1 sm:-inset-x-4 sm:-inset-y-2 w-[calc(100%+1rem)] sm:w-[calc(100%+2rem)] h-[calc(100%+0.5rem)] sm:h-[calc(100%+1rem)] overflow-visible"
                     style={{
                       left: '50%',
                       top: '50%',
-                      transform: 'translate(-50%, -50%) rotate(-2.4deg)',
+                      transform: 'translate(-50%, -50%) rotate(-2.2deg)',
                     }}
                   >
                     <defs>
@@ -104,8 +103,7 @@ export function Hero() {
                       }}
                     />
                   </svg>
-                </span>
-                . Not Months.
+                </span>, Not Months.
               </span>
             </motion.h1>
 
@@ -114,7 +112,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-sm sm:text-lg md:text-xl text-[#6B7E76] font-normal leading-relaxed max-w-sm sm:max-w-xl mb-6 sm:mb-10 tracking-tight px-3 sm:px-0 text-center"
+              className="text-sm sm:text-lg md:text-xl text-[#5A6D65] font-normal leading-relaxed max-w-sm sm:max-w-xl mb-8 sm:mb-10 tracking-tight px-3 sm:px-0 text-center"
             >
               We plan it, build it, fix it, and ship it. <br className="hidden sm:inline" />
               No long hiring, no equity dilution.
@@ -125,19 +123,19 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full max-w-[280px] sm:max-w-none sm:w-auto px-2 sm:px-0"
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto max-w-xs sm:max-w-none px-2 sm:px-0"
             >
               <a
                 href="#contact"
-                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-[#0B422A] text-[#FDFCF0] font-syne font-semibold text-xs sm:text-base rounded-full hover:bg-[#2D6E54] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md group touch-manipulation"
+                className="w-full sm:w-auto min-h-[48px] px-8 py-3.5 sm:py-4 bg-[#0B422A] text-[#FDFCF0] font-syne font-semibold text-sm sm:text-base rounded-full hover:bg-[#2D6E54] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg touch-manipulation cursor-pointer group"
               >
                 <span>See If We Can Help</span>
-                <span className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
+                <span className="text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
               </a>
 
               <a
                 href="#case-studies"
-                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-[#F0EFE6]/90 backdrop-blur-md text-[#121212] font-syne font-semibold text-xs sm:text-base rounded-full border border-[#DDD8CC] hover:bg-[#DDD8CC] active:scale-[0.98] transition-all flex items-center justify-center shadow-xs touch-manipulation"
+                className="w-full sm:w-auto min-h-[48px] px-8 py-3.5 sm:py-4 bg-[#F0EFE6]/90 backdrop-blur-md text-[#121212] font-syne font-semibold text-sm sm:text-base rounded-full border border-[#DDD8CC] hover:bg-[#DDD8CC] active:scale-[0.98] transition-all flex items-center justify-center shadow-xs touch-manipulation cursor-pointer"
               >
                 See What We Have Built
               </a>
@@ -148,10 +146,10 @@ export function Hero() {
       </AuroraBackground>
 
       {/* Plain cream section: marquee + proof badges — outside aurora so no GPU layer conflict */}
-      <div className="bg-[#FDFCF0] pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 md:pb-20 lg:pb-24">
+      <div className="bg-[#FDFCF0] pt-10 sm:pt-16 md:pt-20 pb-10 sm:pb-16 md:pb-20 lg:pb-24">
         
         {/* Full-width Marquee Container (spans 100% of the screen width naturally) */}
-        <div className="w-full overflow-hidden mb-16 sm:mb-20">
+        <div className="w-full overflow-hidden mb-12 sm:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -171,18 +169,18 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.55 }}
-              className="pt-6 sm:pt-7 border-t border-[#DDD8CC]/80 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-left w-full max-w-2xl px-4 sm:px-0"
+              className="pt-6 sm:pt-7 border-t border-[#DDD8CC]/80 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-left w-full max-w-2xl px-2 sm:px-0"
             >
-              <div className="flex items-center justify-between p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-[#F0EFE6]/80 border border-[#DDD8CC] shadow-2xs">
-                <span className="font-syne font-bold text-lg sm:text-xl text-[#121212] tracking-tight">UNLIMITED</span>
-                <span className="text-[10px] sm:text-xs text-[#6B7E76] font-medium">
+              <div className="flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-[#F0EFE6]/90 border border-[#DDD8CC] shadow-2xs">
+                <span className="font-syne font-bold text-base sm:text-xl text-[#121212] tracking-tight">UNLIMITED</span>
+                <span className="text-xs sm:text-xs text-[#6B7E76] font-medium font-mono-custom">
                   Requests &amp; Fixes
                 </span>
               </div>
 
-              <div className="flex items-center justify-between p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-[#F0EFE6]/80 border border-[#DDD8CC] shadow-2xs">
-                <span className="font-syne font-bold text-lg sm:text-xl text-[#121212] tracking-tight">WEEKLY</span>
-                <span className="text-[10px] sm:text-xs text-[#6B7E76] font-medium">
+              <div className="flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-[#F0EFE6]/90 border border-[#DDD8CC] shadow-2xs">
+                <span className="font-syne font-bold text-base sm:text-xl text-[#121212] tracking-tight">WEEKLY</span>
+                <span className="text-xs sm:text-xs text-[#6B7E76] font-medium font-mono-custom">
                   Predictable Sprints
                 </span>
               </div>

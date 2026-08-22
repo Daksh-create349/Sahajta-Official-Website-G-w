@@ -109,14 +109,14 @@ export function WorkWithUsCTA() {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="py-16 md:py-24 bg-[#FDFCF0] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section id="contact" ref={sectionRef} className="py-12 sm:py-16 md:py-24 bg-[#FDFCF0] relative">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6">
         {/* Main Outer Card - Light Mode Paper Aesthetics */}
-        <div className="bg-[#F0EFE6] rounded-[2rem] md:rounded-[2.5rem] p-4 sm:p-6 md:p-8 lg:p-10 border border-[#DDD8CC] shadow-md overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+        <div className="bg-[#F0EFE6] rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] p-3.5 sm:p-6 md:p-8 lg:p-10 border border-[#DDD8CC] shadow-md overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-stretch">
             
             {/* Left Box with Plasma Background - Light Mode */}
-            <div className="lg:col-span-5 relative bg-[#FDFCF0] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden min-h-[380px] lg:min-h-[500px] flex flex-col justify-between p-8 sm:p-10 border border-[#DDD8CC] group">
+            <div className="lg:col-span-5 relative bg-[#FDFCF0] rounded-xl sm:rounded-[1.5rem] md:rounded-[2rem] overflow-hidden min-h-[160px] sm:min-h-[260px] lg:min-h-[500px] flex flex-col justify-between p-6 sm:p-8 md:p-10 border border-[#DDD8CC] group">
               
               {/* Plasma Animation Background - Deferred Mount for 100 Performance */}
               <div className="absolute inset-0 z-0">
@@ -141,42 +141,45 @@ export function WorkWithUsCTA() {
 
               {/* Header Content */}
               <div className="relative z-10 my-auto">
-                <h2 className="font-syne text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-[#0B422A] leading-[1.08]">
+                <span className="font-mono-custom text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#0B422A]/80 block mb-1.5 sm:mb-2">
+                  START A SPRINT
+                </span>
+                <h2 className="font-syne text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-[#0B422A] leading-[1.12]">
                   Ready to grow with us?
                 </h2>
               </div>
             </div>
 
             {/* Right Box Form - Light Mode Card */}
-            <div className="lg:col-span-7 bg-[#FDFCF0] rounded-[1.5rem] md:rounded-[2rem] p-6 sm:p-8 md:p-10 border border-[#DDD8CC] flex flex-col justify-between shadow-xs">
+            <div className="lg:col-span-7 bg-[#FDFCF0] rounded-xl sm:rounded-[1.5rem] md:rounded-[2rem] p-5 sm:p-8 md:p-10 border border-[#DDD8CC] flex flex-col justify-between shadow-xs">
               {submitted ? (
-                <div className="h-full flex flex-col items-center justify-center text-center py-12 px-4">
-                  <div className="w-14 h-14 rounded-full bg-[#0B422A]/15 border border-[#0B422A] flex items-center justify-center mb-6">
-                    <svg className="w-7 h-7 text-[#0B422A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <div className="h-full flex flex-col items-center justify-center text-center py-10 sm:py-12 px-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#0B422A]/15 border border-[#0B422A] flex items-center justify-center mb-5 sm:mb-6">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#0B422A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="font-syne text-2xl font-bold text-[#0B422A] mb-2">Enquiry Received!</h3>
-                  <p className="text-[#6B7E76] text-sm max-w-sm">
+                  <h3 className="font-syne text-xl sm:text-2xl font-bold text-[#0B422A] mb-2">Enquiry Received!</h3>
+                  <p className="text-[#6B7E76] text-xs sm:text-sm max-w-sm">
                     Thank you for reaching out. The Sahajta team will be in touch with you shortly.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
                     aria-label="Send another message"
-                    className="mt-8 text-xs font-mono-custom text-[#A67F2E] underline underline-offset-4 hover:text-[#0B422A] transition-colors cursor-pointer"
+                    className="mt-6 sm:mt-8 text-xs font-mono-custom text-[#A67F2E] underline underline-offset-4 hover:text-[#0B422A] transition-colors cursor-pointer"
                   >
                     Send another message
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col justify-between h-full space-y-5">
-                  <div className="space-y-4">
+                <form onSubmit={handleSubmit} className="flex flex-col justify-between h-full space-y-4 sm:space-y-5">
+                  <div className="space-y-3.5 sm:space-y-4">
                     
                     {/* Row 1: Your Name * & Email * */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
                       {/* Your Name * */}
                       <div>
-                        <label htmlFor="yourName" className="block text-xs font-semibold text-[#0B422A] mb-1.5 font-syne">
+                        <label htmlFor="yourName" className="block text-xs font-semibold text-[#0B422A] mb-1 font-syne">
                           Your Name <span className="text-[#A67F2E]">*</span>
                         </label>
                         <input
@@ -185,13 +188,13 @@ export function WorkWithUsCTA() {
                           required
                           placeholder="Pranamya Jain"
                           aria-label="Your Name"
-                          className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs"
+                          className="w-full bg-white border border-[#DDD8CC] rounded-xl px-3.5 py-3 text-[16px] sm:text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs"
                         />
                       </div>
 
                       {/* Email * */}
                       <div>
-                        <label htmlFor="email" className="block text-xs font-semibold text-[#0B422A] mb-1.5 font-syne">
+                        <label htmlFor="email" className="block text-xs font-semibold text-[#0B422A] mb-1 font-syne">
                           Email <span className="text-[#A67F2E]">*</span>
                         </label>
                         <input
@@ -200,14 +203,14 @@ export function WorkWithUsCTA() {
                           required
                           placeholder="you@startup.com"
                           aria-label="Email"
-                          className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs"
+                          className="w-full bg-white border border-[#DDD8CC] rounded-xl px-3.5 py-3 text-[16px] sm:text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs"
                         />
                       </div>
                     </div>
 
                     {/* Row 2: Contact Number with International Country Code selector */}
                     <div className="relative" ref={dropdownRef}>
-                      <label htmlFor="contactNumber" className="block text-xs font-semibold text-[#0B422A] mb-1.5 font-syne">
+                      <label htmlFor="contactNumber" className="block text-xs font-semibold text-[#0B422A] mb-1 font-syne">
                         Contact Number <span className="text-[#A67F2E]">*</span>
                       </label>
                       <div className="flex rounded-xl bg-white border border-[#DDD8CC] focus-within:border-[#0B422A] focus-within:ring-1 focus-within:ring-[#0B422A] transition-all shadow-2xs overflow-visible">
@@ -234,7 +237,7 @@ export function WorkWithUsCTA() {
                           onChange={(e) => setPhoneNumber(e.target.value)}
                           placeholder="98765 43210"
                           aria-label="Contact Number"
-                          className="w-full bg-transparent px-3.5 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden"
+                          className="w-full bg-transparent px-3.5 py-3 text-[16px] sm:text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden"
                         />
                       </div>
 
@@ -309,13 +312,13 @@ export function WorkWithUsCTA() {
 
                     {/* Row 3: What are you building? * */}
                     <div>
-                      <label htmlFor="whatBuilding" className="block text-xs font-semibold text-[#0B422A] mb-1.5 font-syne">
+                      <label htmlFor="whatBuilding" className="block text-xs font-semibold text-[#0B422A] mb-1 font-syne">
                         What are you building? <span className="text-[#A67F2E]">*</span>
                       </label>
                       <textarea
                         id="whatBuilding"
                         ref={messageRef}
-                        rows={4}
+                        rows={3}
                         required
                         onInput={autoGrowMessage}
                         data-lenis-prevent
@@ -323,7 +326,7 @@ export function WorkWithUsCTA() {
                         onTouchMove={(e) => e.stopPropagation()}
                         placeholder="Tell us about your product, timeline, and goals..."
                         aria-label="What are you building?"
-                        className="w-full bg-white border border-[#DDD8CC] rounded-xl px-4 py-3 text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs resize-y leading-relaxed overflow-y-auto max-h-[260px] min-h-[112px] overscroll-contain"
+                        className="w-full bg-white border border-[#DDD8CC] rounded-xl px-3.5 py-3 text-[16px] sm:text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs resize-y leading-relaxed overflow-y-auto max-h-[220px] min-h-[96px] overscroll-contain"
                       />
                     </div>
                   </div>
@@ -334,7 +337,7 @@ export function WorkWithUsCTA() {
                       type="submit"
                       disabled={loading}
                       aria-label="Submit Enquiry Form"
-                      className="w-full bg-[#0B422A] hover:bg-[#2D6E54] text-white font-syne font-semibold py-4 px-6 rounded-xl text-base flex items-center justify-center gap-2 transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] shadow-md group cursor-pointer disabled:opacity-75"
+                      className="w-full min-h-[48px] bg-[#0B422A] hover:bg-[#2D6E54] text-white font-syne font-semibold py-3.5 px-6 rounded-xl text-sm sm:text-base flex items-center justify-center gap-2 transition-all duration-200 transform active:scale-[0.99] shadow-md group cursor-pointer disabled:opacity-75 touch-manipulation"
                     >
                       {loading ? (
                         <span>Submitting...</span>

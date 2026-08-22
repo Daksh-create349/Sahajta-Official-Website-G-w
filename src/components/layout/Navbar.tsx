@@ -106,10 +106,10 @@ export function Navbar() {
         </div>
 
         {/* Mobile Title & Menu Toggle */}
-        <div className="md:hidden relative z-10 flex items-center justify-between w-full gap-8 px-2">
-          <SahajtaLogo imgClassName="h-6.5 w-auto" />
+        <div className="md:hidden relative z-10 flex items-center justify-between w-full gap-6 px-1.5 py-0.5">
+          <SahajtaLogo imgClassName="h-7.5 sm:h-8 w-auto" />
           <button
-            className="text-[#0B422A] p-1.5 rounded-full hover:bg-white/50 transition-colors"
+            className="text-[#0B422A] p-1.5 rounded-full hover:bg-white/50 transition-colors flex items-center justify-center"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Navigation Menu"
           >

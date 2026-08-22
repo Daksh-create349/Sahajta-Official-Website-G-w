@@ -188,10 +188,37 @@ export function Services() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
 
           {/* Header */}
-          <div className="mb-8 sm:mb-10 md:mb-12">
-            <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
-              Your Fractional CTO and Build Team in One
-            </h2>
+          <div className="mb-6 sm:mb-10 md:mb-12 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <span className="font-mono-custom text-[11px] font-semibold text-[#6B7E76] uppercase tracking-[0.2em] block mb-2">
+                WHAT WE BUILD
+              </span>
+              <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
+                Your Fractional CTO and Build Team in One
+              </h2>
+            </div>
+
+            {/* Mobile Phase Pill Selector Bar (Visible only on mobile/tablet < 1024px) */}
+            <div className="lg:hidden flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar pt-2">
+              {services.map((item, idx) => {
+                const isActive = activeIdx === idx;
+                return (
+                  <button
+                    key={item.num}
+                    type="button"
+                    onClick={() => goToPhase(idx)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-mono-custom font-semibold transition-all duration-300 shrink-0 cursor-pointer touch-manipulation flex items-center gap-1.5 border ${
+                      isActive
+                        ? "bg-[#0B422A] text-[#FDFCF0] border-[#0B422A] shadow-xs"
+                        : "bg-[#F0EFE6] text-[#6B7E76] border-[#DDD8CC] hover:bg-[#FDFCF0]"
+                    }`}
+                  >
+                    <span>0{item.stepNum}</span>
+                    <span className="text-[11px] font-sans font-medium">{item.title.split(' ')[0]}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* 2-Column Showcase */}
@@ -210,7 +237,7 @@ export function Services() {
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   exit={{ opacity: 0, x: 20, scale: 0.98 }}
                   transition={{ duration: 0.22, ease: "easeOut" }}
-                  className="relative bg-[#F0EFE6] p-5 sm:p-6 md:p-8 lg:p-12 rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-[#DDD8CC] shadow-md min-h-[320px] sm:min-h-[360px] md:min-h-[400px] lg:min-h-[420px] flex flex-col justify-between overflow-hidden group touch-manipulation"
+                  className="relative bg-[#F0EFE6] p-5 sm:p-7 md:p-8 lg:p-12 rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] border border-[#DDD8CC] shadow-md min-h-[300px] sm:min-h-[360px] md:min-h-[400px] lg:min-h-[420px] flex flex-col justify-between overflow-hidden group touch-manipulation"
                 >
                   {/* Background Image Layer */}
                   <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
@@ -221,30 +248,37 @@ export function Services() {
                       decoding="async"
                       className="w-full h-full object-cover object-center opacity-85 transition-transform duration-700 ease-out group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-[#F0EFE6]/90 via-[#F0EFE6]/50 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[#F0EFE6]/95 via-[#F0EFE6]/60 to-transparent pointer-events-none" />
                   </div>
 
                   {/* Top Content */}
                   <div className="relative z-10">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#FDFCF0]/90 backdrop-blur-md flex items-center justify-center font-mono-custom font-bold text-[#0B422A] text-xs sm:text-sm border border-[#DDD8CC] shadow-xs mb-6 sm:mb-8">
-                      {activeService.num}
+                    <div className="flex items-center justify-between mb-4 sm:mb-8">
+                      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#FDFCF0]/90 backdrop-blur-md flex items-center justify-center font-mono-custom font-bold text-[#0B422A] text-xs sm:text-sm border border-[#DDD8CC] shadow-xs">
+                        {activeService.num}
+                      </div>
+
+                      {/* Mobile Phase counter badge */}
+                      <span className="lg:hidden font-mono-custom text-[11px] font-semibold text-[#0B422A] px-2.5 py-1 rounded-full bg-[#FDFCF0]/90 border border-[#DDD8CC]/80">
+                        {activeIdx + 1} / {services.length}
+                      </span>
                     </div>
 
-                    <h3 className="font-syne font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#0B422A] tracking-tight leading-tight">
+                    <h3 className="font-syne font-bold text-xl sm:text-3xl md:text-4xl lg:text-5xl text-[#0B422A] tracking-tight leading-snug sm:leading-tight">
                       {activeService.title}
                     </h3>
                   </div>
 
                   {/* Bottom Tags */}
-                  <div className="relative z-10 pt-6 sm:pt-8 border-t border-[#0B422A]/10">
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                  <div className="relative z-10 pt-5 sm:pt-8 border-t border-[#0B422A]/10 mt-4 sm:mt-0">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-3">
                       {activeService.deliverables.map((item, i) => (
                         <motion.span
                           key={i}
                           initial={{ opacity: 0, scale: 0.92 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: i * 0.04, duration: 0.18 }}
-                          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FDFCF0]/90 backdrop-blur-md text-[#0B422A] text-[10px] sm:text-xs font-mono-custom font-semibold rounded-lg sm:rounded-xl border border-[#DDD8CC] shadow-2xs tracking-wider"
+                          className="px-2.5 sm:px-4 py-1 sm:py-2 bg-[#FDFCF0]/90 backdrop-blur-md text-[#0B422A] text-[10px] sm:text-xs font-mono-custom font-semibold rounded-lg sm:rounded-xl border border-[#DDD8CC] shadow-2xs tracking-wider"
                         >
                           {item}
                         </motion.span>
@@ -253,10 +287,42 @@ export function Services() {
                   </div>
                 </motion.div>
               </AnimatePresence>
+
+              {/* Mobile Carousel Controls Bar (Visible only on mobile/tablet < 1024px) */}
+              <div className="lg:hidden flex items-center justify-between mt-4 px-1">
+                {/* Swipe hint */}
+                <div className="flex items-center gap-1.5">
+                  <span className="font-mono-custom text-[11px] text-[#6B7E76]">
+                    Swipe or tap to switch
+                  </span>
+                </div>
+
+                {/* Arrow Prev/Next Buttons */}
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => goToPhase(Math.max(0, activeIdx - 1))}
+                    disabled={activeIdx === 0}
+                    aria-label="Previous Phase"
+                    className="w-9 h-9 rounded-full border border-[#DDD8CC] bg-[#F0EFE6] text-[#0B422A] flex items-center justify-center text-sm font-bold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#0B422A] hover:text-[#FDFCF0] transition-colors cursor-pointer touch-manipulation"
+                  >
+                    ←
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => goToPhase(Math.min(services.length - 1, activeIdx + 1))}
+                    disabled={activeIdx === services.length - 1}
+                    aria-label="Next Phase"
+                    className="w-9 h-9 rounded-full border border-[#DDD8CC] bg-[#F0EFE6] text-[#0B422A] flex items-center justify-center text-sm font-bold disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#0B422A] hover:text-[#FDFCF0] transition-colors cursor-pointer touch-manipulation"
+                  >
+                    →
+                  </button>
+                </div>
+              </div>
             </div>
 
-            {/* Right: Arc Dial with Connected Stroke & Interactive Nodes */}
-            <div className="lg:col-span-5 flex items-center justify-center relative py-4 sm:py-6">
+            {/* Right: Arc Dial with Connected Stroke & Interactive Nodes (Desktop Only >= 1024px) */}
+            <div className="hidden lg:flex lg:col-span-5 items-center justify-center relative py-4 sm:py-6">
               <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 flex items-center justify-center">
 
                 <svg className="absolute inset-0 w-full h-full" viewBox="0 0 300 300">

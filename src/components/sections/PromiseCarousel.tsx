@@ -320,20 +320,23 @@ export function PromiseCarousel() {
   }, []);
 
   return (
-    <section id="promises" className="py-24 bg-[#FDFCF0] border-t border-[#DDD8CC] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="promises" className="py-12 sm:py-18 md:py-24 bg-[#FDFCF0] border-t border-[#DDD8CC] relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-14 gap-4">
           <div>
-            <h2 className="font-syne text-4xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
+            <span className="font-mono-custom text-[11px] font-semibold text-[#6B7E76] uppercase tracking-[0.2em] block mb-2">
+              OUR PROMISES
+            </span>
+            <h2 className="font-syne text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
               How We Keep Work Moving
             </h2>
           </div>
 
           {/* Controls */}
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-1.5 font-mono-custom text-xs text-[#6B7E76] mr-2">
+          <div className="flex items-center gap-3 sm:gap-4 self-end sm:self-auto">
+            <div className="flex items-center gap-1.5 font-mono-custom text-xs text-[#6B7E76] mr-1 sm:mr-2">
               <span className="font-bold text-[#0B422A]">
                 {String(activeSlide + 1).padStart(2, '0')}
               </span>
@@ -345,7 +348,7 @@ export function PromiseCarousel() {
               onClick={prevSlide}
               disabled={!canPrev}
               aria-label="Previous promise"
-              className="w-12 h-12 rounded-full border border-[#DDD8CC] bg-[#F0EFE6] transition-colors duration-300 flex items-center justify-center text-lg text-[#0B422A] shadow-xs enabled:cursor-pointer enabled:hover:bg-[#0B422A] enabled:hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[#DDD8CC] bg-[#F0EFE6] transition-colors duration-300 flex items-center justify-center text-base sm:text-lg text-[#0B422A] shadow-xs enabled:cursor-pointer enabled:hover:bg-[#0B422A] enabled:hover:text-white disabled:opacity-40 disabled:cursor-not-allowed touch-manipulation"
             >
               ←
             </button>
@@ -354,7 +357,7 @@ export function PromiseCarousel() {
               onClick={nextSlide}
               disabled={!canNext}
               aria-label="Next promise"
-              className="w-12 h-12 rounded-full border border-[#DDD8CC] bg-[#F0EFE6] transition-colors duration-300 flex items-center justify-center text-lg text-[#0B422A] shadow-xs enabled:cursor-pointer enabled:hover:bg-[#0B422A] enabled:hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[#DDD8CC] bg-[#F0EFE6] transition-colors duration-300 flex items-center justify-center text-base sm:text-lg text-[#0B422A] shadow-xs enabled:cursor-pointer enabled:hover:bg-[#0B422A] enabled:hover:text-white disabled:opacity-40 disabled:cursor-not-allowed touch-manipulation"
             >
               →
             </button>
@@ -364,8 +367,8 @@ export function PromiseCarousel() {
         {/* Carousel Deck */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory pt-6 pb-10 no-scrollbar scroll-smooth"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory pt-2 sm:pt-6 pb-6 sm:pb-10 no-scrollbar scroll-smooth -mx-4 px-4 sm:mx-0 sm:px-0"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
         >
           {slides.map((slide, index) => {
             const isActive = index === activeSlide;
@@ -373,7 +376,7 @@ export function PromiseCarousel() {
               <div
                 key={slide.id}
                 onClick={() => scrollToIndex(index)}
-                className={`snap-start shrink-0 w-[300px] sm:w-[340px] md:w-[380px] group cursor-pointer transition-[border-color,box-shadow] duration-300 rounded-[2.2rem] p-8 bg-[#F0EFE6] border flex flex-col justify-between relative overflow-hidden ${
+                className={`snap-start shrink-0 w-[275px] sm:w-[340px] md:w-[380px] group cursor-pointer transition-[border-color,box-shadow] duration-300 rounded-2xl sm:rounded-[2.2rem] p-5 sm:p-7 md:p-8 bg-[#F0EFE6] border flex flex-col justify-between relative overflow-hidden touch-manipulation ${
                   isActive
                     ? "border-[#D9B75B] ring-1 ring-[#D9B75B]/30 shadow-xl"
                     : "border-[#DDD8CC] hover:border-[#6B7E76] shadow-xs"
@@ -381,8 +384,8 @@ export function PromiseCarousel() {
               >
                 {/* Top Tag & Index */}
                 <div>
-                  <div className="flex items-center justify-between mb-8">
-                    <span className="font-mono-custom text-[11px] font-bold text-[#A67F2E] px-3 py-1 bg-[#FDFCF0] rounded-md border border-[#DDD8CC] uppercase tracking-wider">
+                  <div className="flex items-center justify-between mb-4 sm:mb-8">
+                    <span className="font-mono-custom text-[10px] sm:text-[11px] font-bold text-[#A67F2E] px-2.5 py-0.5 sm:px-3 sm:py-1 bg-[#FDFCF0] rounded-md border border-[#DDD8CC] uppercase tracking-wider">
                       {slide.tag}
                     </span>
                     <span className="font-mono-custom text-xs font-semibold text-[#9AA89F]">
@@ -391,29 +394,29 @@ export function PromiseCarousel() {
                   </div>
 
                   {/* Front-Looking Icon Frame with B&W to Color & Floating Hover */}
-                  <div className="flex items-center justify-center my-6 py-4">
+                  <div className="flex items-center justify-center my-3 sm:my-6 py-2 sm:py-4">
                     <div className="relative transform transition-all duration-500 ease-out group-hover:-translate-y-3 group-hover:scale-110 filter grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100">
                       {slide.icon}
                     </div>
                   </div>
 
                   {/* Title & Main Text */}
-                  <div className="mt-4">
-                    <h3 className="font-syne font-bold text-2xl text-[#0B422A] tracking-tight mb-2">
+                  <div className="mt-2 sm:mt-4">
+                    <h3 className="font-syne font-bold text-xl sm:text-2xl text-[#0B422A] tracking-tight mb-1.5 sm:mb-2">
                       {slide.title}
                     </h3>
-                    <p className="text-[#121212] text-sm font-normal leading-relaxed">
+                    <p className="text-[#121212] text-xs sm:text-sm font-normal leading-relaxed">
                       {slide.text}
                     </p>
                   </div>
                 </div>
 
                 {/* Bottom Footer Accent */}
-                <div className="mt-8 pt-4 border-t border-[#DDD8CC] flex items-center justify-between">
-                  <span className="font-mono-custom text-xs font-medium text-[#6B7E76]">
+                <div className="mt-5 sm:mt-8 pt-3 sm:pt-4 border-t border-[#DDD8CC] flex items-center justify-between">
+                  <span className="font-mono-custom text-[11px] sm:text-xs font-medium text-[#6B7E76]">
                     {slide.smallText}
                   </span>
-                  <span className="text-[#2D6E54] text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-[#2D6E54] text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     ✓
                   </span>
                 </div>
@@ -423,13 +426,13 @@ export function PromiseCarousel() {
         </div>
 
         {/* Carousel Pagination Dots */}
-        <div className="flex justify-center items-center gap-2 mt-4">
+        <div className="flex justify-center items-center gap-1.5 sm:gap-2 mt-2 sm:mt-4">
           {slides.map((_, idx) => (
             <button
               key={idx}
               onClick={() => scrollToIndex(idx)}
-              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                idx === activeSlide ? "w-8 bg-[#0B422A]" : "w-2 bg-[#DDD8CC] hover:bg-[#6B7E76]"
+              className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                idx === activeSlide ? "w-6 sm:w-8 bg-[#0B422A]" : "w-1.5 sm:w-2 bg-[#DDD8CC] hover:bg-[#6B7E76]"
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />

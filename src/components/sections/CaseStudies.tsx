@@ -89,12 +89,24 @@ interface FlipCardProps {
 function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
+  const handleMouseEnter = () => {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
+      setIsHovered(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const showBack = isFlipped || (isHovered && typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches);
+
   return (
     <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onClick={onToggle}
-      className="group cursor-pointer h-[420px] sm:h-[460px] md:h-[490px] w-full select-none touch-manipulation"
+      className="group cursor-pointer h-[390px] sm:h-[450px] md:h-[490px] w-full select-none touch-manipulation"
       style={{ perspective: '1200px' }}
     >
       {/* 3D Flipping Container — hover on desktop, tap on mobile */}
@@ -104,13 +116,13 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
           width: '100%',
           height: '100%',
           transformStyle: 'preserve-3d',
-          transition: 'transform 0.85s cubic-bezier(0.16,1,0.3,1)',
-          transform: (isHovered || isFlipped) ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          transition: 'transform 0.75s cubic-bezier(0.16,1,0.3,1)',
+          transform: showBack ? 'rotateY(180deg)' : 'rotateY(0deg)',
         }}
       >
 
         {/* ================= FRONT SIDE ================= */}
-        <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] p-6 sm:p-7 md:p-8 flex flex-col justify-between text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-all duration-300 hover:border-[#0B422A] group/card overflow-hidden">
+        <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] p-5 sm:p-7 md:p-8 flex flex-col justify-between text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-all duration-300 hover:border-[#0B422A] group/card overflow-hidden shadow-2xs">
           {project.image ? (
             /* Full-Bleed Edge-to-Edge Image */
             <>
@@ -159,7 +171,7 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
                 <h3 className="font-syne font-bold text-2xl sm:text-3xl text-[#0B422A] tracking-tight leading-tight group-hover/card:translate-x-1.5 transition-transform duration-300">
                   {project.title}
                 </h3>
-                <p className="mt-3 text-[#121212] text-sm sm:text-[15px] font-normal leading-relaxed">
+                <p className="mt-2.5 sm:mt-3 text-[#121212] text-xs sm:text-[15px] font-normal leading-relaxed">
                   {project.headline}
                 </p>
               </div>
@@ -167,9 +179,12 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
               {/* Bottom Row: Shipped badge & flip indicator */}
               <div className="flex justify-between items-center pt-3 border-t border-[#DDD8CC]/60 pointer-events-none gap-3 z-10">
                 <ShippedBadge value={project.shippedIn} tone="onLight" />
-                <span className="text-[#0B422A] text-xs transition-transform duration-300 group-hover/card:translate-x-1 shrink-0">
-                  ↗
-                </span>
+                <div className="flex items-center gap-1.5 text-xs text-[#0B422A] font-mono-custom">
+                  <span className="hidden sm:inline text-[11px] text-[#6B7E76]">Flip</span>
+                  <span className="transition-transform duration-300 group-hover/card:translate-x-1 shrink-0 font-bold">
+                    ↻
+                  </span>
+                </div>
               </div>
             </>
           )}
@@ -183,9 +198,16 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
               <span className="font-mono-custom text-[9px] sm:text-[10px] font-semibold text-[#D9B75B] uppercase tracking-[0.2em]">
                 Case Study {project.num}
               </span>
-              <span className="font-mono-custom text-xs text-white/50">
-                ↻
-              </span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggle();
+                }}
+                className="font-mono-custom text-xs text-[#D9B75B] hover:text-white px-2.5 py-1 rounded-full bg-white/10 border border-white/15 transition-colors cursor-pointer touch-manipulation flex items-center gap-1"
+              >
+                <span>↻ Flip back</span>
+              </button>
             </div>
 
             <h3 className="font-syne font-bold text-lg sm:text-xl md:text-2xl text-white tracking-tight leading-snug">
@@ -194,7 +216,7 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
           </div>
 
           {/* 3-Step Execution Highlights */}
-          <div className="space-y-2.5 sm:space-y-3 md:space-y-3.5 my-auto py-2">
+          <div className="space-y-2 sm:space-y-3 md:space-y-3.5 my-auto py-2">
             {project.highlights.map((highlight, idx) => (
               <div key={idx} className="flex items-start gap-2 sm:gap-3 text-[11px] sm:text-xs text-[#EBF2EE] font-normal leading-relaxed">
                 <span className="font-mono-custom text-[10px] sm:text-[11px] font-bold text-[#D9B75B] select-none pt-0.5">
@@ -211,9 +233,10 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
           </div>
 
           {/* Bottom CTA */}
-          <div className="mt-4 pt-3 sm:pt-4 border-t border-white/15 flex items-center justify-end">
+          <div className="mt-3 pt-3 sm:pt-4 border-t border-white/15 flex items-center justify-end">
             <a
               href={project.link || "#contact"}
+              onClick={(e) => e.stopPropagation()}
               target={project.link ? "_blank" : undefined}
               rel={project.link ? "noopener noreferrer" : undefined}
               className="font-syne text-xs font-bold text-[#D9B75B] hover:text-white transition-colors flex items-center gap-1 shrink-0 touch-manipulation"
@@ -245,14 +268,49 @@ export function CaseStudies() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Header */}
-        <div className="mb-10 sm:mb-12 md:mb-16">
-          <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
-            AI Case Studies
-          </h2>
+        <div className="mb-6 sm:mb-12 md:mb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+          <div>
+            <span className="font-mono-custom text-[11px] font-semibold text-[#6B7E76] uppercase tracking-[0.2em] block mb-2">
+              PROVEN RESULTS
+            </span>
+            <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0B422A]">
+              AI Case Studies
+            </h2>
+          </div>
+          <span className="font-mono-custom text-xs text-[#6B7E76]">
+            Tap any card to flip &amp; read highlights
+          </span>
         </div>
 
-        {/* Infinite Scrolling Horizontal Card Marquee */}
-        <div className="cases-marquee-viewport overflow-hidden py-6">
+        {/* Mobile Touch Snap Carousel (Visible on mobile screens < 768px) */}
+        <div className="md:hidden">
+          <div
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 pt-2 -mx-4 px-4 no-scrollbar"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
+            {cases.map((project, idx) => {
+              const cardId = `mobile-${idx}`;
+              return (
+                <div key={cardId} className="w-[82vw] max-w-[320px] shrink-0 snap-center">
+                  <FlipCard
+                    project={project}
+                    isFlipped={flippedIndex === cardId}
+                    onToggle={() => handleToggle(cardId)}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          {/* Mobile swipe hint */}
+          <div className="flex justify-center items-center gap-1.5 pt-1">
+            <span className="font-mono-custom text-[11px] text-[#9AA89F]">
+              ← Swipe for more cases →
+            </span>
+          </div>
+        </div>
+
+        {/* Infinite Scrolling Horizontal Card Marquee (Desktop & Tablet >= 768px) */}
+        <div className="hidden md:block cases-marquee-viewport overflow-hidden py-6">
           {/* Edge Fade Overlays */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-24 bg-gradient-to-r from-[#FDFCF0] to-transparent z-20" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-24 bg-gradient-to-l from-[#FDFCF0] to-transparent z-20" />
@@ -285,3 +343,4 @@ export function CaseStudies() {
     </section>
   );
 }
+

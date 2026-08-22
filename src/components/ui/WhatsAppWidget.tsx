@@ -29,26 +29,16 @@ export function WhatsAppWidget() {
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="relative group mb-0.5"
           >
-            {/* Liquid-Glass Editorial Floating Prompt */}
+            {/* Clean Editorial Floating Prompt */}
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Chat with us on WhatsApp"
-              className="relative flex items-center gap-2 px-3.5 py-2 sm:px-4.5 sm:py-2.5 rounded-full bg-[#FDFCF0]/90 backdrop-blur-xl border border-[#DDD8CC]/80 shadow-[0_12px_32px_-8px_rgba(11,66,42,0.14),inset_0_1px_1px_rgba(255,255,255,0.9)] hover:border-[#0B422A]/40 hover:bg-[#FFFFFF] hover:shadow-[0_16px_36px_-6px_rgba(11,66,42,0.20)] transition-all duration-300 group/pill cursor-pointer"
+              className="relative flex items-center px-4 py-2 sm:px-4.5 sm:py-2.5 rounded-full bg-[#FDFCF0] border border-[#DDD8CC] shadow-md hover:border-[#0B422A]/40 hover:bg-[#FFFFFF] transition-all duration-200 cursor-pointer"
             >
-              {/* Online Pulse Indicator */}
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2D6E54] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0B422A]" />
-              </span>
-
               <span className="font-sans font-medium text-xs sm:text-sm text-[#121212] tracking-tight whitespace-nowrap">
                 Chat with us
-              </span>
-
-              <span className="text-[#D9B75B] font-mono-custom text-[11px] opacity-90 group-hover/pill:translate-x-0.5 transition-transform duration-200">
-                ↗
               </span>
             </a>
 

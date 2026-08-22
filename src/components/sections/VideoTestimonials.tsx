@@ -115,11 +115,11 @@ function VerticalVideoCard({ item }: { item: VideoTestimonial }) {
   };
 
   return (
-    <div className="group/card shrink-0 w-[290px] sm:w-[320px] md:w-[340px] flex flex-col bg-white border border-[#DDD8CC] rounded-3xl p-4 sm:p-5 shadow-[0_4px_20px_-10px_rgba(18,18,18,0.06)] hover:border-[#0B422A] hover:shadow-[0_16px_32px_-16px_rgba(11,66,42,0.18)] transition-all duration-300 transform-gpu select-none">
+    <div className="group/card shrink-0 w-[260px] sm:w-[320px] md:w-[340px] flex flex-col bg-white border border-[#DDD8CC] rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-[0_4px_20px_-10px_rgba(18,18,18,0.06)] hover:border-[#0B422A] hover:shadow-[0_16px_32px_-16px_rgba(11,66,42,0.18)] transition-all duration-300 transform-gpu select-none">
       {/* Vertical Video Reel (Top) */}
       <div
         onClick={togglePlay}
-        className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-[#0B2818] cursor-pointer select-none border border-black/10 transform-gpu"
+        className="relative aspect-[9/16] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#0B2818] cursor-pointer select-none border border-black/10 transform-gpu"
       >
         {/* Video Player */}
         {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
@@ -154,20 +154,20 @@ function VerticalVideoCard({ item }: { item: VideoTestimonial }) {
         />
 
         {/* Top Controls: Mute/Unmute Only */}
-        <div className="absolute top-3 right-3 z-30 pointer-events-none">
+        <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-30 pointer-events-none">
           <button
             type="button"
             onClick={toggleMute}
-            className="pointer-events-auto w-8 h-8 rounded-full bg-black/60 text-white/90 hover:text-[#D9B75B] hover:bg-black/80 flex items-center justify-center backdrop-blur-md border border-white/10 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B75B]"
+            className="pointer-events-auto w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/60 text-white/90 hover:text-[#D9B75B] hover:bg-black/80 flex items-center justify-center backdrop-blur-md border border-white/10 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D9B75B] touch-manipulation"
             aria-label={isMuted ? 'Unmute video' : 'Mute video'}
           >
             {isMuted ? (
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
               </svg>
             ) : (
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
               </svg>
             )}
@@ -181,13 +181,13 @@ function VerticalVideoCard({ item }: { item: VideoTestimonial }) {
             isPlaying ? 'opacity-0 group-hover/card:opacity-60' : 'opacity-100',
           ].join(' ')}
         >
-          <div className="w-14 h-14 rounded-full bg-[#D9B75B] text-[#0B2818] flex items-center justify-center shadow-lg transform transition-transform group-hover/card:scale-110">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#D9B75B] text-[#0B2818] flex items-center justify-center shadow-lg transform transition-transform group-hover/card:scale-110">
             {isPlaying ? (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
               </svg>
             ) : (
-              <svg className="w-6 h-6 translate-x-[1.5px]" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 translate-x-[1.5px]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5.14v14.72a1 1 0 0 0 1.5.86l11-7.36a1 1 0 0 0 0-1.72l-11-7.36A1 1 0 0 0 8 5.14Z" />
               </svg>
             )}
@@ -204,18 +204,18 @@ function VerticalVideoCard({ item }: { item: VideoTestimonial }) {
       </div>
 
       {/* Card Body Overview (Below Video) */}
-      <div className="mt-4 flex flex-col flex-1">
+      <div className="mt-3 sm:mt-4 flex flex-col flex-1">
         <div>
-          <h3 className="font-syne font-bold text-base text-[#0B422A] tracking-tight">
+          <h3 className="font-syne font-bold text-sm sm:text-base text-[#0B422A] tracking-tight">
             {item.name}
           </h3>
-          <p className="font-mono-custom text-[11.5px] text-[#6B7E76] mt-0.5">
+          <p className="font-mono-custom text-[11px] sm:text-[11.5px] text-[#6B7E76] mt-0.5">
             {item.role}
           </p>
         </div>
 
         {/* Crisp 1–2 sentence overview quote of what they said */}
-        <p className="text-[13px] text-[#4A5550] leading-relaxed mt-3 pt-3 border-t border-[#DDD8CC]/70 italic">
+        <p className="text-xs sm:text-[13px] text-[#4A5550] leading-relaxed mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-[#DDD8CC]/70 italic">
           &ldquo;{item.overview}&rdquo;
         </p>
       </div>
@@ -228,7 +228,7 @@ export function VideoTestimonials() {
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const amount = direction === 'left' ? -360 : 360;
+      const amount = direction === 'left' ? -300 : 300;
       scrollContainerRef.current.scrollBy({ left: amount, behavior: 'smooth' });
     }
   };
@@ -237,7 +237,7 @@ export function VideoTestimonials() {
     <section
       id="video-testimonials"
       aria-label="Client video testimonials"
-      className="py-20 sm:py-28 bg-[#FDFCF0] border-t border-[#DDD8CC] relative overflow-hidden"
+      className="py-12 sm:py-20 md:py-28 bg-[#FDFCF0] border-t border-[#DDD8CC] relative overflow-hidden"
     >
       {/* Background ambient lighting */}
       <div
@@ -249,22 +249,25 @@ export function VideoTestimonials() {
         className="pointer-events-none absolute -bottom-40 left-0 w-[500px] h-[500px] rounded-full bg-[#0B422A]/8 blur-3xl"
       />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-14 gap-4">
           <div>
-            <h2 className="font-syne text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
+            <span className="font-mono-custom text-[11px] font-semibold text-[#6B7E76] uppercase tracking-[0.2em] block mb-2">
+              CLIENT STORIES
+            </span>
+            <h2 className="font-syne text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#0B422A]">
               Founders on camera
             </h2>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 self-end sm:self-auto">
             {/* Slider Navigation Arrows */}
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => scroll('left')}
-                className="w-9 h-9 rounded-full border border-[#DDD8CC] bg-white hover:border-[#0B422A] hover:bg-[#0B422A] hover:text-[#FDFCF0] text-[#0B422A] flex items-center justify-center transition-all cursor-pointer shadow-sm"
+                className="w-9 h-9 rounded-full border border-[#DDD8CC] bg-white hover:border-[#0B422A] hover:bg-[#0B422A] hover:text-[#FDFCF0] text-[#0B422A] flex items-center justify-center transition-all cursor-pointer shadow-sm touch-manipulation"
                 aria-label="Scroll left"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -274,7 +277,7 @@ export function VideoTestimonials() {
               <button
                 type="button"
                 onClick={() => scroll('right')}
-                className="w-9 h-9 rounded-full border border-[#DDD8CC] bg-white hover:border-[#0B422A] hover:bg-[#0B422A] hover:text-[#FDFCF0] text-[#0B422A] flex items-center justify-center transition-all cursor-pointer shadow-sm"
+                className="w-9 h-9 rounded-full border border-[#DDD8CC] bg-white hover:border-[#0B422A] hover:bg-[#0B422A] hover:text-[#FDFCF0] text-[#0B422A] flex items-center justify-center transition-all cursor-pointer shadow-sm touch-manipulation"
                 aria-label="Scroll right"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -288,7 +291,7 @@ export function VideoTestimonials() {
         {/* 5 Vertical Reel Cards Carousel */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-5 sm:gap-6 overflow-x-auto pb-6 pt-1 -mx-6 px-6 sm:mx-0 sm:px-0 scrollbar-none"
+          className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none no-scrollbar"
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',

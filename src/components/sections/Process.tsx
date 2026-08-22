@@ -19,7 +19,7 @@ const steps = [
           alt="Set the Goal"
           decoding="async"
           draggable={false}
-          className="h-28 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
+          className="h-20 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -37,7 +37,7 @@ const steps = [
           alt="Plan the Work"
           decoding="async"
           draggable={false}
-          className="h-28 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
+          className="h-20 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -55,7 +55,7 @@ const steps = [
           alt="Build and Test"
           decoding="async"
           draggable={false}
-          className="h-28 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
+          className="h-20 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -73,7 +73,7 @@ const steps = [
           alt="Review and Ship"
           decoding="async"
           draggable={false}
-          className="h-28 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
+          className="h-20 sm:h-36 md:h-44 w-auto object-contain [filter:url(#brand-green-silhouette)]"
         />
       </div>
     )
@@ -81,7 +81,8 @@ const steps = [
 ];
 
 /** Extra top offset per card, so every buried card keeps a visible sliver. */
-const PEEK_REM = 1.25;
+const PEEK_REM_DESKTOP = 1.25;
+const PEEK_REM_MOBILE = 0.75;
 
 /** How much a card shrinks for each card that ends up stacked on top of it. */
 const SHRINK_PER_CARD = 0.035;
@@ -105,43 +106,40 @@ function CardItem({ step, index, total }: { step: typeof steps[0]; index: number
   return (
     <div
       ref={containerRef}
-      className="sticky top-[calc(6rem_+_var(--peek))] sm:top-[calc(8rem_+_var(--peek))] md:top-[calc(9rem_+_var(--peek))] mb-8 sm:mb-10 md:mb-12"
-      style={{ zIndex: index + 1, '--peek': `${index * PEEK_REM}rem` } as CSSProperties}
+      className="sticky top-[calc(4.5rem_+_var(--peek-mobile))] sm:top-[calc(8rem_+_var(--peek-desktop))] md:top-[calc(9rem_+_var(--peek-desktop))] mb-6 sm:mb-10 md:mb-12"
+      style={{
+        zIndex: index + 1,
+        '--peek-mobile': `${index * PEEK_REM_MOBILE}rem`,
+        '--peek-desktop': `${index * PEEK_REM_DESKTOP}rem`,
+      } as CSSProperties}
     >
       <motion.div
-        // Opaque background and no opacity animation — cards in a stack must
-        // fully hide the ones behind them. Shrinking from the top edge keeps
-        // each buried card's sliver visible instead of pulling it under.
-        //
-        // `willChange: transform` matters here: without it the browser
-        // re-rasterises the card — including its two large blurred shadows — at
-        // every scale step, which is what made this deck stutter on weak GPUs.
         style={{
           scale,
           transformOrigin: 'top center',
           willChange: 'transform',
           backfaceVisibility: 'hidden',
         }}
-        className="bg-[#F0EFE6] border border-[#DDD8CC] rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] p-5 sm:p-6 md:p-8 lg:p-12 shadow-[0_12px_30px_-12px_rgba(11,66,42,0.08)] min-h-[240px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[360px] flex flex-col justify-center"
+        className="bg-[#F0EFE6] border border-[#DDD8CC] rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] p-4.5 sm:p-6 md:p-8 lg:p-12 shadow-[0_12px_30px_-12px_rgba(11,66,42,0.08)] min-h-[200px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[360px] flex flex-col justify-center"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-6 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-center">
 
           {/* Left Column */}
           <div className="lg:col-span-5">
-            <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3 md:mb-4 flex-wrap">
+            <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-3 md:mb-4 flex-wrap">
               <span className="text-xs sm:text-sm text-[#6B7E76] font-normal uppercase tracking-wider">({step.num})</span>
               <span className="text-[10px] sm:text-xs font-semibold text-[#A67F2E] px-2 py-0.5 sm:px-2.5 sm:py-0.5 md:px-3 md:py-1 bg-[#F5EDD6] rounded-full border border-[#D9B75B]/40">
                 {step.topTag}
               </span>
             </div>
-            <h3 className="font-syne font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-[#0B422A] tracking-tight leading-none">
+            <h3 className="font-syne font-bold text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-[#0B422A] tracking-tight leading-tight sm:leading-none">
               {step.title}
             </h3>
           </div>
 
           {/* Right Column: stacks text then image on mobile, side-by-side from sm */}
-          <div className="lg:col-span-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 md:gap-8">
-            <p className="font-syne text-sm sm:text-base md:text-lg lg:text-xl text-[#121212] leading-relaxed font-normal flex-1">
+          <div className="lg:col-span-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 md:gap-8">
+            <p className="font-syne text-xs sm:text-base md:text-lg lg:text-xl text-[#121212] leading-relaxed font-normal flex-1">
               {step.subtitle}
             </p>
             {step.visualCard}
