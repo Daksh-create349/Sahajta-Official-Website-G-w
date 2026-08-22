@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef, type FormEvent } from 'react';
-import Plasma from '@/components/ui/Plasma';
+import { useState, useEffect, useRef, lazy, Suspense, type FormEvent } from 'react';
 import { COUNTRIES, type Country } from '@/data/countryCodes';
 import { ChevronDown, Search, Check } from 'lucide-react';
+
+const Plasma = lazy(() => import('@/components/ui/Plasma'));
 
 export function WorkWithUsCTA() {
   const [submitted, setSubmitted] = useState(false);
@@ -121,18 +122,20 @@ export function WorkWithUsCTA() {
               {/* Plasma Animation Background - Deferred Mount for 100 Performance */}
               <div className="absolute inset-0 z-0">
                 {shouldRenderPlasma && (
-                  <Plasma
-                    color="#0B422A"
-                    speed={0.4}
-                    direction="forward"
-                    scale={1.25}
-                    opacity={0.95}
-                    mouseInteractive={false}
-                    renderScale={0.35}
-                    maxDpr={1.0}
-                    targetFps={30}
-                    iterations={25}
-                  />
+                  <Suspense fallback={null}>
+                    <Plasma
+                      color="#0B422A"
+                      speed={0.4}
+                      direction="forward"
+                      scale={1.25}
+                      opacity={0.95}
+                      mouseInteractive={false}
+                      renderScale={0.35}
+                      maxDpr={1.0}
+                      targetFps={30}
+                      iterations={25}
+                    />
+                  </Suspense>
                 )}
               </div>
 

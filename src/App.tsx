@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { Preloader } from '@/components/ui/Preloader';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -14,12 +14,13 @@ import { WorkWithUsCTA } from '@/components/sections/WorkWithUsCTA';
 import { Team } from '@/components/sections/Team';
 import { FAQ } from '@/components/sections/FAQ';
 import { VideoTestimonials } from '@/components/sections/VideoTestimonials';
-import { PrivacyPage } from '@/components/pages/PrivacyPage';
-import { CookiePage } from '@/components/pages/CookiePage';
-import { RefundPage } from '@/components/pages/RefundPage';
-import { AiUsagePage } from '@/components/pages/AiUsagePage';
 import { initLenis, destroyLenis } from '@/lib/lenis';
 import { WhatsAppWidget } from '@/components/ui/WhatsAppWidget';
+
+const PrivacyPage = lazy(() => import('@/components/pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })));
+const CookiePage = lazy(() => import('@/components/pages/CookiePage').then((m) => ({ default: m.CookiePage })));
+const RefundPage = lazy(() => import('@/components/pages/RefundPage').then((m) => ({ default: m.RefundPage })));
+const AiUsagePage = lazy(() => import('@/components/pages/AiUsagePage').then((m) => ({ default: m.AiUsagePage })));
 
 function getInitialPath(): string {
   if (typeof window === 'undefined') return '/';
@@ -64,25 +65,39 @@ function App() {
 
   if (currentPath === '/privacy') {
     return (
-      <PrivacyPage
-        onBack={() => navigateTo('/')}
-        onNavigateCookies={() => navigateTo('/cookies')}
-        onNavigateRefund={() => navigateTo('/refund')}
-        onNavigateAiUsage={() => navigateTo('/ai-usage')}
-      />
+      <Suspense fallback={null}>
+        <PrivacyPage
+          onBack={() => navigateTo('/')}
+          onNavigateCookies={() => navigateTo('/cookies')}
+          onNavigateRefund={() => navigateTo('/refund')}
+          onNavigateAiUsage={() => navigateTo('/ai-usage')}
+        />
+      </Suspense>
     );
   }
 
   if (currentPath === '/cookies') {
-    return <CookiePage onBack={() => navigateTo('/')} />;
+    return (
+      <Suspense fallback={null}>
+        <CookiePage onBack={() => navigateTo('/')} />
+      </Suspense>
+    );
   }
 
   if (currentPath === '/refund') {
-    return <RefundPage onBack={() => navigateTo('/')} />;
+    return (
+      <Suspense fallback={null}>
+        <RefundPage onBack={() => navigateTo('/')} />
+      </Suspense>
+    );
   }
 
   if (currentPath === '/ai-usage') {
-    return <AiUsagePage onBack={() => navigateTo('/')} />;
+    return (
+      <Suspense fallback={null}>
+        <AiUsagePage onBack={() => navigateTo('/')} />
+      </Suspense>
+    );
   }
 
   return (

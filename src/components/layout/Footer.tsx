@@ -1,8 +1,12 @@
+import { lazy, Suspense } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { SahajtaLogo } from '@/components/ui/SahajtaLogo';
 import { TalentShowcaseCTA } from '@/components/sections/TalentShowcaseCTA';
-import { FooterDither } from '@/components/ui/FooterDither';
 import { scrollToTarget } from '@/lib/lenis';
+
+const FooterDither = lazy(() =>
+  import('@/components/ui/FooterDither').then((m) => ({ default: m.FooterDither }))
+);
 
 const explore = [
   { label: 'Philosophy', href: '#overview' },
@@ -170,7 +174,9 @@ export function Footer({
       className="relative overflow-hidden rounded-t-[2rem] bg-[#0B2818] pt-12 sm:pt-16 pb-10 sm:pb-12 text-[#FDFCF0] md:rounded-t-[3.5rem] md:pt-20 border-t border-[#DDD8CC] isolate"
       style={{ transform: 'translateZ(0)' }}
     >
-      <FooterDither />
+      <Suspense fallback={null}>
+        <FooterDither />
+      </Suspense>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         <TalentShowcaseCTA />
