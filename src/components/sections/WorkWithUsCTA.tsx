@@ -244,9 +244,6 @@ export function WorkWithUsCTA() {
                       {/* Searchable Country Code Dropdown Popover */}
                       {countryDropdownOpen && (
                         <div
-                          data-lenis-prevent
-                          onWheel={(e) => e.stopPropagation()}
-                          onTouchMove={(e) => e.stopPropagation()}
                           className="absolute top-full left-0 mt-1.5 w-full sm:w-80 bg-white border border-[#DDD8CC] rounded-2xl shadow-xl z-50 overflow-hidden flex flex-col max-h-72 animate-in fade-in-0 zoom-in-95 duration-150"
                         >
                           {/* Search bar inside dropdown */}
@@ -267,8 +264,6 @@ export function WorkWithUsCTA() {
                           {/* Country List */}
                           <div
                             data-lenis-prevent
-                            onWheel={(e) => e.stopPropagation()}
-                            onTouchMove={(e) => e.stopPropagation()}
                             className="overflow-y-auto overscroll-contain divide-y divide-[#F7F6EE] flex-1 p-1 max-h-56"
                           >
                             {filteredCountries.length === 0 ? (
@@ -321,12 +316,9 @@ export function WorkWithUsCTA() {
                         rows={3}
                         required
                         onInput={autoGrowMessage}
-                        data-lenis-prevent
-                        onWheel={(e) => e.stopPropagation()}
-                        onTouchMove={(e) => e.stopPropagation()}
                         placeholder="Tell us about your product, timeline, and goals..."
                         aria-label="What are you building?"
-                        className="w-full bg-white border border-[#DDD8CC] rounded-xl px-3.5 py-3 text-[16px] sm:text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs resize-y leading-relaxed overflow-y-auto max-h-[220px] min-h-[96px] overscroll-contain"
+                        className="w-full bg-white border border-[#DDD8CC] rounded-xl px-3.5 py-3 text-[16px] sm:text-sm text-[#121212] placeholder-[#9AA89F] focus:outline-hidden focus:border-[#0B422A] focus:ring-1 focus:ring-[#0B422A] transition-all shadow-2xs resize-y leading-relaxed overflow-y-auto max-h-[220px] min-h-[96px]"
                       />
                     </div>
                   </div>

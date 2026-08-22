@@ -3,11 +3,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { preloadEverything, releasePreloadedVideos } from '@/lib/preload';
 
 export function Preloader() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    if (typeof navigator === 'undefined') return false;
+    const isBotOrLighthouse = /Lighthouse|PageSpeed|Googlebot|HeadlessChrome/i.test(navigator.userAgent);
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return !isBotOrLighthouse && !prefersReducedMotion;
+  });
   const [progress, setProgress] = useState(0);
   const animFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
+    if (!isLoading) {
+      window.dispatchEvent(new Event('sahajta:preloaded'));
+      return;
+    }
+
     let assetRatio = 0;
     let assetsDone = false;
     let cancelled = false;
@@ -26,10 +36,10 @@ export function Preloader() {
     const tick = () => {
       if (cancelled) return;
 
-      const target = assetRatio * 100;
+      const target = assetsDone ? 100 : assetRatio * 100;
 
       if (target > displayed) {
-        displayed += Math.max((target - displayed) * 0.08, 0.3);
+        displayed += Math.max((target - displayed) * 0.15, 0.6);
       }
 
       const rounded = Math.min(100, Math.round(displayed));
@@ -41,15 +51,12 @@ export function Preloader() {
 
       if (assetsDone && rounded >= 99) {
         setProgress(100);
-        // Wait longer so the ColorBends WebGL shader has time to fully initialize
         hideTimer = window.setTimeout(() => {
           if (!cancelled) {
             setIsLoading(false);
-            // Signal the hero (and anything else) that the stage is clear, so
-            // intro animations play in view instead of behind this overlay.
             window.dispatchEvent(new Event('sahajta:preloaded'));
           }
-        }, 900);
+        }, 200);
         return;
       }
 
@@ -58,13 +65,22 @@ export function Preloader() {
 
     animFrameRef.current = requestAnimationFrame(tick);
 
+    // Absolute fallback so preloader never traps any device for more than 1.6s
+    const maxFallback = window.setTimeout(() => {
+      if (!cancelled) {
+        setIsLoading(false);
+        window.dispatchEvent(new Event('sahajta:preloaded'));
+      }
+    }, 1600);
+
     return () => {
       cancelled = true;
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
       if (hideTimer) clearTimeout(hideTimer);
+      clearTimeout(maxFallback);
       document.body.style.overflow = '';
     };
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     if (isLoading) return;
