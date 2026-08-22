@@ -12,7 +12,8 @@ import { PromiseCarousel } from '@/components/sections/PromiseCarousel';
 import { Pricing } from '@/components/sections/Pricing';
 import { WorkWithUsCTA } from '@/components/sections/WorkWithUsCTA';
 import { Team } from '@/components/sections/Team';
-import { Testimonials } from '@/components/sections/Testimonials';
+import { FAQ } from '@/components/sections/FAQ';
+import { VideoTestimonials } from '@/components/sections/VideoTestimonials';
 import { PrivacyPage } from '@/components/pages/PrivacyPage';
 import { CookiePage } from '@/components/pages/CookiePage';
 import { RefundPage } from '@/components/pages/RefundPage';
@@ -102,7 +103,8 @@ function App() {
         <Pricing />
         <WorkWithUsCTA />
         <Team />
-        <Testimonials />
+        <FAQ />
+        <VideoTestimonials />
       </main>
 
       <Footer

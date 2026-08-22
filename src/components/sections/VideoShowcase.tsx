@@ -1,48 +1,127 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { ColorBends } from '@/components/ui/ColorBends';
+import { useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 export function VideoShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, amount: 0.08 });
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Track scroll through the showcase section
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
+
+  // Reset video to start and play cleanly only when user scrolls into view
+  useEffect(() => {
+    const video = videoRef.current;
+    const container = containerRef.current;
+    if (!video || !container) return;
+
+    // Ensure video starts at 0s and does not run ahead off-screen
+    video.currentTime = 0;
+    video.pause();
+
+    let isVisible = false;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!isVisible) {
+            isVisible = true;
+            video.currentTime = 0;
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {
+                // Auto-play was prevented; fallback silent
+              });
+            }
+          }
+        } else {
+          if (isVisible) {
+            isVisible = false;
+            video.pause();
+            video.currentTime = 0;
+          }
+        }
+      },
+      {
+        threshold: [0, 0.2, 0.6],
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    observer.observe(container);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  // Butter-smooth spring interpolation for fluid 60fps response
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 85,
+    damping: 24,
+    mass: 0.7,
+    restDelta: 0.001,
+  });
+
+  // Smooth width and scale expansion to touch screen edges perfectly
+  const width = useTransform(
+    smoothProgress,
+    [0, 0.42, 0.58, 1],
+    ['91%', '100%', '100%', '91%']
+  );
+  const borderRadius = useTransform(
+    smoothProgress,
+    [0, 0.32, 0.44, 0.56, 0.68, 1],
+    ['2.25rem', '1.25rem', '0rem', '0rem', '1.25rem', '2.25rem']
+  );
+  const textOpacity = useTransform(
+    smoothProgress,
+    [0.1, 0.35, 0.65, 0.9],
+    [0.5, 1, 1, 0.5]
+  );
+  const textY = useTransform(
+    smoothProgress,
+    [0.1, 0.5, 0.9],
+    [10, 0, 10]
+  );
 
   return (
-    <section ref={containerRef} className="py-8 sm:py-12 md:py-16 lg:py-24 px-4 sm:px-6 max-w-7xl mx-auto overflow-hidden">
+    <section
+      ref={containerRef}
+      className="py-8 sm:py-12 md:py-16 relative w-full overflow-hidden flex flex-col items-center justify-center bg-[#FDFCF0]"
+    >
+      {/* Scroll-Expanding Video Canvas */}
       <motion.div
-        initial={{ scale: 0.88, opacity: 0.4, y: 40 }}
-        animate={isInView ? { scale: 1, opacity: 1, y: 0 } : undefined}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        style={{ willChange: 'transform, opacity' }}
-        className="relative overflow-hidden bg-[#0B422A] border border-[#DDD8CC] shadow-[0_12px_32px_-8px_rgba(11,66,42,0.12)] group rounded-2xl sm:rounded-3xl md:rounded-[2.5rem]"
+        style={{
+          width,
+          borderRadius,
+        }}
+        className="relative aspect-[16/10] sm:aspect-video w-full overflow-hidden bg-[#0B2818] shadow-[0_16px_40px_-10px_rgba(11,66,42,0.18)]"
       >
-        {/* Deep Forest Green Frame with Sahajta Signature Gold & Emerald Waves */}
-        <div className="relative aspect-video w-full bg-[#0B422A] overflow-hidden flex items-center justify-center">
+        {/* Brand Video — controlled to always play from start on scroll */}
+        <video
+          ref={videoRef}
+          src="/brand-showcase-expand.mp4"
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none"
+        />
 
-          {/* High-Impact ColorBends Shader with Gold & Emerald Brand Palette */}
-          <ColorBends
-            colors={["#0B422A", "#D9B75B", "#2D6E54", "#F5EDD6", "#A67F2E", "#0B2818"]}
-            rotation={45}
-            speed={0.12}
-            scale={1.1}
-            frequency={1.0}
-            warpStrength={0.8}
-            mouseInfluence={0.5}
-            parallax={0.2}
-            noise={0.02}
-            iterations={1}
-            intensity={1.6}
-            bandWidth={3.5}
-            transparent={false}
-            className="absolute inset-0 w-full h-full"
-          />
+        {/* Soft Bottom-Only Subtle Scrim for Clean Text Contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent pointer-events-none" />
 
-          {/* Warm Cream Headline (Crisp contrast against gold & forest background) */}
-          <div className="relative z-10 px-4 sm:px-8 md:px-12 lg:px-16 text-center max-w-4xl mx-auto pointer-events-none">
-            <h2 className="font-syne text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-[#FDFCF0] tracking-tight leading-[1.14] drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)]">
-              We eliminate the work your team should not be doing.
-            </h2>
-          </div>
-
+        {/* Lower Third Editorial Typography */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-end pb-8 sm:pb-12 md:pb-16 lg:pb-20 px-4 sm:px-8 md:px-12 text-center max-w-4xl mx-auto pointer-events-none">
+          <motion.h2
+            style={{ opacity: textOpacity, y: textY }}
+            className="font-syne text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-[#FDFCF0] tracking-tight leading-[1.18] drop-shadow-[0_2px_20px_rgba(0,0,0,0.85)]"
+          >
+            We eliminate the work your team should not be doing.
+          </motion.h2>
         </div>
       </motion.div>
     </section>

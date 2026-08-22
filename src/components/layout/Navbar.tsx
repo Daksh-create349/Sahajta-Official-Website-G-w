@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import logoImg from '@/assets/sahajta-logo.png';
+import { SahajtaLogo } from '@/components/ui/SahajtaLogo';
 import { scrollToTarget } from '@/lib/lenis';
 
 const navLinks = [
@@ -69,8 +69,10 @@ export function Navbar() {
         {/* Ambient Top Light Reflection Line */}
         <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent pointer-events-none opacity-90" />
 
-        {/* Logo — bare, left side */}
-        <img src={logoImg} alt="Sahajta AI" width={140} height={40} className="relative z-10 hidden md:block h-8 w-auto object-contain" />
+        {/* Logo — crisp vector logo */}
+        <div className="relative z-10 hidden md:block">
+          <SahajtaLogo imgClassName="h-7.5 w-auto" />
+        </div>
 
         {/* Desktop Navigation Links */}
         <nav className="relative z-10 hidden md:flex items-center gap-1">
@@ -105,7 +107,7 @@ export function Navbar() {
 
         {/* Mobile Title & Menu Toggle */}
         <div className="md:hidden relative z-10 flex items-center justify-between w-full gap-8 px-2">
-          <img src={logoImg} alt="Sahajta AI" width={120} height={36} className="h-7 w-auto object-contain" />
+          <SahajtaLogo imgClassName="h-6.5 w-auto" />
           <button
             className="text-[#0B422A] p-1.5 rounded-full hover:bg-white/50 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -135,7 +137,7 @@ export function Navbar() {
       >
         {/* Top Header Bar */}
         <div className="flex items-center justify-between shrink-0">
-          <img src={logoImg} alt="Sahajta AI" width={120} height={36} className="h-7 w-auto object-contain" />
+          <SahajtaLogo imgClassName="h-6.5 w-auto" onClick={() => setMobileMenuOpen(false)} />
           <button
             className="text-[#0B422A] p-2 -mr-2 rounded-full hover:bg-[#F0EFE6] transition-colors"
             onClick={() => setMobileMenuOpen(false)}

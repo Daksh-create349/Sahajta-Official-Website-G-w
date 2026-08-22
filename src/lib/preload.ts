@@ -1,5 +1,4 @@
 import logo from '@/assets/sahajta-logo.png';
-import minimalist from '@/assets/minimalist-1.jpg';
 import discovery from '@/assets/discovery-inspect.png';
 import slaBuild from '@/assets/sla-build.png';
 import integration from '@/assets/integration-connect.png';
@@ -16,7 +15,6 @@ import talentMp4 from '@/assets/video/talent-showcase.mp4';
 
 const SITE_IMAGES = [
   logo,
-  minimalist,
   discovery,
   slaBuild,
   integration,
@@ -27,6 +25,10 @@ const SITE_IMAGES = [
   service4,
   heroPoster,
   talentPoster,
+  '/overview-sprint.png',
+  '/overview-ownership.png',
+  '/overview-integration.png',
+  '/overview-harness.png',
 ];
 
 const HEAVY_VIDEOS = [heroWebm, heroMp4, talentMp4];

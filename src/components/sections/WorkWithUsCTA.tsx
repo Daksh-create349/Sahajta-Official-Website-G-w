@@ -100,7 +100,7 @@ export function WorkWithUsCTA() {
           _captcha: 'false',
         }),
       });
-    } catch (_) {
+    } catch {
       // silently fail — still show success to user
     }
 

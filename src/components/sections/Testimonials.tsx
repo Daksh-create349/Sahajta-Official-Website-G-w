@@ -182,7 +182,11 @@ function MarqueeRow({
     // Only animate while on screen — zero cost off-screen.
     const io = new IntersectionObserver(
       ([entry]) => {
-        entry.isIntersecting ? start() : stop();
+        if (entry.isIntersecting) {
+          start();
+        } else {
+          stop();
+        }
       },
       { threshold: 0 }
     );

@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import logoImg from '@/assets/sahajta-logo.png';
+import { SahajtaLogo } from '@/components/ui/SahajtaLogo';
 import { TalentShowcaseCTA } from '@/components/sections/TalentShowcaseCTA';
-import { FaqModal } from '@/components/ui/FaqModal';
 import { FooterDither } from '@/components/ui/FooterDither';
 import { scrollToTarget } from '@/lib/lenis';
 
@@ -12,7 +10,7 @@ const explore = [
   { label: 'Shipped work', href: '#case-studies' },
   { label: 'Methodology', href: '#process' },
   { label: 'Pricing', href: '#pricing' },
-  { label: 'FAQs', href: '#faq', isFaq: true },
+  { label: 'FAQs', href: '#faq' },
   { label: 'Privacy Policy', href: '/privacy', isPrivacy: true },
   { label: 'Cookie Policy', href: '/cookies', isCookie: true },
   { label: 'Refund Policy', href: '/refund', isRefund: true },
@@ -157,7 +155,14 @@ export function Footer({
   onAiUsageClick,
 }: FooterProps) {
   const reduce = useReducedMotion();
-  const [faqOpen, setFaqOpen] = useState(false);
+
+  const scrollToFaq = () => {
+    const el = document.getElementById('faq');
+    if (el) {
+      scrollToTarget(el);
+      window.history.pushState(null, '', '#faq');
+    }
+  };
 
   return (
     <footer
@@ -187,16 +192,6 @@ export function Footer({
             >
               <span>Privacy Policy</span>
               <span className="text-zinc-400 transition-transform group-hover/privacy:translate-x-0.5">↗</span>
-            </button>
-
-            {/* Quick FAQ Trigger Pill */}
-            <button
-              type="button"
-              onClick={() => setFaqOpen(true)}
-              className="group/faq inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 font-mono-custom text-xs font-medium text-zinc-300 transition-all hover:border-white/30 hover:bg-white/10 hover:text-white"
-            >
-              <span>Have Questions? (FAQs)</span>
-              <span className="text-zinc-400 transition-transform group-hover/faq:translate-x-0.5">↗</span>
             </button>
           </div>
 
@@ -249,13 +244,7 @@ export function Footer({
             {/* Logo column */}
             <div className="col-span-2 md:col-span-4">
               <div className="mb-6 inline-flex items-center rounded-2xl bg-[#FDFCF0] px-4 py-2.5 shadow-lg ring-1 ring-white/10 transition-opacity opacity-95 hover:opacity-100">
-                <img
-                  src={logoImg}
-                  alt="Sahajta AI"
-                  width={160}
-                  height={48}
-                  className="h-8 w-auto object-contain md:h-9"
-                />
+                <SahajtaLogo imgClassName="h-8 w-auto md:h-9" />
               </div>
               <p className="max-w-xs text-[13px] font-normal leading-relaxed text-zinc-400 mb-4">
                 Your fractional CTO and build team in one. We plan it, build it, fix it, and ship
@@ -270,7 +259,6 @@ export function Footer({
               <MetaColumn
                 title="Explore"
                 links={explore}
-                onFaqClick={() => setFaqOpen(true)}
                 onPrivacyClick={onPrivacyClick}
                 onCookieClick={onCookieClick}
                 onRefundClick={onRefundClick}
@@ -317,7 +305,7 @@ export function Footer({
             </button>
             <button
               type="button"
-              onClick={() => setFaqOpen(true)}
+              onClick={scrollToFaq}
               className="font-mono-custom text-zinc-400 hover:text-white transition-colors cursor-pointer"
             >
               FAQs
@@ -329,9 +317,6 @@ export function Footer({
           </div>
         </div>
       </div>
-
-      {/* FAQs Popup Modal */}
-      <FaqModal isOpen={faqOpen} onClose={() => setFaqOpen(false)} />
     </footer>
   );
 }

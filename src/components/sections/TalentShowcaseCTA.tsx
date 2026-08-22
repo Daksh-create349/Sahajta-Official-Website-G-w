@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import videoSrc from '@/assets/video/talent-showcase.mp4';
 import videoPoster from '@/assets/video/talent-showcase-poster.jpg';
@@ -6,34 +6,26 @@ import videoPoster from '@/assets/video/talent-showcase-poster.jpg';
 export function TalentShowcaseCTA() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const isInView = useInView(containerRef, { once: true, amount: 0.08 });
-
-  const [shouldLoad, setShouldLoad] = useState(false);
+  const isInView = useInView(containerRef, { amount: 0.15 });
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
+    const video = videoRef.current;
+    if (!video) return;
 
-    if (typeof IntersectionObserver === 'undefined') {
-      setShouldLoad(true);
-      return;
+    if (isInView) {
+      video.muted = true;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // In case of browser autoplay policies
+          video.muted = true;
+          video.play().catch(() => {});
+        });
+      }
+    } else {
+      video.pause();
     }
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          videoRef.current?.play().catch(() => {});
-        } else {
-          videoRef.current?.pause();
-        }
-      },
-      { rootMargin: '100px 0px', threshold: 0.1 }
-    );
-
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  }, [isInView]);
 
   return (
     <div ref={containerRef} className="mb-16 md:mb-20 px-4 max-w-3xl mx-auto overflow-hidden">
@@ -48,13 +40,13 @@ export function TalentShowcaseCTA() {
         <div className="relative w-full overflow-hidden flex items-center justify-center rounded-2xl md:rounded-3xl">
           <video
             ref={videoRef}
-            src={shouldLoad ? videoSrc : undefined}
+            src={videoSrc}
             poster={videoPoster}
             autoPlay
             loop
             muted
             playsInline
-            preload={shouldLoad ? 'auto' : 'none'}
+            preload="auto"
             aria-hidden="true"
             className="w-full h-auto object-contain rounded-2xl md:rounded-3xl"
           />

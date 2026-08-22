@@ -7,6 +7,7 @@ interface CaseStudyProject {
   highlights: string[];
   shippedIn: string;
   link?: string;
+  image?: string;
 }
 
 const cases: CaseStudyProject[] = [
@@ -109,34 +110,69 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
       >
 
         {/* ================= FRONT SIDE ================= */}
-        <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] p-8 sm:p-9 flex flex-col justify-between text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-all duration-300 hover:border-[#0B422A] group/card">
-          {/* Top Row: Index number & Category label */}
-          <div className="flex justify-between items-start pointer-events-none">
-            <span className="font-mono-custom text-xs font-semibold text-[#0B422A] tracking-wider">
-              {project.num}
-            </span>
-            <span className="font-mono-custom text-[10px] text-[#6B7E76] uppercase tracking-widest">
-              CASE STUDY
-            </span>
-          </div>
+        <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] p-6 sm:p-7 md:p-8 flex flex-col justify-between text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-all duration-300 hover:border-[#0B422A] group/card overflow-hidden">
+          {project.image ? (
+            /* Full-Bleed Edge-to-Edge Image */
+            <>
+              <img
+                src={project.image}
+                alt={project.title}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover object-center group-hover/card:scale-105 transition-transform duration-700 ease-out"
+              />
 
-          {/* Center: Title + one-line headline */}
-          <div className="pointer-events-none my-auto pr-2">
-            <h3 className="font-syne font-bold text-2xl sm:text-3xl text-[#0B422A] tracking-tight leading-tight group-hover/card:translate-x-1.5 transition-transform duration-300">
-              {project.title}
-            </h3>
-            <p className="mt-3 text-[#121212] text-sm sm:text-[15px] font-normal leading-relaxed">
-              {project.headline}
-            </p>
-          </div>
+              {/* Top Row: Index number & Category label overlay */}
+              <div className="relative z-10 flex justify-between items-start pointer-events-none">
+                <span className="font-mono-custom text-xs font-semibold text-[#0B422A] tracking-wider px-2.5 py-1 rounded-full bg-[#FDFCF0]/85 backdrop-blur-sm border border-[#DDD8CC]/70 shadow-xs">
+                  {project.num}
+                </span>
+                <span className="font-mono-custom text-[10px] font-semibold text-[#0B422A] uppercase tracking-widest px-2.5 py-1 rounded-full bg-[#FDFCF0]/85 backdrop-blur-sm border border-[#DDD8CC]/70 shadow-xs">
+                  CASE STUDY
+                </span>
+              </div>
 
-          {/* Bottom Row: Shipped badge & flip indicator */}
-          <div className="flex justify-between items-center pt-4 border-t border-[#DDD8CC]/60 pointer-events-none gap-3">
-            <ShippedBadge value={project.shippedIn} tone="onLight" />
-            <span className="text-[#0B422A] text-xs transition-transform duration-300 group-hover/card:translate-x-1 shrink-0">
-              ↗
-            </span>
-          </div>
+              {/* Bottom Row: Shipped badge & flip indicator overlay */}
+              <div className="relative z-10 flex justify-between items-center pointer-events-none gap-3">
+                <div className="shadow-xs rounded-full">
+                  <ShippedBadge value={project.shippedIn} tone="onLight" />
+                </div>
+                <span className="w-8 h-8 rounded-full bg-[#FDFCF0]/85 backdrop-blur-sm border border-[#DDD8CC]/70 flex items-center justify-center text-[#0B422A] text-xs transition-transform duration-300 group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 shadow-xs shrink-0 font-bold">
+                  ↗
+                </span>
+              </div>
+            </>
+          ) : (
+            /* Standard Text-based Front */
+            <>
+              {/* Top Row: Index number & Category label */}
+              <div className="flex justify-between items-start pointer-events-none z-10">
+                <span className="font-mono-custom text-xs font-semibold text-[#0B422A] tracking-wider">
+                  {project.num}
+                </span>
+                <span className="font-mono-custom text-[10px] text-[#6B7E76] uppercase tracking-widest">
+                  CASE STUDY
+                </span>
+              </div>
+
+              {/* Center: Title + one-line headline */}
+              <div className="pointer-events-none my-auto pr-2">
+                <h3 className="font-syne font-bold text-2xl sm:text-3xl text-[#0B422A] tracking-tight leading-tight group-hover/card:translate-x-1.5 transition-transform duration-300">
+                  {project.title}
+                </h3>
+                <p className="mt-3 text-[#121212] text-sm sm:text-[15px] font-normal leading-relaxed">
+                  {project.headline}
+                </p>
+              </div>
+
+              {/* Bottom Row: Shipped badge & flip indicator */}
+              <div className="flex justify-between items-center pt-3 border-t border-[#DDD8CC]/60 pointer-events-none gap-3 z-10">
+                <ShippedBadge value={project.shippedIn} tone="onLight" />
+                <span className="text-[#0B422A] text-xs transition-transform duration-300 group-hover/card:translate-x-1 shrink-0">
+                  ↗
+                </span>
+              </div>
+            </>
+          )}
         </div>
 
         {/* ================= BACK SIDE ================= */}

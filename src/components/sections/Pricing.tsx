@@ -202,13 +202,15 @@ function Row({
                   ))}
                 </ul>
 
-                <a
-                  href="#contact"
-                  className="group/cta mt-5 sm:mt-6 md:mt-7 inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#FDFCF0] px-5 sm:px-6 py-2.5 sm:py-3 font-syne text-xs font-medium tracking-tight text-[#0B422A] transition-colors duration-300 hover:bg-white hover:text-[#0B422A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white touch-manipulation"
-                >
-                  <span>Start a project</span>
-                  <ArrowGlyph className="h-3 w-3 transition-transform duration-300 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
-                </a>
+                <div className="flex justify-end mt-5 sm:mt-6 md:mt-7">
+                  <a
+                    href="#contact"
+                    className="group/cta inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#FDFCF0] px-5 sm:px-6 py-2.5 sm:py-3 font-syne text-xs font-medium tracking-tight text-[#0B422A] transition-colors duration-300 hover:bg-white hover:text-[#0B422A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white touch-manipulation"
+                  >
+                    <span>Start a project</span>
+                    <ArrowGlyph className="h-3 w-3 transition-transform duration-300 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>
