@@ -60,6 +60,42 @@ const cases: CaseStudyProject[] = [
     ],
     shippedIn: "2 weeks",
     image: "/cases/reddit-lead-finder.jpg"
+  },
+  {
+    num: "05",
+    title: "Voice Support Agent",
+    headline: "Picks up every call, day or night.",
+    highlights: [
+      "Handles customer support calls automatically",
+      "Available 24/7, zero hold time",
+      "Escalates to a human only when it truly needs one"
+    ],
+    shippedIn: "8 days",
+    image: "/cases/voice-support-agent.jpg"
+  },
+  {
+    num: "06",
+    title: "TryOn Studio",
+    headline: "Lets customers see themselves in the outfit — before they buy.",
+    highlights: [
+      "Upload a photo, try on any outfit instantly",
+      "Removes the guesswork of shopping online",
+      "Fewer returns, more confident purchases"
+    ],
+    shippedIn: "1 week",
+    image: "/cases/tryon-studio.jpg"
+  },
+  {
+    num: "07",
+    title: "Smart Lead Radar",
+    headline: "Finds companies about to hire — before your competitors do.",
+    highlights: [
+      "Tracks funding rounds, expansion news, and hiring signals",
+      "Flags companies showing real intent to hire",
+      "Staffing agencies reach out first, not last"
+    ],
+    shippedIn: "6 days",
+    image: "/cases/smart-lead-radar.jpg"
   }
 ];
 
@@ -92,29 +128,13 @@ interface FlipCardProps {
 }
 
 function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
-      setIsHovered(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
-  const showBack = isFlipped || (isHovered && typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches);
-
   return (
     <div
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       onClick={onToggle}
       className="group cursor-pointer h-[390px] sm:h-[450px] md:h-[490px] w-full select-none touch-manipulation"
       style={{ perspective: '1200px' }}
     >
-      {/* 3D Flipping Container — hover on desktop, tap on mobile */}
+      {/* 3D Flipping Container */}
       <div
         style={{
           position: 'relative',
@@ -122,20 +142,29 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
           height: '100%',
           transformStyle: 'preserve-3d',
           transition: 'transform 0.75s cubic-bezier(0.16,1,0.3,1)',
-          transform: showBack ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
         }}
       >
 
         {/* ================= FRONT SIDE ================= */}
-        <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] flex flex-col justify-between text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-all duration-300 hover:border-[#0B422A] group/card overflow-hidden shadow-2xs">
+        <div className={`absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl md:rounded-[2.2rem] bg-[#F0EFE6] border border-[#DDD8CC] flex flex-col justify-between text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:translateZ(1px)] transition-all duration-300 hover:border-[#0B422A] group/card overflow-hidden shadow-2xs ${project.image ? '' : 'p-5 sm:p-6 md:p-7 lg:p-8'}`}>
           {project.image ? (
             /* Full-Bleed Edge-to-Edge Clean Image */
-            <img
-              src={project.image}
-              alt={project.title}
-              loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover object-center group-hover/card:scale-105 transition-transform duration-700 ease-out"
-            />
+            <>
+              <img
+                src={project.image}
+                alt={project.title}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover object-center group-hover/card:scale-105 transition-transform duration-700 ease-out"
+              />
+              {/* Subtle hover overlay hint */}
+              <div className="absolute top-4 right-4 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/50 backdrop-blur-xs border border-white/20 text-[#D9B75B] font-mono-custom text-[10px] font-semibold tracking-wider">
+                  <RotateCcw className="w-3 h-3 stroke-[2.5]" />
+                  <span>Flip</span>
+                </span>
+              </div>
+            </>
           ) : (
             /* Standard Text-based Front */
             <>
@@ -188,7 +217,7 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
                   onToggle();
                 }}
                 aria-label="Flip card back"
-                className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-[#D9B75B] hover:text-white font-sans text-[11px] font-medium transition-all duration-200 cursor-pointer touch-manipulation shadow-xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-[#D9B75B] hover:text-white font-mono-custom text-[10px] font-semibold tracking-wider transition-all duration-200 cursor-pointer touch-manipulation shadow-xs active:scale-95"
               >
                 <RotateCcw className="w-3 h-3 stroke-[2.5]" />
                 <span>Flip back</span>

@@ -123,7 +123,7 @@ export function WorkWithUsCTA() {
     const contact = `${selectedCountry.dialCode} ${phoneNumber}`;
 
     try {
-      await fetch('https://formsubmit.co/ajax/dakshshrivastav56@gmail.com', {
+      await fetch('https://formsubmit.co/ajax/hello@sahajta.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
