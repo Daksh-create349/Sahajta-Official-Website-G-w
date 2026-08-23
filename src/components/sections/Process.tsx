@@ -1,5 +1,3 @@
-import { useRef, type CSSProperties } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import discoveryImg from '@/assets/discovery-inspect.png';
 import slaBuildImg from '@/assets/sla-build.png';
 import integrationImg from '@/assets/integration-connect.png';
@@ -80,47 +78,20 @@ const steps = [
   }
 ];
 
-/** Extra top offset per card, so every buried card keeps a visible sliver. */
-const PEEK_REM_DESKTOP = 1.25;
-const PEEK_REM_MOBILE = 0.75;
-
-/** How much a card shrinks for each card that ends up stacked on top of it. */
-const SHRINK_PER_CARD = 0.035;
-
 function CardItem({ step, index, total }: { step: typeof steps[0]; index: number; total: number }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // 0 when this card reaches its pinned position, 1 once the next card has
-  // fully covered it (the wrappers are adjacent, so the container's bottom
-  // passing the viewport top means the next card is in place). This is the
-  // window during which the card should recede into the deck.
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  // The front card never shrinks; each card behind it settles one notch smaller.
-  const targetScale = 1 - (total - index - 1) * SHRINK_PER_CARD;
-  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+  const isLast = index === total - 1;
 
   return (
     <div
-      ref={containerRef}
-      className="sticky top-[calc(4.5rem_+_var(--peek-mobile))] sm:top-[calc(8rem_+_var(--peek-desktop))] md:top-[calc(9rem_+_var(--peek-desktop))] mb-6 sm:mb-10 md:mb-12"
+      className={`sticky top-20 sm:top-28 md:top-32 ${
+        isLast ? 'mb-0' : 'mb-10 sm:mb-16 md:mb-24'
+      }`}
       style={{
         zIndex: index + 1,
-        '--peek-mobile': `${index * PEEK_REM_MOBILE}rem`,
-        '--peek-desktop': `${index * PEEK_REM_DESKTOP}rem`,
-      } as CSSProperties}
+      }}
     >
-      <motion.div
-        style={{
-          scale,
-          transformOrigin: 'top center',
-          willChange: 'transform',
-          backfaceVisibility: 'hidden',
-        }}
-        className="bg-[#F0EFE6] border border-[#DDD8CC] rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] p-4.5 sm:p-6 md:p-8 lg:p-12 shadow-[0_12px_30px_-12px_rgba(11,66,42,0.08)] min-h-[200px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[360px] flex flex-col justify-center"
+      <div
+        className="bg-[#F0EFE6] border border-[#DDD8CC] rounded-2xl sm:rounded-3xl md:rounded-[2.5rem] p-4.5 sm:p-6 md:p-8 lg:p-12 shadow-[0_16px_36px_-12px_rgba(11,66,42,0.12)] min-h-[200px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[360px] flex flex-col justify-center"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-center">
 
@@ -146,14 +117,14 @@ function CardItem({ step, index, total }: { step: typeof steps[0]; index: number
           </div>
 
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
 
 export function Process() {
   return (
-    <section id="process" className="relative bg-[#FDFCF0] pt-16 sm:pt-20 md:pt-24 pb-20 sm:pb-24 md:pb-32 border-t border-[#DDD8CC]">
+    <section id="process" className="relative bg-[#FDFCF0] pt-16 sm:pt-20 md:pt-24 pb-24 sm:pb-32 md:pb-40 border-t border-[#DDD8CC]">
       {/* Brand Green Silhouette SVG Filter - Tints illustrations to #0B422A and removes off-white backgrounds */}
       <svg width="0" height="0" className="absolute pointer-events-none opacity-0 w-0 h-0 overflow-hidden" aria-hidden="true">
         <filter id="brand-green-silhouette" colorInterpolationFilters="sRGB">
