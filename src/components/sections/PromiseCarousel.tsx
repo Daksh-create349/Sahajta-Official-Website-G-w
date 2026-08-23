@@ -233,6 +233,7 @@ export function PromiseCarousel() {
   // reachable for every card. Measured from live rects rather than offsetLeft
   // so it doesn't depend on which ancestor is the offsetParent.
   const scrollToIndex = useCallback((index: number) => {
+    setActiveSlide(index);
     const deck = scrollContainerRef.current;
     if (!deck) return;
 
@@ -376,26 +377,36 @@ export function PromiseCarousel() {
               <div
                 key={slide.id}
                 onClick={() => scrollToIndex(index)}
-                className={`snap-start shrink-0 w-[275px] sm:w-[340px] md:w-[380px] group cursor-pointer transition-[border-color,box-shadow] duration-300 rounded-2xl sm:rounded-[2.2rem] p-5 sm:p-7 md:p-8 bg-[#F0EFE6] border flex flex-col justify-between relative overflow-hidden touch-manipulation ${
+                className={`snap-start shrink-0 w-[275px] sm:w-[340px] md:w-[380px] group cursor-pointer transition-all duration-300 rounded-2xl sm:rounded-[2.2rem] p-5 sm:p-7 md:p-8 border flex flex-col justify-between relative overflow-hidden touch-manipulation ${
                   isActive
-                    ? "border-[#D9B75B] ring-1 ring-[#D9B75B]/30 shadow-xl"
-                    : "border-[#DDD8CC] hover:border-[#6B7E76] shadow-xs"
+                    ? "bg-[#FDFCF0] border-[#0B422A] ring-1 ring-[#0B422A]/25 shadow-xl"
+                    : "bg-[#F0EFE6] border-[#DDD8CC] hover:border-[#6B7E76] shadow-xs"
                 }`}
               >
                 {/* Top Tag & Index */}
                 <div>
                   <div className="flex items-center justify-between mb-4 sm:mb-8">
-                    <span className="font-mono-custom text-[10px] sm:text-[11px] font-bold text-[#A67F2E] px-2.5 py-0.5 sm:px-3 sm:py-1 bg-[#FDFCF0] rounded-md border border-[#DDD8CC] uppercase tracking-wider">
+                    <span className={`font-mono-custom text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-md border uppercase tracking-wider transition-colors duration-300 ${
+                      isActive
+                        ? "text-[#0B422A] bg-[#0B422A]/10 border-[#0B422A]/25"
+                        : "text-[#A67F2E] bg-[#FDFCF0] border-[#DDD8CC]"
+                    }`}>
                       {slide.tag}
                     </span>
-                    <span className="font-mono-custom text-xs font-semibold text-[#9AA89F]">
+                    <span className={`font-mono-custom text-xs font-semibold transition-colors duration-300 ${
+                      isActive ? "text-[#0B422A] font-bold" : "text-[#9AA89F]"
+                    }`}>
                       0{slide.id}
                     </span>
                   </div>
 
                   {/* Front-Looking Icon Frame with B&W to Color & Floating Hover */}
                   <div className="flex items-center justify-center my-3 sm:my-6 py-2 sm:py-4">
-                    <div className="relative transform transition-all duration-500 ease-out group-hover:-translate-y-3 group-hover:scale-110 filter grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100">
+                    <div className={`relative transform transition-all duration-500 ease-out group-hover:-translate-y-3 group-hover:scale-110 ${
+                      isActive
+                        ? "-translate-y-2 scale-110 grayscale-0 opacity-100"
+                        : "filter grayscale group-hover:grayscale-0 opacity-70 group-hover:opacity-100"
+                    }`}>
                       {slide.icon}
                     </div>
                   </div>
@@ -413,10 +424,14 @@ export function PromiseCarousel() {
 
                 {/* Bottom Footer Accent */}
                 <div className="mt-5 sm:mt-8 pt-3 sm:pt-4 border-t border-[#DDD8CC] flex items-center justify-between">
-                  <span className="font-mono-custom text-[11px] sm:text-xs font-medium text-[#6B7E76]">
+                  <span className={`font-mono-custom text-[11px] sm:text-xs font-medium transition-colors duration-300 ${
+                    isActive ? "text-[#0B422A]" : "text-[#6B7E76]"
+                  }`}>
                     {slide.smallText}
                   </span>
-                  <span className="text-[#2D6E54] text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className={`text-[#2D6E54] text-xs sm:text-sm transition-opacity duration-300 ${
+                    isActive ? "opacity-100 font-bold" : "opacity-0 group-hover:opacity-100"
+                  }`}>
                     ✓
                   </span>
                 </div>

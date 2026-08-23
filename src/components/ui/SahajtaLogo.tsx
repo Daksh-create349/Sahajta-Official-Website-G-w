@@ -25,7 +25,7 @@ export function SahajtaLogo({ className, imgClassName, ...props }: SahajtaLogoPr
         height={90}
         loading="eager"
         decoding="async"
-        className={cn('h-8 sm:h-8.5 md:h-8 w-auto object-contain shrink-0', imgClassName)}
+        className={cn('w-auto object-contain shrink-0', imgClassName || 'h-7 md:h-7.5')}
       />
     </a>
   );

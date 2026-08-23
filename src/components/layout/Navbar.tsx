@@ -52,14 +52,14 @@ export function Navbar() {
   };
 
   return (
-    <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 transition-all duration-500">
+    <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 transition-all duration-500 pointer-events-none">
       
       {/* Streamlined Liquid Glass Floating Oval Navbar */}
       <div
         className={cn(
-          "relative overflow-hidden rounded-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-between gap-6 px-4 py-2 md:px-6 md:py-2",
+          "pointer-events-auto relative overflow-hidden rounded-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-between gap-3 sm:gap-6 px-3.5 py-2 sm:px-4 md:px-6 md:py-2 w-[calc(100vw-1.5rem)] sm:w-[calc(100vw-2rem)] md:w-auto max-w-lg md:max-w-none",
           isScrolled
-            ? "liquid-glass-scrolled py-2 scale-[0.98]"
+            ? "liquid-glass-scrolled py-1.5 md:py-2 scale-[0.98]"
             : "liquid-glass"
         )}
       >
@@ -100,38 +100,48 @@ export function Navbar() {
             onClick={(e) => handleNavClick(e, '#contact')}
             className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-medium bg-[#0B422A] text-[#FDFCF0] hover:bg-[#2D6E54] transition-all rounded-full shadow-md group tracking-tight cursor-pointer"
           >
-            <span>Book 24h Sprint</span>
+            <span>Start a Project</span>
             <span className="text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
           </a>
         </div>
 
         {/* Mobile Title & Menu Toggle */}
-        <div className="md:hidden relative z-10 flex items-center justify-between w-full gap-6 px-1.5 py-0.5">
-          <SahajtaLogo imgClassName="h-7.5 sm:h-8 w-auto" />
-          <button
-            className="text-[#0B422A] p-1.5 rounded-full hover:bg-white/50 transition-colors flex items-center justify-center"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle Navigation Menu"
-          >
-            {mobileMenuOpen ? (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
+        <div className="md:hidden relative z-10 flex items-center justify-between w-full gap-3 px-1 py-0.5">
+          <SahajtaLogo imgClassName="h-7 sm:h-7.5 w-auto" />
+          <div className="flex items-center gap-2 translate-y-0.5">
+            <a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, '#contact')}
+              className="inline-flex items-center gap-1 px-3.5 py-1.5 text-[11px] font-syne font-bold bg-[#0B422A] text-[#FDFCF0] hover:bg-[#2D6E54] transition-all rounded-full shadow-xs tracking-tight cursor-pointer"
+            >
+              <span>Let's Talk</span>
+              <span className="text-[10px]">↗</span>
+            </a>
+            <button
+              className="text-[#0B422A] p-1.5 rounded-full hover:bg-white/60 bg-black/[0.04] transition-colors flex items-center justify-center cursor-pointer touch-manipulation"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Mobile Fullscreen Navigation Overlay */}
       <div
         className={cn(
-          "fixed inset-0 w-screen h-[100dvh] bg-[#FDFCF0] z-[60] flex flex-col p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:hidden overflow-y-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          "pointer-events-none fixed inset-0 w-screen h-[100dvh] bg-[#FDFCF0] z-[60] flex flex-col p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:hidden overflow-y-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
           mobileMenuOpen
-            ? "opacity-100 translate-y-0 pointer-events-auto"
+            ? "opacity-100 translate-y-0 !pointer-events-auto"
             : "opacity-0 -translate-y-4 pointer-events-none"
         )}
       >
@@ -139,7 +149,7 @@ export function Navbar() {
         <div className="flex items-center justify-between shrink-0">
           <SahajtaLogo imgClassName="h-6.5 w-auto" onClick={() => setMobileMenuOpen(false)} />
           <button
-            className="text-[#0B422A] p-2 -mr-2 rounded-full hover:bg-[#F0EFE6] transition-colors"
+            className="text-[#0B422A] p-2 -mr-2 rounded-full hover:bg-[#F0EFE6] transition-colors cursor-pointer"
             onClick={() => setMobileMenuOpen(false)}
             aria-label="Close Menu"
           >
@@ -207,7 +217,7 @@ export function Navbar() {
             }}
             className="w-full text-center py-4 text-sm font-syne font-bold bg-[#0B422A] text-[#FDFCF0] hover:bg-[#2D6E54] rounded-full shadow-md cursor-pointer transition-all duration-300"
           >
-            Book 24h Sprint ↗
+            Start a Project ↗
           </a>
 
           <div className="flex justify-between items-center text-xs font-mono-custom text-[#6B7E76]">
