@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import brandVideo from '@/assets/video/brand-showcase-expand.mp4';
 
 export function VideoShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -11,15 +12,11 @@ export function VideoShowcase() {
     offset: ['start end', 'end start'],
   });
 
-  // Reset video to start and play cleanly only when user scrolls into view
+  // Play video smoothly when in view
   useEffect(() => {
     const video = videoRef.current;
     const container = containerRef.current;
     if (!video || !container) return;
-
-    // Ensure video starts at 0s and does not run ahead off-screen
-    video.currentTime = 0;
-    video.pause();
 
     let isVisible = false;
 
@@ -28,11 +25,10 @@ export function VideoShowcase() {
         if (entry.isIntersecting) {
           if (!isVisible) {
             isVisible = true;
-            video.currentTime = 0;
             const playPromise = video.play();
             if (playPromise !== undefined) {
               playPromise.catch(() => {
-                // Auto-play was prevented; fallback silent
+                // Auto-play prevented fallback
               });
             }
           }
@@ -40,13 +36,12 @@ export function VideoShowcase() {
           if (isVisible) {
             isVisible = false;
             video.pause();
-            video.currentTime = 0;
           }
         }
       },
       {
-        threshold: [0, 0.2, 0.6],
-        rootMargin: '0px 0px -40px 0px',
+        threshold: [0, 0.15, 0.5],
+        rootMargin: '100px 0px 100px 0px',
       }
     );
 
@@ -100,10 +95,11 @@ export function VideoShowcase() {
         }}
         className="relative aspect-[16/10] sm:aspect-video w-full overflow-hidden bg-[#0B2818] shadow-[0_16px_40px_-10px_rgba(11,66,42,0.18)]"
       >
-        {/* Brand Video — controlled to always play from start on scroll */}
+        {/* Brand Video */}
         <video
           ref={videoRef}
-          src="/brand-showcase-expand.mp4"
+          src={brandVideo}
+          autoPlay
           loop
           muted
           playsInline

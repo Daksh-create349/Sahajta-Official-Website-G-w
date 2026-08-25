@@ -12,7 +12,7 @@ export default defineConfig({
   server: {
     host: true, // Exposes dev server to your local network (e.g. Windows PC)
     port: 5274,
-    strictPort: true, // fail fast if port taken, never silently bump
+    strictPort: false, // auto-pick next free port if 5274 is busy
   },
   resolve: {
     alias: {
