@@ -101,7 +101,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FDFCF0] text-[#121212] selection:bg-[#D9B75B]/30 selection:text-[#0B422A] font-sans antialiased overflow-x-clip relative">
+    <div className="min-h-screen bg-[#FDFCF0] text-[#121212] selection:bg-[#D9B75B]/30 selection:text-[#0B422A] font-sans antialiased relative">
       <Preloader />
       <Navbar />
 

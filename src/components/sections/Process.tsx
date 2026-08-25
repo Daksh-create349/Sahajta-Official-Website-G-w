@@ -84,7 +84,7 @@ function CardItem({ step, index, total }: { step: typeof steps[0]; index: number
   return (
     <div
       className={`sticky top-20 sm:top-28 md:top-32 ${
-        isLast ? 'mb-0' : 'mb-10 sm:mb-16 md:mb-24'
+        isLast ? 'mb-0' : 'mb-[60vh] sm:mb-[65vh] md:mb-[70vh]'
       }`}
       style={{
         zIndex: index + 1,
