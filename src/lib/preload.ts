@@ -12,7 +12,6 @@ import talentPoster from '@/assets/video/talent-showcase-poster.jpg';
 import heroWebm from '@/assets/video/hero-showcase.webm';
 import heroMp4 from '@/assets/video/hero-showcase.mp4';
 import talentMp4 from '@/assets/video/talent-showcase.mp4';
-import brandMp4 from '@/assets/video/brand-showcase-expand.mp4';
 
 const SITE_IMAGES = [
   logo,
@@ -39,7 +38,7 @@ const SITE_IMAGES = [
   '/cases/smart-lead-radar.jpg',
 ];
 
-const HEAVY_VIDEOS = [heroWebm, heroMp4, talentMp4, brandMp4];
+const HEAVY_VIDEOS = [heroWebm, heroMp4, talentMp4];
 
 const ASSET_TIMEOUT_MS = 6000;
 const FONT_TIMEOUT_MS = 4000;

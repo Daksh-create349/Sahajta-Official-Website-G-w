@@ -1,30 +1,36 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { preloadEverything, releasePreloadedVideos } from '@/lib/preload';
-
-const MIN_DISPLAY_MS = 400; // never flash away instantly on fast connections
+import { releasePreloadedVideos } from '@/lib/preload';
 
 export function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const start = performance.now();
-    preloadEverything((loaded, total) => {
-      // Smooth progress: each asset load bumps the bar
-      const rawPct = total === 0 ? 100 : Math.round((loaded / total) * 100);
-      setProgress(rawPct);
+    let start = performance.now();
+    let frame = 0;
+    const duration = 450; // 450ms smooth brand splash
 
-      if (loaded === total) {
-        // Wait for min display time so the splash isn't jarring
-        const elapsed = performance.now() - start;
-        const remaining = Math.max(0, MIN_DISPLAY_MS - elapsed);
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const pct = Math.min(100, Math.round((elapsed / duration) * 100));
+      setProgress(pct);
+
+      if (pct < 100) {
+        frame = requestAnimationFrame(tick);
+      } else {
         setTimeout(() => {
           setIsLoading(false);
           window.dispatchEvent(new Event('sahajta:preloaded'));
-        }, remaining);
+        }, 120);
       }
-    });
+    };
+
+    frame = requestAnimationFrame(tick);
+
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
