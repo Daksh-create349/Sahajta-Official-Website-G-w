@@ -4,11 +4,8 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Hero } from '@/components/sections/Hero';
 import { VideoShowcase } from '@/components/sections/VideoShowcase';
-import { Overview } from '@/components/sections/Overview';
-import { Services } from '@/components/sections/Services';
 import { CaseStudies } from '@/components/sections/CaseStudies';
 import { Process } from '@/components/sections/Process';
-import { PromiseCarousel } from '@/components/sections/PromiseCarousel';
 import { Pricing } from '@/components/sections/Pricing';
 import { WorkWithUsCTA } from '@/components/sections/WorkWithUsCTA';
 import { Team } from '@/components/sections/Team';
@@ -110,11 +107,8 @@ function App() {
       <main>
         <Hero />
         <VideoShowcase />
-        <Overview />
-        <Services />
         <CaseStudies />
         <Process />
-        <PromiseCarousel />
         <Pricing />
         <WorkWithUsCTA />
         <Team />

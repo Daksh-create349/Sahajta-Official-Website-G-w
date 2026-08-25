@@ -9,10 +9,11 @@ import service3 from '@/assets/services/service-3.png';
 import service4 from '@/assets/services/service-4.png';
 import heroPoster from '@/assets/video/hero-showcase-poster.jpg';
 import talentPoster from '@/assets/video/talent-showcase-poster.jpg';
+import brandPoster from '@/assets/video/brand-showcase-poster.jpg';
 import heroWebm from '@/assets/video/hero-showcase.webm';
 import heroMp4 from '@/assets/video/hero-showcase.mp4';
 import talentMp4 from '@/assets/video/talent-showcase.mp4';
-import brandMp4 from '@/assets/video/brand-showcase-expand.mp4';
+import brandMp4 from '@/assets/video/brand-showcase-opt.mp4';
 
 const SITE_IMAGES = [
   logo,
@@ -26,6 +27,7 @@ const SITE_IMAGES = [
   service4,
   heroPoster,
   talentPoster,
+  brandPoster,
   '/overview-sprint.png',
   '/overview-ownership.png',
   '/overview-integration.png',

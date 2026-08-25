@@ -4,8 +4,6 @@ import { SahajtaLogo } from '@/components/ui/SahajtaLogo';
 import { scrollToTarget } from '@/lib/lenis';
 
 const navLinks = [
-  { name: 'Philosophy', href: '#overview' },
-  { name: 'Capabilities', href: '#services' },
   { name: 'Shipped Work', href: '#case-studies' },
   { name: 'Methodology', href: '#process' },
   { name: 'Pricing', href: '#pricing' },
