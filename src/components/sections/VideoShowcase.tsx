@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import brandVideo from '@/assets/video/brand-showcase-expand.mp4';
 
 export function VideoShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -103,7 +104,7 @@ export function VideoShowcase() {
         {/* Brand Video — controlled to always play from start on scroll */}
         <video
           ref={videoRef}
-          src="/brand-showcase-expand.mp4"
+          src={brandVideo}
           loop
           muted
           playsInline
