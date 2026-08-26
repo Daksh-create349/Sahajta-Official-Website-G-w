@@ -167,7 +167,7 @@ function FlipCard({ project, isFlipped, onToggle }: FlipCardProps) {
             /* Full-Bleed Edge-to-Edge Clean Image */
             <img
               src={project.image}
-              alt={project.title}
+              alt={`${project.title} - Sahajta AI Case Study`}
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover object-center group-hover/card:scale-105 transition-transform duration-700 ease-out"
             />

@@ -59,7 +59,7 @@ export function Team() {
                   {/* Co-founder Cutout Image */}
                   <img
                     src={member.image}
-                    alt={member.name}
+                    alt={`${member.name} — ${member.role} at Sahajta AI`}
                     className={`transition-transform duration-500 ease-out group-hover/card:scale-[1.03] ${member.imgClass}`}
                   />
                 </div>

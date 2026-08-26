@@ -6,6 +6,7 @@ import service1Img from '@/assets/services/service-1.png';
 import service2Img from '@/assets/services/service-2.png';
 import service3Img from '@/assets/services/service-3.png';
 import service4Img from '@/assets/services/service-4.png';
+import service5Img from '@/assets/services/service-5.png';
 
 const services = [
   {
@@ -35,10 +36,17 @@ const services = [
     title: "Website Design & Development",
     bgImg: service4Img,
     deliverables: ["WEB DESIGN", "DEVELOPMENT", "CRO & SEO"]
+  },
+  {
+    num: "05",
+    stepNum: 5,
+    title: "ML Model Training",
+    bgImg: service5Img,
+    deliverables: ["CUSTOM ML MODELS", "NLP & VISION", "PREDICTIVE AI", "DEPLOYED TO PROD"]
   }
 ];
 
-const arcAngles = [-80, -25, 25, 80];
+const arcAngles = [-90, -45, 0, 45, 90];
 
 const ARC_RADIUS = 100;
 const ARC_PATH = 'M 50 150 A 100 100 0 0 1 250 150';

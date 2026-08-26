@@ -1,0 +1,48 @@
+# ==============================================================================
+# Sahajta AI (https://sahajta.com) Robots Configuration
+# Optimized for Google, Bing, and all Generative AI Search Crawlers
+# ==============================================================================
+
+# Search Engine Crawlers (Googlebot, Bing, DuckDuckGo, etc.)
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Googlebot-Mobile
+User-agent: Bingbot
+User-agent: Slurp
+User-agent: DuckDuckBot
+User-agent: Baiduspider
+User-agent: YandexBot
+User-agent: Sogou
+User-agent: Exabot
+User-agent: facebot
+User-agent: ia_archiver
+Allow: /
+
+# Generative AI & LLM Search Crawlers (ChatGPT, Perplexity, Claude, Gemini, etc.)
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: cohere-ai
+User-agent: Diffbot
+User-agent: Omgilibot
+User-agent: Bytespider
+Allow: /
+
+# Global fallback for all other user agents
+User-agent: *
+Allow: /
+
+# Disallow build and private assets
+Disallow: /dist/
+Disallow: /node_modules/
+
+# Sitemaps and AI Context
+Sitemap: https://sahajta.com/sitemap.xml
+LLMs-Txt: https://sahajta.com/llms.txt

@@ -1,0 +1,21 @@
+{
+  "name": "Sahajta AI | Your Reliable Tech Partner",
+  "short_name": "Sahajta",
+  "description": "Your fractional CTO and build team in one. We plan, build, fix, test, and ship your tech through short weekly sprints.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDFCF0",
+  "theme_color": "#FDFCF0",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

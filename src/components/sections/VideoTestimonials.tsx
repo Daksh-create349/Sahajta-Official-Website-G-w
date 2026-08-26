@@ -128,6 +128,7 @@ function VerticalVideoCard({ item }: { item: VideoTestimonial }) {
           src={item.src}
           poster={item.poster}
           playsInline
+          loop
           preload="none"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}

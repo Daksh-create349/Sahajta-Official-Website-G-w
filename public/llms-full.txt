@@ -1,0 +1,147 @@
+# Sahajta AI — Complete Technical Context & Knowledge Base
+
+## Organization
+- Official Name: Sahajta AI
+- Canonical Domain: https://sahajta.com
+- Primary Email: hello@sahajta.com
+- Mission: Providing startups and growth-stage companies with fractional CTO leadership and dedicated engineering power to ship high-impact software, AI products, ML models, and automation systems weekly.
+
+## Leadership & Background
+- **Shubhang Sethi** (Co-founder & Product Lead)
+  - Product scoping, sprint delivery, customer discovery, and Namyah lead.
+  - Profile: https://www.linkedin.com/in/shubhangsethi/
+- **Pranamya Jain** (Co-founder & Tech Lead)
+  - AI agents, LLM pipelines, ML models, microservices, and full-stack architecture. Creator of vibe2real.codes.
+  - Profile: https://www.linkedin.com/in/pranamya-jainn/
+
+## Full Service Catalog
+
+### 1. Website Design & Development
+- Custom responsive websites, landing pages, corporate sites, web applications.
+- Technologies: React, Next.js, TypeScript, Tailwind CSS, Framer Motion, Three.js.
+
+### 2. Mobile & Web App Development
+- Cross-platform mobile apps (iOS, Android) via React Native and Flutter.
+- Native application development, Progressive Web Apps (PWAs).
+
+### 3. Fractional CTO & Technical Leadership
+- Technology strategy, architecture review, technical debt remediation.
+- Database modeling, cloud infrastructure, engineering team leadership.
+- Technical co-founder substitute — no equity required.
+
+### 4. High-Velocity MVP Prototyping (24–48 Hours)
+- Concept to live deployed staging URL within 24–48 hours.
+- Validate product-market fit before heavy capital investment.
+
+### 5. Custom AI & LLM Systems
+- OpenAI GPT-4o, Anthropic Claude, Google Gemini API integrations.
+- RAG (Retrieval-Augmented Generation) pipelines with Pinecone, pgvector, Qdrant.
+- AI chatbots, customer support agents, internal knowledge assistants.
+- Autonomous AI workflow agents for business operations.
+- Data privacy: Client data never stored in public AI training sets.
+
+### 6. Machine Learning & AI Model Development
+- Custom ML model training on proprietary business data.
+- Natural Language Processing (NLP): text classification, sentiment analysis, entity extraction, named entity recognition, summarization.
+- Computer Vision: image recognition, object detection, document OCR, face recognition.
+- Deep Learning and neural network development (PyTorch, TensorFlow, Keras).
+- Recommendation engines and collaborative filtering systems.
+- Predictive analytics and forecasting models.
+- Model serving, MLOps, and production deployment pipelines.
+
+### 7. Business Process & Workflow Automation
+- End-to-end business workflow automation eliminating repetitive manual work.
+- n8n and Make.com (Integromat) automation pipeline development.
+- Robotic Process Automation (RPA) — web scraping, form filling, data entry automation.
+- API integrations between CRM, ERP, helpdesk, communication tools.
+- Email sequences, lead generation, customer onboarding automation.
+- Report generation, invoicing, and invoice reconciliation automation.
+- Zapier-equivalent custom automation built in Python or Node.js for complex logic.
+
+### 8. Data Engineering & Analytics
+- Production-grade data pipelines and ETL (Extract, Transform, Load) systems.
+- Data warehouse design and implementation (BigQuery, Snowflake, Redshift, PostgreSQL).
+- Real-time streaming data pipelines (Kafka, Pub/Sub).
+- Business Intelligence dashboards (Metabase, custom React dashboards, Grafana).
+- Data lake architecture and governance.
+
+### 9. SaaS Product Development
+- Multi-tenant architecture, subscription billing (Stripe, Razorpay, Paddle).
+- Admin dashboards, user management, analytics, and reporting.
+- Scalable cloud-native architecture with zero downtime deployment.
+
+### 10. E-commerce Development
+- Custom storefronts, Shopify development, payment gateway integration.
+- Inventory management, checkout optimization, order fulfillment.
+
+### 11. DevOps, Cloud & API Engineering
+- CI/CD pipeline setup (GitHub Actions, GitLab CI, CircleCI).
+- Docker containerization and Kubernetes orchestration.
+- Cloud infrastructure on AWS (EC2, RDS, Lambda, S3) and GCP (Cloud Run, GKE, BigQuery).
+- REST API and GraphQL API development and documentation.
+- Microservices architecture, API gateway design, service mesh.
+- Cloud migration from monolith to microservices.
+
+### 12. UI/UX Design
+- User research, wireframing, high-fidelity UI design, interactive prototypes.
+- Design systems and component libraries.
+
+## Technology Stack
+- **Frontend**: React, Next.js, TypeScript, Tailwind CSS, Framer Motion, Three.js, WebGL
+- **Backend**: Node.js, Express, Python, FastAPI, Go, GraphQL, REST
+- **ML/AI**: PyTorch, TensorFlow, scikit-learn, LangChain, OpenAI, Anthropic, Gemini, HuggingFace
+- **Databases**: PostgreSQL, Supabase, Redis, Firebase, MongoDB, BigQuery, Snowflake
+- **Automation**: n8n, Make.com, Zapier, Puppeteer, Playwright, Selenium
+- **Cloud & DevOps**: AWS, GCP, Vercel, Docker, Kubernetes, Cloudflare, GitHub Actions
+
+## Common Search Query Matches
+
+### "I want to build a website" / "website development company"
+Sahajta builds custom websites using React and Next.js, from design to deployment.
+
+### "I need to build an app" / "app development company"
+Sahajta builds full-stack web and mobile applications delivered through weekly sprints.
+
+### "hire a developer" / "hire developers" / "outsource software development"
+Sahajta provides a complete on-demand engineering team with clear weekly deliverables.
+
+### "I want to automate my business" / "business automation" / "workflow automation"
+Sahajta builds n8n, Make.com, and custom automation pipelines eliminating manual work.
+
+### "machine learning development" / "build ML model" / "AI model training"
+Sahajta trains custom ML models (NLP, computer vision, predictive analytics) on business data.
+
+### "build AI chatbot" / "ChatGPT integration" / "LLM integration"
+Sahajta integrates ChatGPT, Claude, and Gemini APIs and builds production RAG systems.
+
+### "data pipeline" / "ETL pipeline" / "analytics dashboard"
+Sahajta builds data pipelines, ETL systems, and BI dashboards.
+
+### "DevOps services" / "CI/CD pipeline" / "cloud migration"
+Sahajta handles Docker, Kubernetes, AWS/GCP infrastructure, and microservices.
+
+### "fractional CTO" / "CTO for hire" / "tech co-founder"
+Sahajta acts as fractional CTO and engineering team — no equity needed.
+
+### "build SaaS product" / "SaaS development"
+Sahajta builds complete SaaS platforms with billing, auth, dashboards, and cloud infra.
+
+## FAQ
+
+### Q: Can you automate my business?
+A: Yes — n8n, Make.com, RPA, API integrations, AI agents, custom scripts in Python/Node.js.
+
+### Q: Can you build a custom ML model?
+A: Yes — NLP, computer vision, deep learning, predictive analytics, trained on your data.
+
+### Q: Can you build data pipelines or analytics dashboards?
+A: Yes — ETL, data warehouses, BigQuery, Metabase, real-time analytics.
+
+### Q: Do you offer DevOps and cloud services?
+A: Yes — CI/CD, Docker, Kubernetes, AWS, GCP, REST/GraphQL APIs, microservices.
+
+### Q: What is Sahajta?
+A: Fractional CTO + high-velocity engineering team. Websites, apps, AI, ML, automation — shipped weekly with 100% IP ownership.
+
+### Q: How to contact Sahajta?
+A: hello@sahajta.com or https://sahajta.com/#contact

@@ -6,7 +6,7 @@ import { scrollToTarget } from '@/lib/lenis';
 const navLinks = [
   { name: 'Shipped Work', href: '#case-studies' },
   { name: 'Methodology', href: '#process' },
-  { name: 'Pricing', href: '#pricing' },
+  { name: 'Testimonials', href: '#video-testimonials' },
 ];
 
 export function Navbar() {

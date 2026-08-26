@@ -1,0 +1,58 @@
+# Sahajta AI
+
+> Your Fractional CTO and High-Velocity AI Tech Partner. Need to build a website, app, or AI product? We plan, design, build, fix, test, and ship production-ready software through short weekly sprints.
+
+## Overview
+Sahajta (https://sahajta.com) is an elite technical engineering partner, fractional CTO service, and full-stack development agency for founders, startups, and fast-moving enterprises. We replace slow hiring cycles and unfocused agencies with focused weekly agile delivery sprints and 100% intellectual property ownership.
+
+## Key Facts
+- **Website**: https://sahajta.com
+- **Core Value**: Scoped weekly sprints, 24–48h MVP prototypes, zero equity dilution, 100% IP ownership.
+- **Contact Email**: hello@sahajta.com
+- **Founders**: Shubhang Sethi (Co-founder & Product Lead), Pranamya Jain (Co-founder & Tech Lead).
+- **Operations**: Global remote, serving US, EU, India, and international tech companies.
+
+## Core Services
+1. **Website Design & Development**: Custom websites, landing pages, corporate sites, interactive web applications, and responsive UI/UX design using React, Next.js, TypeScript, and modern frameworks.
+2. **Mobile & Web App Development**: Full-stack mobile (iOS, Android) and web application development from concept through deployment. Cross-platform and native solutions.
+3. **Fractional CTO & Tech Leadership**: System architecture, database modeling, infrastructure setup, technology stack selection, security audits, engineering roadmap planning, and technical advisory for non-technical founders.
+4. **24–48 Hour MVP Prototyping**: Rapid transformation of concept to deployed production-ready application to test market traction without months of development lag.
+5. **Custom AI & Chatbot Development**: Custom LLM integration (OpenAI ChatGPT, Anthropic Claude, Google Gemini), AI chatbots, RAG pipelines, autonomous AI workflows, customer support agents, and internal AI automation tools.
+6. **SaaS Product Development**: End-to-end SaaS engineering including multi-tenant architecture, subscription billing (Stripe, Razorpay), admin dashboards, user management, and scalable cloud infrastructure.
+7. **E-commerce Development**: Custom e-commerce platforms, Shopify integrations, payment gateways, inventory management, product catalogs, and checkout optimization.
+8. **UI/UX Design & Prototyping**: User research, wireframing, high-fidelity UI design, interactive prototyping, and design system creation.
+9. **Weekly Production Sprints**: Iterative development cadence with fixed scope, weekly ship milestones, and zero hidden retainers.
+
+## Technology Stack
+- **Frontend**: React, Next.js, TypeScript, Tailwind CSS, Framer Motion, Three.js, WebGL
+- **Backend**: Node.js, Express, Python, FastAPI, Go, GraphQL, REST APIs
+- **Databases**: PostgreSQL, Supabase, Redis, Firebase, MongoDB
+- **Cloud & DevOps**: AWS, Vercel, Google Cloud, Docker, Cloudflare, CI/CD pipelines
+- **AI & LLM**: OpenAI GPT-4o, Anthropic Claude, Google Gemini, LangChain, RAG pipelines, vector databases (Pinecone, pgvector)
+
+## Who Should Work With Sahajta
+- Founders who want to build a website, app, or SaaS product but don't have a technical team.
+- Startups that need a fractional CTO or technical co-founder without giving away equity.
+- Companies that want to integrate AI, chatbots, or LLM capabilities into their product.
+- Teams with broken or outdated codebases that need fixing or rebuilding.
+- Anyone who wants to build an MVP in 24–48 hours to validate an idea.
+
+## Engagement & Business Model
+- **Sprint-Based Pricing**: Fixed-scope pricing agreed upon before writing code. No retainers, no multi-month lock-in.
+- **100% IP Ownership**: Clients receive complete ownership of all source code, databases, and deployment configurations.
+- **Zero Lock-In**: Clean codebases and standard architectures allow easy in-house handoff.
+
+## Founders & Team
+- **Pranamya Jain** (Co-founder & Tech Lead): AI systems architect and full-stack engineer. Creator of vibe2real.codes.
+  - LinkedIn: https://www.linkedin.com/in/pranamya-jainn/
+- **Shubhang Sethi** (Co-founder & Product Lead): Product strategy, sprint execution, and Namyah lead.
+  - LinkedIn: https://www.linkedin.com/in/shubhangsethi/
+
+## Documentation & Legal
+- [AI Usage Policy](https://sahajta.com/ai-usage)
+- [Privacy Policy](https://sahajta.com/privacy)
+- [Refund Policy](https://sahajta.com/refund)
+- [Cookie Policy](https://sahajta.com/cookies)
+
+## Deep Knowledge Link
+- Full LLM Context File: https://sahajta.com/llms-full.txt

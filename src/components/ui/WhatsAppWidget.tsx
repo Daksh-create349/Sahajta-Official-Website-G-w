@@ -1,19 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
 export function WhatsAppWidget() {
   const [isOpen, setIsOpen] = useState(true);
-
-  // Auto dismiss tooltip on mobile screens (< 640px) after 6 seconds to avoid blocking cards
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth < 640) {
-      const timer = setTimeout(() => {
-        setIsOpen(false);
-      }, 6000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
 
   const whatsappUrl =
     'https://wa.me/918082943205?text=Hi%20Sahajta%20team%2C%20I%20want%20to%20discuss%20a%20project%20with%20you.';
@@ -37,7 +27,7 @@ export function WhatsAppWidget() {
               aria-label="Chat with us on WhatsApp"
               className="relative flex items-center px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-white border-[2.5px] border-[#121212] shadow-[2px_4px_0px_0px_#0B422A] hover:shadow-[2px_6px_0px_0px_#0B422A] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[1px_2px_0px_0px_#0B422A] transition-all duration-150 cursor-pointer block"
             >
-              <span className="font-sans font-medium text-xs sm:text-sm text-[#121212] tracking-tight whitespace-nowrap">
+              <span className="font-sans font-semibold text-xs sm:text-sm text-[#121212] tracking-tight whitespace-nowrap">
                 Chat with us
               </span>
             </a>
@@ -51,7 +41,7 @@ export function WhatsAppWidget() {
                 setIsOpen(false);
               }}
               aria-label="Close chat prompt"
-              className="absolute -top-1.5 -right-2.5 sm:-right-3 w-5.5 h-5.5 sm:w-6 sm:h-6 bg-[#121212] hover:bg-[#2A2A2A] text-white rounded-full flex items-center justify-center shadow-sm hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer z-20"
+              className="absolute -top-2 -right-2 w-5.5 h-5.5 sm:w-6 sm:h-6 bg-[#121212] hover:bg-[#2A2A2A] text-white rounded-full flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all duration-150 cursor-pointer z-20"
             >
               <X className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[3]" />
             </button>
