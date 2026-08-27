@@ -46,3 +46,4 @@ Disallow: /node_modules/
 # Sitemaps and AI Context
 Sitemap: https://sahajta.com/sitemap.xml
 LLMs-Txt: https://sahajta.com/llms.txt
+MCP: https://sahajta.com/.well-known/mcp.json

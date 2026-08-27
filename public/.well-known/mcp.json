@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "Sahajta AI",
+  "description": "Sahajta AI — Fractional CTO & High-Velocity AI Tech Partner. We plan, design, build, fix, test, and ship production-ready software through weekly sprints.",
+  "url": "https://sahajta.com",
+  "provider": {
+    "name": "Sahajta AI",
+    "url": "https://sahajta.com",
+    "contact": "hello@sahajta.com"
+  },
+  "logo": "https://sahajta.com/favicon.png",
+  "documentation": {
+    "llms_txt": "https://sahajta.com/llms.txt",
+    "llms_full_txt": "https://sahajta.com/llms-full.txt",
+    "privacy_policy": "https://sahajta.com/privacy",
+    "ai_usage_policy": "https://sahajta.com/ai-usage"
+  },
+  "capabilities": {
+    "services": [
+      {
+        "name": "website_development",
+        "description": "Custom website design & development using React, Next.js, TypeScript, Tailwind CSS, Framer Motion, and Three.js.",
+        "tags": ["website", "landing-page", "corporate-site", "web-app", "responsive", "UI/UX"]
+      },
+      {
+        "name": "mobile_app_development",
+        "description": "Full-stack iOS, Android, and cross-platform mobile application development from concept to deployment.",
+        "tags": ["mobile", "iOS", "android", "react-native", "flutter", "PWA"]
+      },
+      {
+        "name": "fractional_cto",
+        "description": "System architecture, database modeling, infrastructure setup, technology strategy, security audits, and engineering roadmap planning.",
+        "tags": ["CTO", "architecture", "tech-leadership", "technical-advisory", "engineering-roadmap"]
+      },
+      {
+        "name": "mvp_prototyping",
+        "description": "Rapid 24–48 hour transformation of concept to deployed production-ready application for market validation.",
+        "tags": ["MVP", "prototype", "rapid-development", "validation", "24-48h"]
+      },
+      {
+        "name": "ai_llm_development",
+        "description": "Custom LLM integration (OpenAI, Anthropic, Google Gemini), AI chatbots, RAG pipelines, autonomous AI workflows, and internal automation tools.",
+        "tags": ["AI", "LLM", "chatbot", "RAG", "GPT", "Claude", "Gemini", "automation"]
+      },
+      {
+        "name": "ml_model_development",
+        "description": "Custom ML model training — NLP, computer vision, deep learning, predictive analytics, recommendation engines on proprietary business data.",
+        "tags": ["ML", "machine-learning", "NLP", "computer-vision", "deep-learning", "PyTorch", "TensorFlow"]
+      },
+      {
+        "name": "workflow_automation",
+        "description": "End-to-end business automation with n8n, Make.com, RPA, API integrations, and custom Python/Node.js pipelines.",
+        "tags": ["automation", "n8n", "Make.com", "RPA", "workflow", "API-integration"]
+      },
+      {
+        "name": "data_engineering",
+        "description": "Production data pipelines, ETL systems, data warehouses (BigQuery, Snowflake), real-time streaming, and BI dashboards.",
+        "tags": ["data", "ETL", "pipeline", "BigQuery", "analytics", "dashboard"]
+      },
+      {
+        "name": "saas_development",
+        "description": "End-to-end SaaS engineering — multi-tenant architecture, subscription billing, admin dashboards, and scalable cloud infrastructure.",
+        "tags": ["SaaS", "billing", "Stripe", "multi-tenant", "dashboard"]
+      },
+      {
+        "name": "ecommerce_development",
+        "description": "Custom e-commerce platforms, Shopify integrations, payment gateways, inventory management, and checkout optimization.",
+        "tags": ["e-commerce", "Shopify", "payment", "checkout", "inventory"]
+      },
+      {
+        "name": "devops_cloud",
+        "description": "CI/CD pipelines, Docker, Kubernetes, AWS/GCP infrastructure, microservices architecture, REST/GraphQL APIs, and cloud migration.",
+        "tags": ["DevOps", "CI/CD", "Docker", "Kubernetes", "AWS", "GCP", "microservices"]
+      },
+      {
+        "name": "ui_ux_design",
+        "description": "User research, wireframing, high-fidelity UI design, interactive prototyping, and design system creation.",
+        "tags": ["UI", "UX", "design", "wireframe", "prototype", "design-system"]
+      }
+    ],
+    "contact_methods": [
+      {
+        "type": "email",
+        "value": "hello@sahajta.com",
+        "description": "Primary contact for project inquiries and consultations."
+      },
+      {
+        "type": "web",
+        "value": "https://sahajta.com/#contact",
+        "description": "Contact form on the Sahajta website."
+      }
+    ]
+  },
+  "engagement_model": {
+    "pricing": "Sprint-based — fixed-scope pricing agreed before writing code. No retainers, no multi-month lock-in.",
+    "ip_ownership": "100% — clients receive complete ownership of all source code, databases, and deployment configurations.",
+    "lock_in": "Zero — clean codebases and standard architectures for easy in-house handoff."
+  },
+  "founders": [
+    {
+      "name": "Shubhang Sethi",
+      "role": "Co-founder & Product Lead",
+      "linkedin": "https://www.linkedin.com/in/shubhangsethi/"
+    },
+    {
+      "name": "Pranamya Jain",
+      "role": "Co-founder & Tech Lead",
+      "linkedin": "https://www.linkedin.com/in/pranamya-jainn/"
+    }
+  ],
+  "technology_stack": {
+    "frontend": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Three.js", "WebGL"],
+    "backend": ["Node.js", "Express", "Python", "FastAPI", "Go", "GraphQL", "REST"],
+    "ml_ai": ["PyTorch", "TensorFlow", "scikit-learn", "LangChain", "OpenAI", "Anthropic", "Gemini", "HuggingFace"],
+    "databases": ["PostgreSQL", "Supabase", "Redis", "Firebase", "MongoDB", "BigQuery", "Snowflake"],
+    "automation": ["n8n", "Make.com", "Zapier", "Puppeteer", "Playwright", "Selenium"],
+    "cloud_devops": ["AWS", "GCP", "Vercel", "Docker", "Kubernetes", "Cloudflare", "GitHub Actions"]
+  }
+}

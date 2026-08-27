@@ -180,6 +180,43 @@ In the project directory, you can run:
 
 ---
 
+## SEO & AI Discoverability
+
+This platform implements comprehensive search engine optimization and AI search discoverability infrastructure.
+
+### AI Search Discovery Files
+| File | Purpose |
+| :--- | :--- |
+| `/llms.txt` | Summary context file for LLM crawlers (ChatGPT, Claude, Gemini, Perplexity) |
+| `/llms-full.txt` | Full knowledge base with service catalog, FAQ, and search query matching |
+| `/.well-known/mcp.json` | Web MCP discovery — structured capabilities for AI agents |
+| `/.well-known/security.txt` | RFC 9116 security contact discovery |
+| `/humans.txt` | Team, tech stack, and AI context endpoints for crawlers |
+
+### Structured Data (JSON-LD)
+The `index.html` contains a comprehensive `@graph` with:
+- **Organization** — Name, founders, `knowsAbout` (35+ technology topics)
+- **WebSite** — Canonical site identity
+- **ProfessionalService** — `OfferCatalog` with 12 service offers
+- **FAQPage** — 22 question/answer pairs for Google rich snippets
+- **BreadcrumbList** — Section navigation (Home, Services, Case Studies, Process, Contact)
+- **HowTo** — 4-step engagement flow for Google featured snippets
+- **WebPage** — `SpeakableSpecification` for voice search assistants
+
+### GEO (Generative Engine Optimization)
+Meta tags targeting AI search engines:
+- `ai:description` — Structured AI-readable summary
+- `citation_title`, `citation_author`, `citation_publication_date` — Academic-style citation metadata
+- `abstract`, `subject`, `classification`, `category` — Semantic classification
+- `<link rel="alternate">` — Points to llms.txt and llms-full.txt
+
+### Crawler Configuration
+- `robots.txt` — Allows all search engine and AI crawlers (Googlebot, GPTBot, ClaudeBot, PerplexityBot, etc.)
+- `sitemap.xml` — All pages, section anchors, and AI discovery files with priorities
+- `<noscript>` fallback — Keyword-rich HTML for crawlers that don't execute JavaScript
+
+---
+
 ## Production Deployment
 
 ### Building for Production

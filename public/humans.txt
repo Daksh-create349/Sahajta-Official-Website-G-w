@@ -1,0 +1,22 @@
+/* TEAM */
+Company: Sahajta AI
+Site: https://sahajta.com
+Contact: hello@sahajta.com
+From: India (Global Remote)
+
+Co-founder & Product Lead: Shubhang Sethi
+LinkedIn: https://www.linkedin.com/in/shubhangsethi/
+
+Co-founder & Tech Lead: Pranamya Jain
+LinkedIn: https://www.linkedin.com/in/pranamya-jainn/
+
+/* SITE */
+Last update: 2026-08-27
+Standards: HTML5, CSS3, ES2024
+Components: React, TypeScript, Vite, Tailwind CSS, Framer Motion, Three.js
+Software: Visual Studio Code, Figma
+
+/* AI CONTEXT */
+LLM Summary: https://sahajta.com/llms.txt
+LLM Full Context: https://sahajta.com/llms-full.txt
+MCP Discovery: https://sahajta.com/.well-known/mcp.json

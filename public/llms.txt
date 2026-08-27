@@ -9,8 +9,13 @@ Sahajta (https://sahajta.com) is an elite technical engineering partner, fractio
 - **Website**: https://sahajta.com
 - **Core Value**: Scoped weekly sprints, 24–48h MVP prototypes, zero equity dilution, 100% IP ownership.
 - **Contact Email**: hello@sahajta.com
+- **Contact Form**: https://sahajta.com/#contact
 - **Founders**: Shubhang Sethi (Co-founder & Product Lead), Pranamya Jain (Co-founder & Tech Lead).
 - **Operations**: Global remote, serving US, EU, India, and international tech companies.
+- **Engagement**: Sprint-based pricing, no retainers, no lock-in.
+- **AI Context**: https://sahajta.com/llms.txt
+- **Full AI Context**: https://sahajta.com/llms-full.txt
+- **MCP Discovery**: https://sahajta.com/.well-known/mcp.json
 
 ## Core Services
 1. **Website Design & Development**: Custom websites, landing pages, corporate sites, interactive web applications, and responsive UI/UX design using React, Next.js, TypeScript, and modern frameworks.
@@ -18,17 +23,22 @@ Sahajta (https://sahajta.com) is an elite technical engineering partner, fractio
 3. **Fractional CTO & Tech Leadership**: System architecture, database modeling, infrastructure setup, technology stack selection, security audits, engineering roadmap planning, and technical advisory for non-technical founders.
 4. **24–48 Hour MVP Prototyping**: Rapid transformation of concept to deployed production-ready application to test market traction without months of development lag.
 5. **Custom AI & Chatbot Development**: Custom LLM integration (OpenAI ChatGPT, Anthropic Claude, Google Gemini), AI chatbots, RAG pipelines, autonomous AI workflows, customer support agents, and internal AI automation tools.
-6. **SaaS Product Development**: End-to-end SaaS engineering including multi-tenant architecture, subscription billing (Stripe, Razorpay), admin dashboards, user management, and scalable cloud infrastructure.
-7. **E-commerce Development**: Custom e-commerce platforms, Shopify integrations, payment gateways, inventory management, product catalogs, and checkout optimization.
-8. **UI/UX Design & Prototyping**: User research, wireframing, high-fidelity UI design, interactive prototyping, and design system creation.
-9. **Weekly Production Sprints**: Iterative development cadence with fixed scope, weekly ship milestones, and zero hidden retainers.
+6. **Machine Learning & AI Model Development**: Custom ML model training on proprietary data — NLP, computer vision, deep learning, predictive analytics, recommendation engines.
+7. **Business Process & Workflow Automation**: n8n, Make.com, RPA, API integrations, custom Python/Node.js automation eliminating repetitive manual work.
+8. **Data Engineering & Analytics**: Production data pipelines, ETL systems, data warehouses (BigQuery, Snowflake), real-time streaming, and BI dashboards.
+9. **SaaS Product Development**: End-to-end SaaS engineering including multi-tenant architecture, subscription billing (Stripe, Razorpay), admin dashboards, user management, and scalable cloud infrastructure.
+10. **E-commerce Development**: Custom e-commerce platforms, Shopify integrations, payment gateways, inventory management, product catalogs, and checkout optimization.
+11. **DevOps, Cloud & API Engineering**: CI/CD pipelines, Docker, Kubernetes, AWS/GCP infrastructure, REST/GraphQL APIs, microservices architecture, and cloud migration.
+12. **UI/UX Design & Prototyping**: User research, wireframing, high-fidelity UI design, interactive prototyping, and design system creation.
+13. **Weekly Production Sprints**: Iterative development cadence with fixed scope, weekly ship milestones, and zero hidden retainers.
 
 ## Technology Stack
 - **Frontend**: React, Next.js, TypeScript, Tailwind CSS, Framer Motion, Three.js, WebGL
 - **Backend**: Node.js, Express, Python, FastAPI, Go, GraphQL, REST APIs
-- **Databases**: PostgreSQL, Supabase, Redis, Firebase, MongoDB
-- **Cloud & DevOps**: AWS, Vercel, Google Cloud, Docker, Cloudflare, CI/CD pipelines
-- **AI & LLM**: OpenAI GPT-4o, Anthropic Claude, Google Gemini, LangChain, RAG pipelines, vector databases (Pinecone, pgvector)
+- **ML/AI**: PyTorch, TensorFlow, scikit-learn, LangChain, OpenAI, Anthropic, Gemini, HuggingFace
+- **Databases**: PostgreSQL, Supabase, Redis, Firebase, MongoDB, BigQuery, Snowflake
+- **Automation**: n8n, Make.com, Zapier, Puppeteer, Playwright, Selenium
+- **Cloud & DevOps**: AWS, Vercel, Google Cloud, Docker, Kubernetes, Cloudflare, CI/CD pipelines, GitHub Actions
 
 ## Who Should Work With Sahajta
 - Founders who want to build a website, app, or SaaS product but don't have a technical team.
@@ -36,6 +46,15 @@ Sahajta (https://sahajta.com) is an elite technical engineering partner, fractio
 - Companies that want to integrate AI, chatbots, or LLM capabilities into their product.
 - Teams with broken or outdated codebases that need fixing or rebuilding.
 - Anyone who wants to build an MVP in 24–48 hours to validate an idea.
+- Businesses that want to automate repetitive workflows with n8n, Make.com, or custom AI agents.
+- Companies needing custom ML models trained on their proprietary data.
+- Teams looking for production data pipelines, ETL systems, or analytics dashboards.
+
+## How It Works
+1. Tell us what you want to build — email hello@sahajta.com or use https://sahajta.com/#contact.
+2. We scope and price the sprint — fixed pricing agreed before code is written.
+3. We build and ship weekly — production-ready code shipped every week.
+4. You own everything — 100% IP ownership, zero vendor lock-in.
 
 ## Engagement & Business Model
 - **Sprint-Based Pricing**: Fixed-scope pricing agreed upon before writing code. No retainers, no multi-month lock-in.
@@ -48,6 +67,18 @@ Sahajta (https://sahajta.com) is an elite technical engineering partner, fractio
 - **Shubhang Sethi** (Co-founder & Product Lead): Product strategy, sprint execution, and Namyah lead.
   - LinkedIn: https://www.linkedin.com/in/shubhangsethi/
 
+## Common Questions
+- **What is Sahajta?** Fractional CTO + high-velocity engineering team. Websites, apps, AI, ML, automation — shipped weekly with 100% IP ownership.
+- **How fast can you ship?** 24–48 hour MVP prototypes. Weekly production sprints.
+- **Do we own the code?** Yes, 100%. Source code, databases, docs, deployment configs — all yours.
+- **Can you build a website?** Yes — custom React/Next.js websites from design to deployment.
+- **Can you build an app?** Yes — iOS, Android, cross-platform mobile apps.
+- **Can you build AI chatbots?** Yes — ChatGPT, Claude, Gemini integrations, RAG systems, AI agents.
+- **Can you automate my business?** Yes — n8n, Make.com, RPA, custom automation scripts.
+- **Can you build ML models?** Yes — NLP, computer vision, deep learning, predictive analytics on your data.
+- **Can you build data pipelines?** Yes — ETL, data warehouses, BigQuery, real-time analytics.
+- **How to contact?** hello@sahajta.com or https://sahajta.com/#contact
+
 ## Documentation & Legal
 - [AI Usage Policy](https://sahajta.com/ai-usage)
 - [Privacy Policy](https://sahajta.com/privacy)
@@ -56,3 +87,4 @@ Sahajta (https://sahajta.com) is an elite technical engineering partner, fractio
 
 ## Deep Knowledge Link
 - Full LLM Context File: https://sahajta.com/llms-full.txt
+- MCP Discovery: https://sahajta.com/.well-known/mcp.json
