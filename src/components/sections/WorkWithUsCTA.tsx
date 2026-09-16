@@ -147,7 +147,7 @@ export function WorkWithUsCTA() {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="py-12 sm:py-16 md:py-24 bg-[#FDFCF0] relative">
+    <section id="contact" ref={sectionRef} className="scroll-mt-16 sm:scroll-mt-20 py-12 sm:py-16 md:py-24 bg-[#FDFCF0] relative">
       <div className="max-w-7xl mx-auto px-3.5 sm:px-6">
         {/* Main Outer Card - Light Mode Paper Aesthetics */}
         <div className="bg-[#F0EFE6] rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] p-3.5 sm:p-6 md:p-8 lg:p-10 border border-[#DDD8CC] shadow-md overflow-hidden">

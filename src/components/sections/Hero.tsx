@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { AuroraBackground } from '@/components/ui/aurora-background';
 import { LogoMarquee } from '@/components/ui/LogoMarquee';
+import { scrollToTarget } from '@/lib/lenis';
 
 export function Hero() {
   // The preloader overlays the hero until assets load. Gate the "Weeks"
@@ -127,6 +128,14 @@ export function Hero() {
             >
               <a
                 href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.getElementById('contact');
+                  if (el) {
+                    scrollToTarget(el, { offset: -24 });
+                    window.history.pushState(null, '', '#contact');
+                  }
+                }}
                 className="w-full sm:w-auto min-h-[48px] px-8 py-3.5 sm:py-4 bg-[#0B422A] text-[#FDFCF0] font-syne font-semibold text-sm sm:text-base rounded-full hover:bg-[#2D6E54] active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg touch-manipulation cursor-pointer group"
               >
                 <span>See If We Can Help</span>
@@ -135,6 +144,14 @@ export function Hero() {
 
               <a
                 href="#case-studies"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.getElementById('case-studies');
+                  if (el) {
+                    scrollToTarget(el, { offset: -24 });
+                    window.history.pushState(null, '', '#case-studies');
+                  }
+                }}
                 className="w-full sm:w-auto min-h-[48px] px-8 py-3.5 sm:py-4 bg-[#F0EFE6]/90 backdrop-blur-md text-[#121212] font-syne font-semibold text-sm sm:text-base rounded-full border border-[#DDD8CC] hover:bg-[#DDD8CC] active:scale-[0.98] transition-all flex items-center justify-center shadow-xs touch-manipulation cursor-pointer"
               >
                 See What We Have Built

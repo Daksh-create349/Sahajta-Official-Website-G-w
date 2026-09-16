@@ -260,7 +260,7 @@ export function VideoTestimonials() {
     <section
       id="video-testimonials"
       aria-label="Client video testimonials"
-      className="py-12 sm:py-20 md:py-28 bg-[#FDFCF0] border-t border-[#DDD8CC] relative overflow-hidden"
+      className="scroll-mt-16 sm:scroll-mt-20 py-12 sm:py-20 md:py-28 bg-[#FDFCF0] border-t border-[#DDD8CC] relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Header */}

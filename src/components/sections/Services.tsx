@@ -228,7 +228,7 @@ export function Services() {
     <section
       ref={wrapperRef}
       id="services"
-      className="relative bg-[#FDFCF0] border-t border-[#DDD8CC]"
+      className="scroll-mt-16 sm:scroll-mt-20 relative bg-[#FDFCF0] border-t border-[#DDD8CC]"
       style={isPinned ? { height: `${WRAPPER_VH}vh` } : undefined}
     >
       {/* Pinned frame on desktop, clean spaced container on mobile */}

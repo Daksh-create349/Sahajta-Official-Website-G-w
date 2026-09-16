@@ -10,7 +10,7 @@ import { Process } from '@/components/sections/Process';
 import { WorkWithUsCTA } from '@/components/sections/WorkWithUsCTA';
 import { FAQ } from '@/components/sections/FAQ';
 import { VideoTestimonials } from '@/components/sections/VideoTestimonials';
-import { initLenis, destroyLenis } from '@/lib/lenis';
+import { initLenis, destroyLenis, scrollToTarget } from '@/lib/lenis';
 import { WhatsAppWidget } from '@/components/ui/WhatsAppWidget';
 
 const PrivacyPage = lazy(() => import('@/components/pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })));
@@ -92,6 +92,60 @@ function App() {
       destroyLenis();
       window.removeEventListener('popstate', onPopState);
       window.removeEventListener('hashchange', onPopState);
+    };
+  }, [currentPath]);
+
+  // Automated section scrolling for direct links (e.g. #case-studies, #process, #contact)
+  useEffect(() => {
+    if (currentPath !== '/') return;
+
+    const getCleanHashId = (rawHash: string): string | null => {
+      if (!rawHash) return null;
+      const withoutQuery = rawHash.split('?')[0];
+      const clean = withoutQuery.replace(/^#/, '').replace(/[/()\s.,;]+$/, '').trim();
+      if (!clean) return null;
+      if (['privacy', 'cookies', 'refund', 'ai-usage'].includes(clean)) return null;
+      return clean;
+    };
+
+    const performScroll = (immediate = false, retries = 6) => {
+      const targetId = getCleanHashId(window.location.hash);
+      if (!targetId) return;
+
+      const element = document.getElementById(targetId);
+      if (element) {
+        scrollToTarget(element, { offset: -24, immediate });
+      } else if (retries > 0) {
+        setTimeout(() => performScroll(immediate, retries - 1), 100);
+      }
+    };
+
+    // 1. Initial jump behind the preloader
+    performScroll(true);
+
+    // 2. Smooth alignment once the preloader reveals the page
+    const handlePreloaded = () => {
+      setTimeout(() => {
+        performScroll(false);
+      }, 60);
+    };
+    window.addEventListener('sahajta:preloaded', handlePreloaded);
+
+    // 3. Fallback timer if preloader already finished or event was missed
+    const fallbackTimer = setTimeout(() => {
+      performScroll(false);
+    }, 700);
+
+    // 4. In-page hash changes (e.g. clicking links or back/forward)
+    const handleHashChange = () => {
+      performScroll(false);
+    };
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.removeEventListener('sahajta:preloaded', handlePreloaded);
+      window.removeEventListener('hashchange', handleHashChange);
+      clearTimeout(fallbackTimer);
     };
   }, [currentPath]);
 

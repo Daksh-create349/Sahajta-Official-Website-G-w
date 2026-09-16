@@ -272,7 +272,7 @@ export function CaseStudies() {
   const loop = [...cases, ...cases];
 
   return (
-    <section id="case-studies" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#FDFCF0] border-t border-[#DDD8CC] relative overflow-hidden">
+    <section id="case-studies" className="scroll-mt-16 sm:scroll-mt-20 py-12 sm:py-16 md:py-20 lg:py-24 bg-[#FDFCF0] border-t border-[#DDD8CC] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Header */}

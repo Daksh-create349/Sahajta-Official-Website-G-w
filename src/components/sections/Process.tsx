@@ -80,7 +80,7 @@ const steps = [
 
 export function Process() {
   return (
-    <section id="process" className="relative bg-[#FDFCF0] pt-16 sm:pt-20 md:pt-24 pb-20 sm:pb-28 md:pb-36 border-t border-[#DDD8CC]">
+    <section id="process" className="scroll-mt-16 sm:scroll-mt-20 relative bg-[#FDFCF0] pt-16 sm:pt-20 md:pt-24 pb-20 sm:pb-28 md:pb-36 border-t border-[#DDD8CC]">
       {/* Brand Green Silhouette SVG Filter */}
       <svg width="0" height="0" className="absolute pointer-events-none opacity-0 w-0 h-0 overflow-hidden" aria-hidden="true">
         <filter id="brand-green-silhouette" colorInterpolationFilters="sRGB">

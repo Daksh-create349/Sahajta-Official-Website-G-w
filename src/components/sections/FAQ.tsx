@@ -42,7 +42,7 @@ export function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-12 sm:py-18 md:py-24 bg-[#FDFCF0] border-t border-[#DDD8CC]">
+    <section id="faq" className="scroll-mt-16 sm:scroll-mt-20 py-12 sm:py-18 md:py-24 bg-[#FDFCF0] border-t border-[#DDD8CC]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* Simple Centered Header */}
