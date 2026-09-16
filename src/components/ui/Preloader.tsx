@@ -2,11 +2,26 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { releasePreloadedVideos } from '@/lib/preload';
 
+function hasDirectSectionHash(): boolean {
+  if (typeof window === 'undefined') return false;
+  const hash = window.location.hash;
+  if (!hash || hash.length < 2) return false;
+  const clean = hash.split('?')[0].replace(/^#/, '').replace(/[/()\s.,;]+$/, '').trim();
+  if (!clean) return false;
+  return !['privacy', 'cookies', 'refund', 'ai-usage'].includes(clean);
+}
+
 export function Preloader() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => !hasDirectSectionHash());
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    if (hasDirectSectionHash()) {
+      setIsLoading(false);
+      window.dispatchEvent(new Event('sahajta:preloaded'));
+      return;
+    }
+
     let start = performance.now();
     let frame = 0;
     const duration = 450; // 450ms smooth brand splash

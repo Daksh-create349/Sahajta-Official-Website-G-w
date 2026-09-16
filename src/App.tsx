@@ -10,7 +10,7 @@ import { Process } from '@/components/sections/Process';
 import { WorkWithUsCTA } from '@/components/sections/WorkWithUsCTA';
 import { FAQ } from '@/components/sections/FAQ';
 import { VideoTestimonials } from '@/components/sections/VideoTestimonials';
-import { initLenis, destroyLenis, scrollToTarget } from '@/lib/lenis';
+import { initLenis, destroyLenis, lenisRef } from '@/lib/lenis';
 import { WhatsAppWidget } from '@/components/ui/WhatsAppWidget';
 
 const PrivacyPage = lazy(() => import('@/components/pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })));
@@ -95,7 +95,7 @@ function App() {
     };
   }, [currentPath]);
 
-  // Automated section scrolling for direct links (e.g. #case-studies, #process, #contact)
+  // Automated instant section hopping for direct links (e.g. #case-studies, #process, #contact)
   useEffect(() => {
     if (currentPath !== '/') return;
 
@@ -108,44 +108,76 @@ function App() {
       return clean;
     };
 
-    const performScroll = (immediate = false, retries = 6) => {
-      const targetId = getCleanHashId(window.location.hash);
-      if (!targetId) return;
+    const targetId = getCleanHashId(window.location.hash);
+    if (!targetId) return;
 
-      const element = document.getElementById(targetId);
-      if (element) {
-        scrollToTarget(element, { offset: -24, immediate });
-      } else if (retries > 0) {
-        setTimeout(() => performScroll(immediate, retries - 1), 100);
+    let userHasInteracted = false;
+    const markInteraction = () => {
+      userHasInteracted = true;
+    };
+
+    window.addEventListener('touchstart', markInteraction, { passive: true, once: true });
+    window.addEventListener('wheel', markInteraction, { passive: true, once: true });
+    window.addEventListener('pointerdown', markInteraction, { passive: true, once: true });
+    window.addEventListener('keydown', markInteraction, { passive: true, once: true });
+
+    const hopToSection = (overrideId?: string) => {
+      if (userHasInteracted && !overrideId) return;
+      const id = overrideId || targetId;
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      // Header clearance: ~64px on mobile (<768px), ~80px on desktop (>=768px)
+      const navbarOffset = window.innerWidth < 768 ? 64 : 80;
+      const currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+      const rect = element.getBoundingClientRect();
+      const targetTop = Math.max(0, rect.top + currentScrollY - navbarOffset);
+
+      if (Math.abs(currentScrollY - targetTop) > 4) {
+        window.scrollTo({ top: targetTop, behavior: 'instant' as ScrollBehavior });
+        document.documentElement.scrollTop = targetTop;
+        document.body.scrollTop = targetTop;
+
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(targetTop, { immediate: true, force: true });
+        }
       }
     };
 
-    // 1. Initial jump behind the preloader
-    performScroll(true);
+    // 1. Hop immediately on render
+    hopToSection();
 
-    // 2. Smooth alignment once the preloader reveals the page
-    const handlePreloaded = () => {
-      setTimeout(() => {
-        performScroll(false);
-      }, 60);
+    // 2. Lock onto target position across subsequent layout reflows (fonts, videos, images)
+    const timers: number[] = [];
+    const intervals = [20, 50, 100, 200, 350, 550, 850, 1200, 1800];
+    intervals.forEach((delay) => {
+      const t = window.setTimeout(() => hopToSection(), delay);
+      timers.push(t);
+    });
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(() => hopToSection()).catch(() => {});
+    }
+
+    const onLoad = () => hopToSection();
+    window.addEventListener('load', onLoad, { once: true });
+
+    // 3. Handle in-page hash changes
+    const onHashChange = () => {
+      userHasInteracted = false;
+      const nextId = getCleanHashId(window.location.hash);
+      if (nextId) hopToSection(nextId);
     };
-    window.addEventListener('sahajta:preloaded', handlePreloaded);
-
-    // 3. Fallback timer if preloader already finished or event was missed
-    const fallbackTimer = setTimeout(() => {
-      performScroll(false);
-    }, 700);
-
-    // 4. In-page hash changes (e.g. clicking links or back/forward)
-    const handleHashChange = () => {
-      performScroll(false);
-    };
-    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('hashchange', onHashChange);
 
     return () => {
-      window.removeEventListener('sahajta:preloaded', handlePreloaded);
-      window.removeEventListener('hashchange', handleHashChange);
-      clearTimeout(fallbackTimer);
+      window.removeEventListener('touchstart', markInteraction);
+      window.removeEventListener('wheel', markInteraction);
+      window.removeEventListener('pointerdown', markInteraction);
+      window.removeEventListener('keydown', markInteraction);
+      window.removeEventListener('load', onLoad);
+      window.removeEventListener('hashchange', onHashChange);
+      timers.forEach((t) => clearTimeout(t));
     };
   }, [currentPath]);
 

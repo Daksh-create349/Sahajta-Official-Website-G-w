@@ -42,6 +42,22 @@ export function scrollToTarget(
 ) {
   if (lenisRef.current) {
     lenisRef.current.scrollTo(target, options);
+    if (options?.immediate) {
+      let topNum: number | null = null;
+      if (typeof target === 'number') {
+        topNum = target;
+      } else {
+        const el = typeof target === 'string' ? document.querySelector(target) : target;
+        if (el && el instanceof HTMLElement) {
+          topNum = Math.max(0, el.getBoundingClientRect().top + window.scrollY + (options?.offset || 0));
+        }
+      }
+      if (topNum !== null) {
+        window.scrollTo({ top: topNum, behavior: 'instant' as ScrollBehavior });
+        document.documentElement.scrollTop = topNum;
+        document.body.scrollTop = topNum;
+      }
+    }
   } else {
     if (typeof target === 'number') {
       window.scrollTo({
