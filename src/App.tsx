@@ -34,7 +34,26 @@ function App() {
 
   useEffect(() => {
     if (currentPath === '/') {
-      initLenis();
+      // Delay Lenis init when a direct section hash is present.
+      // Lenis resets scroll to 0 on init — if hash hop hasn't fired yet,
+      // Lenis wins and user lands on Hero. Give hop 350ms head start.
+      const hash = window.location.hash;
+      const hasHash = hash && hash.length > 1 && !['#privacy','#cookies','#refund','#ai-usage'].includes(hash.split('?')[0]);
+      if (hasHash) {
+        const t = setTimeout(() => initLenis(), 350);
+        // still need cleanup
+        const onPopState = () => setCurrentPath(getInitialPath());
+        window.addEventListener('popstate', onPopState);
+        window.addEventListener('hashchange', onPopState);
+        return () => {
+          clearTimeout(t);
+          destroyLenis();
+          window.removeEventListener('popstate', onPopState);
+          window.removeEventListener('hashchange', onPopState);
+        };
+      } else {
+        initLenis();
+      }
     } else {
       destroyLenis();
     }
@@ -134,12 +153,18 @@ function App() {
       const targetTop = Math.max(0, rect.top + currentScrollY - navbarOffset);
 
       if (Math.abs(currentScrollY - targetTop) > 4) {
+        // Stop Lenis so it doesn't fight us during the instant jump
+        if (lenisRef.current) {
+          lenisRef.current.stop();
+        }
         window.scrollTo({ top: targetTop, behavior: 'instant' as ScrollBehavior });
         document.documentElement.scrollTop = targetTop;
         document.body.scrollTop = targetTop;
-
+        // Resume Lenis after jump settles
         if (lenisRef.current) {
-          lenisRef.current.scrollTo(targetTop, { immediate: true, force: true });
+          requestAnimationFrame(() => {
+            if (lenisRef.current) lenisRef.current.start();
+          });
         }
       }
     };
